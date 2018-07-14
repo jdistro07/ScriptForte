@@ -11,6 +11,16 @@ public class Interact : MonoBehaviour {
 
     public float RaycastRange;
 
+    [Header("Animations")]
+    private Animator isOpen;
+    public AnimationClip closeIDE;
+    public Canvas canvasObject;
+
+    void Start()
+    {
+        isOpen = canvasObject.GetComponent<Animator>(); //get component to the animator
+    }
+
     void Update()
     {
         //raycast
@@ -28,7 +38,8 @@ public class Interact : MonoBehaviour {
 
             if(Input.GetMouseButtonDown(0) && interactable){
                 //Debug.Log("Mouse 0 pressed");
-                idecanvas.SetActive(true);
+                idecanvas.SetActive(true); //open IDE
+                isOpen.SetInteger("isOpen", 1);
 
                 inputfield.Select();
                 inputfield.ActivateInputField();
@@ -40,12 +51,21 @@ public class Interact : MonoBehaviour {
 
         //if IDE window is active, disable by pressing esc and enable movements
         if(Input.GetKeyDown(KeyCode.Escape)){
-            idecanvas.SetActive(false);
 
-            //disable player controls
-            player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = true;
+            StartCoroutine(closeIDEAnimation());
 
         }
+    }
+
+    private IEnumerator closeIDEAnimation()
+    {
+        isOpen.SetInteger("isOpen", 0); // execute animation state and wait to the animation to finish 
+        yield return new WaitForSeconds(closeIDE.length);
+
+        // disable canvas and allow player to walk
+        var player = GameObject.FindGameObjectWithTag("Player");
+        idecanvas.SetActive(false);
+        player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = true;
     }
 
 }
