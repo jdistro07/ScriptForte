@@ -42,6 +42,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        [Header("Customs (Johndel)")]
+        bool EnableWalk = true;
+
         // Use this for initialization
         private void Start()
         {

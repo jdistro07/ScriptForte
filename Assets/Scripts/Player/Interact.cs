@@ -34,7 +34,7 @@ public class Interact : MonoBehaviour {
                 inputfield.ActivateInputField();
 
                 //disable player controls
-                player.GetComponent<CharacterControls>().enabled = false;
+                player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
             }
         }
 
@@ -43,7 +43,8 @@ public class Interact : MonoBehaviour {
             idecanvas.SetActive(false);
 
             //disable player controls
-            player.GetComponent<CharacterControls>().enabled = true;
+            player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = true;
+
         }
     }
 
