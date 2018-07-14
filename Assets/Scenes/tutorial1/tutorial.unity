@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -589,8 +589,8 @@ ReflectionProbe:
   m_TimeSlicingMode: 0
   m_Resolution: 128
   m_UpdateFrequency: 0
-  m_BoxSize: {x: 83.7574, y: 5.9451714, z: 55.898148}
-  m_BoxOffset: {x: 9.374184, y: -2.0274143, z: 8.542442}
+  m_BoxSize: {x: 83.7574, y: 41.741356, z: 65.62701}
+  m_BoxOffset: {x: 9.374184, y: 15.870678, z: 11.971699}
   m_NearClip: 0.3
   m_FarClip: 1000
   m_ShadowDistance: 100
@@ -2725,7 +2725,6 @@ GameObject:
   - component: {fileID: 600223133}
   - component: {fileID: 600223132}
   - component: {fileID: 600223131}
-  - component: {fileID: 600223134}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -2799,23 +2798,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 600223129}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!95 &600223134
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 600223129}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3db28bb1c82a21e46994ef592d55cd23, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &607071467
 GameObject:
   m_ObjectHideFlags: 0
