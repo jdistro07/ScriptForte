@@ -16,6 +16,9 @@ public class Interact : MonoBehaviour {
     public AnimationClip closeIDE;
     public Canvas canvasObject;
 
+    [Header("Components")]
+    bool interactable;
+
     void Start()
     {
         isOpen = canvasObject.GetComponent<Animator>(); //get component to the animator
@@ -28,15 +31,16 @@ public class Interact : MonoBehaviour {
 
         //references
         var player = GameObject.FindGameObjectWithTag("Player");
+        RaycastHit hit;
+        var raycastHit = Physics.Raycast(this.transform.position, this.transform.forward, out hit, RaycastRange);
 
         //if raycast touches an interactable tagged object
-        if(Physics.Raycast(this.transform.position, this.transform.forward, RaycastRange) && GameObject.FindGameObjectWithTag("Interactable")){
-            
-            Debug.Log("Interactable object!");
+        if(hit.collider.tag == "Interactable"){
+            Debug.Log("Interactable");
+            interactable = true;
 
-            bool interactable = true;
-
-            if(Input.GetMouseButtonDown(0) && interactable){
+            if (Input.GetMouseButtonDown(0) && interactable)
+            {
                 //Debug.Log("Mouse 0 pressed");
                 idecanvas.SetActive(true); //open IDE
                 isOpen.SetInteger("isOpen", 1);

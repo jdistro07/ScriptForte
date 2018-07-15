@@ -12,7 +12,10 @@ public class resize : MonoBehaviour {
     public InputField y;
     public InputField z;
 
-    private int xyzValue;
+    [Header("Transform")]
+    public float speed = 5f;
+
+    private int xyzValueSize;
     private int xValue;
     private int yValue;
     private int zValue;
@@ -22,12 +25,16 @@ public class resize : MonoBehaviour {
 
         try
         {
-            xyzValue = Convert.ToInt32(xyz.text);
-            transform.localScale += new Vector3(xyzValue, xyzValue, xyzValue);
+            xyzValueSize = Convert.ToInt32(xyz.text);
+
+            var size = xyzValueSize / 100;
+            Debug.Log(size);
+            
+            
         }
         catch (Exception ex)
         {
-            Debug.Log(ex);
+            //Debug.Log(ex);
         }
 	}
 }

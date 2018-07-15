@@ -79,7 +79,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1657198673777018
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1537339139949136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.303755, y: 5.89, z: 2.6619887}
+  m_LocalPosition: {x: -12.74, y: 5.89, z: 2.6619887}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4818632800949694}
@@ -345,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idecanvas: {fileID: 1621099870564586}
   inputfield: {fileID: 114216791095717760}
-  RaycastRange: 10
+  RaycastRange: 5
   closeIDE: {fileID: 7400000, guid: 05e6f4ec22153f64a807db095dd80338, type: 2}
   canvasObject: {fileID: 223381964794716736}
 --- !u!114 &114162629692459064
