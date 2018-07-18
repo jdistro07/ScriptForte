@@ -16,7 +16,7 @@ public class Interact : MonoBehaviour {
     public AnimationClip closeIDE;
     public Canvas canvasObject;
 
-    [Header("Components")]
+    //Components
     bool interactable;
 
     void Start()
@@ -34,30 +34,32 @@ public class Interact : MonoBehaviour {
         RaycastHit hit;
         var raycastHit = Physics.Raycast(this.transform.position, this.transform.forward, out hit, RaycastRange);
 
-        //if raycast touches an interactable tagged object
-        if(hit.collider.tag == "Interactable"){
-            Debug.Log("Interactable");
-            interactable = true;
+        if(raycastHit){
 
-            if (Input.GetMouseButtonDown(0) && interactable)
+            //if raycast touches an interactable tagged object
+            if (hit.collider.tag == "Interactable")
             {
-                //Debug.Log("Mouse 0 pressed");
-                idecanvas.SetActive(true); //open IDE
-                isOpen.SetInteger("isOpen", 1);
+                Debug.Log("Interactable");
+                interactable = true; // interactable objeect is present!
 
-                inputfield.Select();
-                inputfield.ActivateInputField();
+                if (Input.GetMouseButtonDown(0) && interactable)
+                {
+                    //Debug.Log("Mouse 0 pressed");
+                    idecanvas.SetActive(true); //open IDE
+                    isOpen.SetInteger("isOpen", 1);
 
-                //disable player controls
-                player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
+                    inputfield.Select();
+                    inputfield.ActivateInputField();
+
+                    //disable player controls
+                    player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
+                }
             }
         }
 
         //if IDE window is active, disable by pressing esc and enable movements
         if(Input.GetKeyDown(KeyCode.Escape)){
-
             StartCoroutine(closeIDEAnimation());
-
         }
     }
 
