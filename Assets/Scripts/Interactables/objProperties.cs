@@ -73,9 +73,9 @@ public class objProperties : MonoBehaviour {
                         ErrorChecker(false);
 
                         // test
-                        allAxisScale = 5;
+                        /*allAxisScale = 5;
                         float scale = Mathf.Lerp(1, 5, Time.deltaTime/speed);
-                        transform.localScale = new Vector3(scale,scale,scale);
+                        transform.localScale = new Vector3(scale,scale,scale);*/
                     }
                     else
                     {
