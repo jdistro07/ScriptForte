@@ -6,35 +6,19 @@ using System;
 
 public class resize : MonoBehaviour {
 
-    [Header("GUI")]
-    public InputField xyz;
-    public InputField x;
-    public InputField y;
-    public InputField z;
+    Vector3 minScale;
+    public Vector3 scale;
+    public float speed;
 
-    [Header("Transform")]
-    public float speed = 5f;
+    private void Update()
+    {
+        StartCoroutine(FreeScale());
+        minScale = transform.localScale;
+    }
 
-    private int xyzValueSize;
-    private int xValue;
-    private int yValue;
-    private int zValue;
-
-	// Update is called once per frame
-	void Update () {
-
-        try
-        {
-            xyzValueSize = Convert.ToInt32(xyz.text);
-
-            var size = xyzValueSize / 100;
-            Debug.Log(size);
-            
-            
-        }
-        catch (Exception ex)
-        {
-            //Debug.Log(ex);
-        }
-	}
+    IEnumerator FreeScale()
+    {
+        yield return new WaitForSeconds(2);
+        transform.localScale = Vector3.Lerp(minScale, scale, Time.deltaTime * speed);
+    }
 }
