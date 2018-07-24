@@ -14,10 +14,10 @@ public class propertiesModifier : MonoBehaviour
 
     [Header("Properties")]
     public string objectID;
-    public int x;
-    public int y;
-    public int z;
-    public int allAxisScale;
+    public float x;
+    public float y;
+    public float z;
+    public float allAxisScale;
 
     public float speed;
 
@@ -34,7 +34,7 @@ public class propertiesModifier : MonoBehaviour
         playerIDEText = (InputField)GameObject.FindWithTag("InputField").GetComponent<InputField>();
 
         code = playerIDEText.text;
-        line = code.Split(new string[] { ";" }, System.StringSplitOptions.None);
+        line = code.Split('\n');
 
         string result = code.Split('(', ')')[1];
         string[] another = result.Split(new String[] { "," }, StringSplitOptions.None);
@@ -46,13 +46,13 @@ public class propertiesModifier : MonoBehaviour
 
         if (result.Contains(","))
         {
-            x = int.Parse(another[0]);
-            y = int.Parse(another[1]);
-            z = int.Parse(another[2]);
+            x = float.Parse(another[0]);
+            y = float.Parse(another[1]);
+            z = float.Parse(another[2]);
         }
         else
         {
-            allAxisScale = int.Parse(result);
+            allAxisScale = float.Parse(result);
 
             x = allAxisScale;
             y = allAxisScale;
@@ -63,8 +63,30 @@ public class propertiesModifier : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Return))
             {
-                gameObject.transform.localScale = new Vector3(x, y, z);
+                //gameObject.transform.localScale = new Vector3(x, y, z);
+
+                StartCoroutine(scaleObject(speed));
             }
         }
+
+        /*if (code.Contains("transform.scale.x"))
+        {
+
+        }*/
+    }
+
+    IEnumerator scaleObject(float time)
+    {
+        Vector3 currentScale = gameObject.transform.localScale;
+        Vector3 newScale = new Vector3(x, y, z);
+
+        float currentTime = 0.0f;
+
+        do
+        {
+            gameObject.transform.localScale = Vector3.Lerp(currentScale, newScale, currentTime / time);
+            currentTime += Time.deltaTime;
+            yield return null;
+        } while (currentTime <= time);
     }
 }
