@@ -10,12 +10,12 @@ public class propertiesModifier : MonoBehaviour
     private bool collide = false;
     private Vector3 position;
     private Quaternion rotation;
+    public GameObject prefab;
 
     [SerializeField] private bool Interactable = true;
 
     [Header("Objects")]
     [SerializeField] private InputField playerIDEText;
-    [SerializeField] private GameObject prefab;
 
     [Header("Properties")]
     public string objectID;
@@ -173,7 +173,6 @@ public class propertiesModifier : MonoBehaviour
         if (collision.gameObject.tag != "Player")
         {
             Destroy(gameObject);
-            Instantiate(prefab, position, rotation);
         }
     }
 }
