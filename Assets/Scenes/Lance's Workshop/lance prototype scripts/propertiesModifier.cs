@@ -7,10 +7,15 @@ using System.Text.RegularExpressions;
 
 public class propertiesModifier : MonoBehaviour
 {
+    private bool collide = false;
+    private Vector3 position;
+    private Quaternion rotation;
+
     [SerializeField] private bool Interactable = true;
 
     [Header("Objects")]
     [SerializeField] private InputField playerIDEText;
+    [SerializeField] private GameObject prefab;
 
     [Header("Properties")]
     public string objectID;
@@ -20,6 +25,7 @@ public class propertiesModifier : MonoBehaviour
     public float allAxisScale;
 
     public float speed;
+    public float moveSpeed;
 
     [Header("Code")]
     [Multiline(10)]
@@ -28,6 +34,12 @@ public class propertiesModifier : MonoBehaviour
     [Header("Syntax Arrays")]
     public string[] line;
     public string[] syntax;
+
+     void Start()
+    {
+        position = gameObject.transform.position;
+        rotation = gameObject.transform.localRotation;
+    }
 
     void Update()
     {
@@ -59,20 +71,50 @@ public class propertiesModifier : MonoBehaviour
             z = allAxisScale;
         }
 
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Return))
+        {
+            /*
+             * FOR FUTURE UPDATES:
+             *  - Create a single line reader.
+             *  - Change "code.Contains()" to "line.toString().Contains()" for individual line reading.
+             * 
+             */
+
+            scale();
+            move();
+        }
+    }
+
+    void scale()
+    {
         if (code.Contains("transform.scale"))
         {
-            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Return))
+            if (code.Contains("transform.scale.x"))
             {
-                //gameObject.transform.localScale = new Vector3(x, y, z);
-
-                StartCoroutine(scaleObject(speed));
+                y = gameObject.transform.localScale.y;
+                z = gameObject.transform.localScale.z;
             }
+            else if (code.Contains("transform.scale.y"))
+            {
+                x = gameObject.transform.localScale.x;
+                z = gameObject.transform.localScale.z;
+            }
+            else if (code.Contains("transform.scale.z"))
+            {
+                x = gameObject.transform.localScale.x;
+                y = gameObject.transform.localScale.y;
+            }
+
+            StartCoroutine(scaleObject(speed));
         }
+    }
 
-        /*if (code.Contains("transform.scale.x"))
+    void move()
+    {
+        if (code.Contains("transform.translate"))
         {
-
-        }*/
+            StartCoroutine(moveObject(moveSpeed));
+        }
     }
 
     IEnumerator scaleObject(float time)
@@ -88,5 +130,50 @@ public class propertiesModifier : MonoBehaviour
             currentTime += Time.deltaTime;
             yield return null;
         } while (currentTime <= time);
+    }
+
+    IEnumerator moveObject(float time)
+    {
+        Vector3 currentPosition = gameObject.transform.localPosition;
+        Vector3 targetPosition = new Vector3(x, y, z);
+        Vector3 positionX = new Vector3(x, 0, 0);
+        Vector3 positionY = new Vector3(0, y, 0);
+        Vector3 positionZ = new Vector3(0, 0, z);
+
+        float currentTime = 0.0f;
+
+        do
+        {
+            if (code.Contains("transform.translate.x"))
+            {
+                targetPosition = currentPosition + positionX;
+                gameObject.transform.localPosition = Vector3.Lerp(currentPosition, targetPosition, currentTime / time);
+                currentTime += Time.deltaTime;
+            }
+            else if (code.Contains("transform.translate.y"))
+            {
+                targetPosition = currentPosition + positionY;
+                gameObject.transform.localPosition = Vector3.Lerp(currentPosition, targetPosition, currentTime / time);
+                currentTime += Time.deltaTime;
+            }
+            else if (code.Contains("transform.translate.z"))
+            {
+                targetPosition = currentPosition + positionZ;
+                gameObject.transform.localPosition = Vector3.Lerp(currentPosition, targetPosition, currentTime / time);
+                currentTime += Time.deltaTime;
+            }
+
+            yield return null;
+        } while (currentTime <= time);
+    }
+    
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag != "Player")
+        {
+            Destroy(gameObject);
+            Instantiate(prefab, position, rotation);
+        }
     }
 }
