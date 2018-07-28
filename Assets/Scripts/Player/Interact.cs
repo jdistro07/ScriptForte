@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Interact : MonoBehaviour {
 
+    private LayerMask layerMask = ~(1 << 2);
+
     [Header("GUI")]
     public GameObject idecanvas;
     public InputField inputfield;
@@ -32,7 +34,7 @@ public class Interact : MonoBehaviour {
         //references
         var player = GameObject.FindGameObjectWithTag("Player");
         RaycastHit hit;
-        var raycastHit = Physics.Raycast(this.transform.position, this.transform.forward, out hit, RaycastRange);
+        var raycastHit = Physics.Raycast(this.transform.position, this.transform.forward, out hit, RaycastRange, layerMask);
 
         if(raycastHit){
 
