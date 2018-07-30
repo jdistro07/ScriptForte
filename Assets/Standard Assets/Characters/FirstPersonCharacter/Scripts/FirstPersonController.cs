@@ -10,6 +10,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
+        public bool walkToggle;
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -58,12 +59,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            walkToggle = true;
         }
 
 
         // Update is called once per frame
         private void Update()
         {
+            if(walkToggle){
+                m_WalkSpeed = 5f;
+                m_JumpSpeed = 10f;
+                m_RunSpeed = 10f;
+            }else if(!walkToggle){
+                m_WalkSpeed = 0f;
+                m_JumpSpeed = 0f;
+                m_RunSpeed = 0f;
+            }
+
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
@@ -139,8 +152,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayJumpSound()
         {
-            m_AudioSource.clip = m_JumpSound;
-            m_AudioSource.Play();
+            if(m_JumpSpeed > 0){
+                m_AudioSource.clip = m_JumpSound;
+                m_AudioSource.Play();
+            }
         }
 
 

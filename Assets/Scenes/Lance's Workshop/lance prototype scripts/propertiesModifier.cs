@@ -71,7 +71,7 @@ public class propertiesModifier : MonoBehaviour
             z = allAxisScale;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKey(KeyCode.F5))
         {
             /*
              * FOR FUTURE UPDATES:
@@ -172,7 +172,23 @@ public class propertiesModifier : MonoBehaviour
     {
         if (collision.gameObject.tag != "Player")
         {
+            Debug.Log("Destroying Object");
             Destroy(gameObject);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "Player"){
+            
+            other.transform.parent = transform;
+            Debug.Log("Player Attached as Child");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        other.transform.parent = null;
+        Debug.Log("Player Detached as Child");
     }
 }

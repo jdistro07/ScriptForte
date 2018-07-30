@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Interact : MonoBehaviour {
 
     private LayerMask layerMask = ~(1 << 2);
+    [SerializeField] private GameObject player;
+    [SerializeField] private UnityStandardAssets.Characters.FirstPerson.FirstPersonController playerController;
 
     [Header("GUI")]
     public GameObject idecanvas;
@@ -23,7 +25,15 @@ public class Interact : MonoBehaviour {
 
     void Start()
     {
+        //scripts
+        playerController = new UnityStandardAssets.Characters.FirstPerson.FirstPersonController();
+
+        //animations
         isOpen = canvasObject.GetComponent<Animator>(); //get component to the animator
+
+        //player
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
     }
 
     void Update()
@@ -31,8 +41,6 @@ public class Interact : MonoBehaviour {
         //raycast
         Debug.DrawRay(this.transform.position, this.transform.forward * RaycastRange, Color.green);
 
-        //references
-        var player = GameObject.FindGameObjectWithTag("Player");
         RaycastHit hit;
         var raycastHit = Physics.Raycast(this.transform.position, this.transform.forward, out hit, RaycastRange, layerMask);
 
@@ -54,7 +62,7 @@ public class Interact : MonoBehaviour {
                     inputfield.ActivateInputField();
 
                     //disable player controls
-                    player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
+                    playerController.walkToggle = false;
                 }
             }
         }
@@ -71,9 +79,9 @@ public class Interact : MonoBehaviour {
         yield return new WaitForSeconds(closeIDE.length);
 
         // disable canvas and allow player to walk
-        var player = GameObject.FindGameObjectWithTag("Player");
         idecanvas.SetActive(false);
-        player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = true;
-    }
 
+        //enable walk here
+        playerController.walkToggle = true;
+    }
 }
