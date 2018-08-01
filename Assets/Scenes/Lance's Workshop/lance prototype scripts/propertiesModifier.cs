@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 
 public class propertiesModifier : MonoBehaviour
 {
-    private bool collide = false;
     private Vector3 position;
     private Quaternion rotation;
     public GameObject prefab;
@@ -168,7 +167,7 @@ public class propertiesModifier : MonoBehaviour
     }
     
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag != "Player")
         {
@@ -179,10 +178,27 @@ public class propertiesModifier : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Player"){
+        if(other.transform.tag == "Player")
+        {
             
             other.transform.parent = transform;
             Debug.Log("Player Attached as Child");
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.transform.tag == "Player")
+        {
+            if (code.Contains("transform.scale"))
+            {
+                other.transform.parent = null;
+            }
+            else
+            {
+                other.transform.parent = transform;
+                Debug.Log("Player Attached as Child");
+            }
         }
     }
 
