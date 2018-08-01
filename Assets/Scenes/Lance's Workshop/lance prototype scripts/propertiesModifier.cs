@@ -125,10 +125,14 @@ public class propertiesModifier : MonoBehaviour
 
         do
         {
+            playerIDEText.readOnly = true;
+
             gameObject.transform.localScale = Vector3.Lerp(currentScale, newScale, currentTime / time);
             currentTime += Time.deltaTime;
             yield return null;
         } while (currentTime <= time);
+
+        playerIDEText.readOnly = false;
     }
 
     IEnumerator moveObject(float time)
@@ -145,18 +149,24 @@ public class propertiesModifier : MonoBehaviour
         {
             if (code.Contains("transform.translate.x"))
             {
+                playerIDEText.readOnly = true;
+
                 targetPosition = currentPosition + positionX;
                 gameObject.transform.localPosition = Vector3.Lerp(currentPosition, targetPosition, currentTime / time);
                 currentTime += Time.deltaTime;
             }
             else if (code.Contains("transform.translate.y"))
             {
+                playerIDEText.readOnly = true;
+
                 targetPosition = currentPosition + positionY;
                 gameObject.transform.localPosition = Vector3.Lerp(currentPosition, targetPosition, currentTime / time);
                 currentTime += Time.deltaTime;
             }
             else if (code.Contains("transform.translate.z"))
             {
+                playerIDEText.readOnly = true;
+
                 targetPosition = currentPosition + positionZ;
                 gameObject.transform.localPosition = Vector3.Lerp(currentPosition, targetPosition, currentTime / time);
                 currentTime += Time.deltaTime;
@@ -164,6 +174,8 @@ public class propertiesModifier : MonoBehaviour
 
             yield return null;
         } while (currentTime <= time);
+
+        playerIDEText.readOnly = false;
     }
     
 
@@ -173,6 +185,8 @@ public class propertiesModifier : MonoBehaviour
         {
             Debug.Log("Destroying Object");
             Destroy(gameObject);
+
+            playerIDEText.readOnly = false;
         }
     }
 
