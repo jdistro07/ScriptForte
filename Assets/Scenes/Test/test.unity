@@ -206,6 +206,11 @@ Prefab:
       propertyPath: m_IsWalking
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114162629692459064, guid: 5820be5513330ad4e84b8a27a9f0069d,
+        type: 2}
+      propertyPath: idecanvas
+      value: 
+      objectReference: {fileID: 2124283118}
     m_RemovedComponents:
     - {fileID: 54463774024246742, guid: 5820be5513330ad4e84b8a27a9f0069d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5820be5513330ad4e84b8a27a9f0069d, type: 2}
@@ -302,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71d6bc40f49bc04e9f727f219e759e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1083164810455242, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
+  prefab: {fileID: 1986818928733300, guid: 6843b7d6dd6df554b8f4d0b4c69d389d, type: 2}
 --- !u!4 &586320653
 Transform:
   m_ObjectHideFlags: 0
@@ -606,7 +611,7 @@ MonoBehaviour:
   speed: 5
 --- !u!4 &1195367911 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4397387990264484, guid: f59cf28a883d22e4da7dc4f9e97d255e,
+  m_PrefabParentObject: {fileID: 4258318534973740, guid: 6843b7d6dd6df554b8f4d0b4c69d389d,
     type: 2}
   m_PrefabInternal: {fileID: 1944916352}
 --- !u!1 &1316268385
@@ -902,42 +907,43 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 586320653}
     m_Modifications:
-    - target: {fileID: 4397387990264484, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
+    - target: {fileID: 4258318534973740, guid: 6843b7d6dd6df554b8f4d0b4c69d389d, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4397387990264484, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
+    - target: {fileID: 4258318534973740, guid: 6843b7d6dd6df554b8f4d0b4c69d389d, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4397387990264484, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
+    - target: {fileID: 4258318534973740, guid: 6843b7d6dd6df554b8f4d0b4c69d389d, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4397387990264484, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
+    - target: {fileID: 4258318534973740, guid: 6843b7d6dd6df554b8f4d0b4c69d389d, type: 2}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4397387990264484, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
+    - target: {fileID: 4258318534973740, guid: 6843b7d6dd6df554b8f4d0b4c69d389d, type: 2}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4397387990264484, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
+    - target: {fileID: 4258318534973740, guid: 6843b7d6dd6df554b8f4d0b4c69d389d, type: 2}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4397387990264484, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
+    - target: {fileID: 4258318534973740, guid: 6843b7d6dd6df554b8f4d0b4c69d389d, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4397387990264484, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
+    - target: {fileID: 4258318534973740, guid: 6843b7d6dd6df554b8f4d0b4c69d389d, type: 2}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1083164810455242, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
-      propertyPath: m_Name
-      value: Interactable_Cube
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: f59cf28a883d22e4da7dc4f9e97d255e, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 6843b7d6dd6df554b8f4d0b4c69d389d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2124283118 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1621099870564586, guid: 5820be5513330ad4e84b8a27a9f0069d,
+    type: 2}
+  m_PrefabInternal: {fileID: 127209677}
