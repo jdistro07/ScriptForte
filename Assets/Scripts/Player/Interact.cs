@@ -70,16 +70,18 @@ public class Interact : MonoBehaviour {
                 }
             }
 
-            if(holdingGameobject){ // if holding object is true, update code var from propertiesModifier every frame
-                var objModifyer = holdingGameobject.GetComponent<propertiesModifier>();
-                objModifyer.code = inputfield.text;
-            }
+            
+        }
+        if (holdingGameobject)
+        { // if holding object is true, update code var from propertiesModifier every frame
+            var objModifyer = holdingGameobject.GetComponent<propertiesModifier>();
+            objModifyer.code = inputfield.text;
         }
 
         /*if IDE window is active, disable by pressing esc and enable movements
         *clear gameobject
         */
-        if(Input.GetKeyDown(KeyCode.Escape)){
+        if (Input.GetKeyDown(KeyCode.Escape)){
             holdingGameobject = null;
             StartCoroutine(closeIDEAnimation());
         }
