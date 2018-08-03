@@ -9,6 +9,8 @@ public class Interact : MonoBehaviour {
     [SerializeField] private GameObject player;
     [SerializeField] private UnityStandardAssets.Characters.FirstPerson.FirstPersonController playerController;
 
+    [SerializeField] GameObject holdingGameobject;
+
     [Header("GUI")]
     public GameObject idecanvas;
     public InputField inputfield;
@@ -50,10 +52,12 @@ public class Interact : MonoBehaviour {
             if (hit.collider.tag == "Interactable")
             {
                 Debug.Log("Interactable");
-                interactable = true; // interactable objeect is present!
+                interactable = true; // interactable object is present!
 
                 if (Input.GetMouseButtonDown(0) && interactable)
                 {
+                    holdingGameobject = hit.transform.gameObject;
+
                     //Debug.Log("Mouse 0 pressed");
                     idecanvas.SetActive(true); //open IDE
                     isOpen.SetInteger("isOpen", 1);
@@ -65,10 +69,18 @@ public class Interact : MonoBehaviour {
                     playerController.walkToggle = false;
                 }
             }
+
+            if(holdingGameobject){ // if holding object is true, update code var from propertiesModifier every frame
+                var objModifyer = holdingGameobject.GetComponent<propertiesModifier>();
+                objModifyer.code = inputfield.text;
+            }
         }
 
-        //if IDE window is active, disable by pressing esc and enable movements
+        /*if IDE window is active, disable by pressing esc and enable movements
+        *clear gameobject
+        */
         if(Input.GetKeyDown(KeyCode.Escape)){
+            holdingGameobject = null;
             StartCoroutine(closeIDEAnimation());
         }
     }

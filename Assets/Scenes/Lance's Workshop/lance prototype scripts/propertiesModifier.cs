@@ -44,7 +44,6 @@ public class propertiesModifier : MonoBehaviour
     {
         playerIDEText = (InputField)GameObject.FindWithTag("InputField").GetComponent<InputField>();
 
-        code = playerIDEText.text;
         line = code.Split('\n');
 
         string result = code.Split('(', ')')[1];
