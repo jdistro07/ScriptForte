@@ -8,6 +8,7 @@ TagManager:
   - IDE
   - InputField
   - Feet
+  - UIWS Inputfield
   layers:
   - Default
   - TransparentFX

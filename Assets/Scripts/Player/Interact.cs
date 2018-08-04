@@ -47,7 +47,6 @@ public class Interact : MonoBehaviour {
         var raycastHit = Physics.Raycast(this.transform.position, this.transform.forward, out hit, RaycastRange, layerMask);
 
         if(raycastHit){
-
             //if raycast touches an interactable tagged object
             if (hit.collider.tag == "Interactable")
             {
@@ -70,7 +69,6 @@ public class Interact : MonoBehaviour {
                 }
             }
 
-            
         }
         if (holdingGameobject)
         { // if holding object is true, update code var from propertiesModifier every frame
