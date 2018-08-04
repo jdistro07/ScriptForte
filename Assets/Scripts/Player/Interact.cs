@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Interact : MonoBehaviour {
 
@@ -25,6 +26,9 @@ public class Interact : MonoBehaviour {
     //Components
     bool interactable;
 
+    //Contributed by Lance
+    private InputField gateInput;
+
     void Start()
     {
         //scripts
@@ -36,6 +40,9 @@ public class Interact : MonoBehaviour {
         //player
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+
+        //Contributed by Lance
+        gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
     }
 
     void Update()
@@ -83,6 +90,9 @@ public class Interact : MonoBehaviour {
             holdingGameobject = null;
             StartCoroutine(closeIDEAnimation());
         }
+
+        //Contributed by Lance
+        raycastWorldUI();
     }
 
     private IEnumerator closeIDEAnimation()
@@ -95,5 +105,32 @@ public class Interact : MonoBehaviour {
 
         //enable walk here
         playerController.walkToggle = true;
+    }
+
+    //Contributed by Lance
+    void raycastWorldUI()
+    {
+        PointerEventData pointer = new PointerEventData(EventSystem.current);
+
+        pointer.position = Input.mousePosition;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointer, results);
+
+        if (results.Count > 0)
+        {
+            Cursor.visible = true;
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                gateInput.ActivateInputField();
+                playerController.walkToggle = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                playerController.walkToggle = true;
+            }
+        }
     }
 }

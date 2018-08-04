@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -12,6 +13,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
     {
         //Modified By Lance
         [SerializeField] private GameObject idecanvas;
+        [SerializeField] private InputField gateInput;
 
         public bool walkToggle;
         [SerializeField] private bool m_IsWalking;
@@ -64,6 +66,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
 
             walkToggle = true;
+
+            //Modified by Lance
+            gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
         }
 
 
@@ -82,24 +87,29 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             RotateView();
             // the jump state needs to read here to make sure it is not missed
-            if (!m_Jump)
-            {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-            }
 
-            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
+            //Modified by Lance
+            if (!idecanvas.activeSelf)
             {
-                StartCoroutine(m_JumpBob.DoBobCycle());
-                PlayLandingSound();
-                m_MoveDir.y = 0f;
-                m_Jumping = false;
-            }
-            if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
-            {
-                m_MoveDir.y = 0f;
-            }
+                if (!m_Jump)
+                {
+                    m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                }
 
-            m_PreviouslyGrounded = m_CharacterController.isGrounded;
+                if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
+                {
+                    StartCoroutine(m_JumpBob.DoBobCycle());
+                    PlayLandingSound();
+                    m_MoveDir.y = 0f;
+                    m_Jumping = false;
+                }
+                if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
+                {
+                    m_MoveDir.y = 0f;
+                }
+
+                m_PreviouslyGrounded = m_CharacterController.isGrounded;
+            }
         }
 
 
@@ -135,17 +145,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (m_Jump)
                 {
                     //Modified By Lance
-                    if (idecanvas.activeSelf)
-                    {
-                        
-                    }
-                    else
+                    if (!idecanvas.activeSelf)
                     {
                         m_MoveDir.y = m_JumpSpeed;
                         PlayJumpSound();
                         m_Jump = false;
                         m_Jumping = true;
-                    } 
+                    }
                 }
             }
             else

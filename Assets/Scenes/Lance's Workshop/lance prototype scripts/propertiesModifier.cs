@@ -182,6 +182,9 @@ public class propertiesModifier : MonoBehaviour
     {
         if (collision.gameObject.tag != "Player")
         {
+            var player = GameObject.Find("FPSController");
+            player.transform.parent = null;
+
             Debug.Log("Destroying Object");
             Destroy(gameObject);
 
