@@ -13,7 +13,7 @@ public class door_controller : MonoBehaviour {
         var doorControl = gate.GetComponent<Animator>();
 
         if(playerCollision.transform.name == "FPSController"){
-            doorControl.SetInteger("open", 1);
+            doorControl.SetInteger("open", 2);
             sfx.Play();
         }
     }
@@ -23,7 +23,7 @@ public class door_controller : MonoBehaviour {
         var doorControl = gate.GetComponent<Animator>();
         if (playerCollision2.transform.name == "FPSController")
         {
-            doorControl.SetInteger("open", 0);
+            doorControl.SetInteger("open", 1);
             sfx.Play();
         }
     }
