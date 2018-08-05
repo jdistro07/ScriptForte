@@ -6,14 +6,22 @@ using UnityEngine.UI;
 public class LockedGateController : MonoBehaviour {
 
 	[Header("Components")]
-	[SerializeField] bool sfxPlayed;
 	public InputField inputField;
+	public Canvas canvas;
+
+	//animations
 	public Animator gateState;
+	[SerializeField] Animator PanelAnimator;
+
+	public AnimationClip quiz_close;
 
 	//audio
 	public AudioClip audioClip;
+
 	public BoxCollider audioTrigger;
+
 	AudioSource soundEffects;
+	AudioSource canvasCloseSFX;
 	
 
 	[Header("Properties")]
@@ -23,10 +31,13 @@ public class LockedGateController : MonoBehaviour {
 	private void Start()
 	{
 		soundEffects = this.GetComponent<AudioSource>();
+		PanelAnimator = canvas.GetComponent<Animator>();
+		canvasCloseSFX = canvas.GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
 	void LateUpdate () {
+
 		PlayerPasscode = inputField.text;
 
 		if(PlayerPasscode == GatePasscode){
@@ -34,6 +45,7 @@ public class LockedGateController : MonoBehaviour {
 			gateState.SetInteger("open",2);
 			
 			if(!audioTrigger.enabled){
+				StartCoroutine(canvasClose());
 				audioTrigger.enabled = true;
 			}
 		}else if(PlayerPasscode != GatePasscode){ // future fix
@@ -51,5 +63,12 @@ public class LockedGateController : MonoBehaviour {
 	private void OnTriggerExit(Collider other)
 	{
 		audioTrigger.enabled = false;
+	}
+
+	IEnumerator canvasClose(){
+		PanelAnimator.SetInteger("open", 1);
+		canvasCloseSFX.Play();
+		yield return new WaitForSeconds(quiz_close.length);
+		canvas.enabled = false;
 	}
 }
