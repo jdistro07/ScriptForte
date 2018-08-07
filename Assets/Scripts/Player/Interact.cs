@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Interact : MonoBehaviour {
+
+    private LayerMask layerMask = ~(1 << 2);
+    [SerializeField] private GameObject player;
+    [SerializeField] private UnityStandardAssets.Characters.FirstPerson.FirstPersonController playerController;
+
+    [SerializeField] GameObject holdingGameobject;
 
     [Header("GUI")]
     public GameObject idecanvas;
@@ -19,9 +26,23 @@ public class Interact : MonoBehaviour {
     //Components
     bool interactable;
 
+    //Contributed by Lance
+    private InputField gateInput;
+
     void Start()
     {
+        //scripts
+        playerController = new UnityStandardAssets.Characters.FirstPerson.FirstPersonController();
+
+        //animations
         isOpen = canvasObject.GetComponent<Animator>(); //get component to the animator
+
+        //player
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+
+        //Contributed by Lance
+        gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
     }
 
     void Update()
@@ -29,21 +50,20 @@ public class Interact : MonoBehaviour {
         //raycast
         Debug.DrawRay(this.transform.position, this.transform.forward * RaycastRange, Color.green);
 
-        //references
-        var player = GameObject.FindGameObjectWithTag("Player");
         RaycastHit hit;
-        var raycastHit = Physics.Raycast(this.transform.position, this.transform.forward, out hit, RaycastRange);
+        var raycastHit = Physics.Raycast(this.transform.position, this.transform.forward, out hit, RaycastRange, layerMask);
 
         if(raycastHit){
-
             //if raycast touches an interactable tagged object
             if (hit.collider.tag == "Interactable")
             {
                 Debug.Log("Interactable");
-                interactable = true; // interactable objeect is present!
+                interactable = true; // interactable object is present!
 
                 if (Input.GetMouseButtonDown(0) && interactable)
                 {
+                    holdingGameobject = hit.transform.gameObject;
+
                     //Debug.Log("Mouse 0 pressed");
                     idecanvas.SetActive(true); //open IDE
                     isOpen.SetInteger("isOpen", 1);
@@ -52,15 +72,27 @@ public class Interact : MonoBehaviour {
                     inputfield.ActivateInputField();
 
                     //disable player controls
-                    player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
+                    playerController.walkToggle = false;
                 }
             }
+
+        }
+        if (holdingGameobject)
+        { // if holding object is true, update code var from propertiesModifier every frame
+            var objModifyer = holdingGameobject.GetComponent<propertiesModifier>();
+            objModifyer.code = inputfield.text;
         }
 
-        //if IDE window is active, disable by pressing esc and enable movements
-        if(Input.GetKeyDown(KeyCode.Escape)){
+        /*if IDE window is active, disable by pressing esc and enable movements
+        *clear gameobject
+        */
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            holdingGameobject = null;
             StartCoroutine(closeIDEAnimation());
         }
+
+        //Contributed by Lance
+        raycastWorldUI();
     }
 
     private IEnumerator closeIDEAnimation()
@@ -69,9 +101,36 @@ public class Interact : MonoBehaviour {
         yield return new WaitForSeconds(closeIDE.length);
 
         // disable canvas and allow player to walk
-        var player = GameObject.FindGameObjectWithTag("Player");
         idecanvas.SetActive(false);
-        player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = true;
+
+        //enable walk here
+        playerController.walkToggle = true;
     }
 
+    //Contributed by Lance
+    void raycastWorldUI()
+    {
+        PointerEventData pointer = new PointerEventData(EventSystem.current);
+
+        pointer.position = Input.mousePosition;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointer, results);
+
+        if (results.Count > 0)
+        {
+            Cursor.visible = true;
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                gateInput.ActivateInputField();
+                playerController.walkToggle = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                playerController.walkToggle = true;
+            }
+        }
+    }
 }
