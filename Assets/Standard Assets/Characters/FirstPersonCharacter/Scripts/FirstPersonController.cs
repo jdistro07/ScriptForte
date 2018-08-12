@@ -165,8 +165,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_MouseLook.UpdateCursorLock();
         }
-
-
+        
         private void PlayJumpSound()
         {
             if(m_JumpSpeed > 0){
