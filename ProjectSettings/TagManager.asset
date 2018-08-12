@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interactable
+  - IDE
+  - InputField
+  - Feet
+  - UIWS Inputfield
   layers:
   - Default
   - TransparentFX
