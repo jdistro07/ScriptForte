@@ -9,6 +9,7 @@ TagManager:
   - InputField
   - Feet
   - UIWS Inputfield
+  - Stage Spawn
   layers:
   - Default
   - TransparentFX
