@@ -720,6 +720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4947365595941616}
   - component: {fileID: 95034585859650854}
+  - component: {fileID: 65098066373139246}
   m_Layer: 0
   m_Name: Gate
   m_TagString: Untagged
@@ -1274,6 +1275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4789092896860396}
   - component: {fileID: 95084837101184398}
+  - component: {fileID: 65486648225545286}
   m_Layer: 0
   m_Name: Gate
   m_TagString: Untagged
@@ -4253,6 +4255,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65098066373139246
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1584609931724028}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.196301, y: 6.7382803, z: 2}
+  m_Center: {x: 0.004209757, y: 3.09239, z: 1.49}
 --- !u!65 &65165143248258880
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -4493,6 +4507,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65486648225545286
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1916661834724346}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.196301, y: 6.7382803, z: 2}
+  m_Center: {x: 0.004209757, y: 3.09239, z: 1.49}
 --- !u!65 &65518128950007460
 BoxCollider:
   m_ObjectHideFlags: 1
