@@ -524,6 +524,7 @@ GameObject:
   - component: {fileID: 201873865}
   - component: {fileID: 201873867}
   - component: {fileID: 201873866}
+  - component: {fileID: 201873868}
   m_Layer: 5
   m_Name: SettingsPanel
   m_TagString: Untagged
@@ -591,6 +592,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 201873864}
+--- !u!114 &201873868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 201873864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39315b615cf237149bacee8a6a0a847a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputLink: {fileID: 943337494}
+  Toggle_Bloom: {fileID: 2031441576}
+  Toggle_MotionBlur: {fileID: 1447465053}
+  link: 
+  bloom: 0
+  motionblur: 0
 --- !u!1 &233822030
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,6 +950,7 @@ GameObject:
   - component: {fileID: 354906585}
   - component: {fileID: 354906584}
   - component: {fileID: 354906583}
+  - component: {fileID: 354906587}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1002,6 +1021,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 25, y: 17.63, z: 0}
+--- !u!114 &354906587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 354906582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 8d3d95078dad4ac41b0563d26b6bd5e0, type: 2}
 --- !u!1 &391258402
 GameObject:
   m_ObjectHideFlags: 0
@@ -4025,11 +4056,13 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1456857082}
+  - component: {fileID: 1456857084}
+  - component: {fileID: 1456857085}
   - component: {fileID: 1456857081}
   - component: {fileID: 1456857083}
   m_Layer: 0
   m_Name: AIOGameManager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4144,6 +4177,156 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1456857084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1456857080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073e68d37a456b04b907578de9728e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultInputs: []
+  DefaultCustomSettings:
+  - Name: bloom
+    Type: 3
+    _VAL_String:
+      val: Setting Value
+    _VAL_Int:
+      val: 0
+    _VAL_Float:
+      val: 0
+    _VAL_Bool:
+      val: 0
+    _VAL_Color:
+      r: 1
+      g: 1
+      b: 1
+      a: 1
+    _VAL_Vector2:
+      x: 0
+      y: 0
+    _VAL_Vector3:
+      x: 0
+      y: 0
+      z: 0
+    _VAL_Vector4:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    _VAL_Quaternion:
+      x: 0
+      y: 0
+      z: 0
+      w: 1
+    _VAL_DateTime:
+      hour: 19
+      min: 6
+      sec: 7
+      month: 8
+      day: 21
+      year: 2018
+  - Name: motionblur
+    Type: 3
+    _VAL_String:
+      val: Setting Value
+    _VAL_Int:
+      val: 0
+    _VAL_Float:
+      val: 0
+    _VAL_Bool:
+      val: 0
+    _VAL_Color:
+      r: 1
+      g: 1
+      b: 1
+      a: 1
+    _VAL_Vector2:
+      x: 0
+      y: 0
+    _VAL_Vector3:
+      x: 0
+      y: 0
+      z: 0
+    _VAL_Vector4:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    _VAL_Quaternion:
+      x: 0
+      y: 0
+      z: 0
+      w: 1
+    _VAL_DateTime:
+      hour: 19
+      min: 6
+      sec: 41
+      month: 8
+      day: 21
+      year: 2018
+  - Name: link
+    Type: 0
+    _VAL_String:
+      val: localhost/sfserver
+    _VAL_Int:
+      val: 0
+    _VAL_Float:
+      val: 0
+    _VAL_Bool:
+      val: 1
+    _VAL_Color:
+      r: 1
+      g: 1
+      b: 1
+      a: 1
+    _VAL_Vector2:
+      x: 0
+      y: 0
+    _VAL_Vector3:
+      x: 0
+      y: 0
+      z: 0
+    _VAL_Vector4:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    _VAL_Quaternion:
+      x: 0
+      y: 0
+      z: 0
+      w: 1
+    _VAL_DateTime:
+      hour: 19
+      min: 7
+      sec: 23
+      month: 8
+      day: 21
+      year: 2018
+  FileName: sfconfig.dat
+  CurrentSettings:
+    names: []
+    settings: []
+    types: 
+--- !u!114 &1456857085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1456857080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c040b092e875464998fe8f737e997b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ppProfile: {fileID: 11400000, guid: 8d3d95078dad4ac41b0563d26b6bd5e0, type: 2}
+  link: testvalue
+  bloom: 1
+  blur: 1
 --- !u!1 &1469134707
 GameObject:
   m_ObjectHideFlags: 0
@@ -5519,6 +5702,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1456857081}
         m_MethodName: sfxSpecial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 201873868}
+        m_MethodName: ApplySettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
