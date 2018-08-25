@@ -232,7 +232,7 @@ Prefab:
     - target: {fileID: 114598881035710210, guid: 4bcb7385bbd373b45b1c44c3c40a3ff7,
         type: 2}
       propertyPath: platformSpawnOffset
-      value: 0
+      value: -350
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4bcb7385bbd373b45b1c44c3c40a3ff7, type: 2}
