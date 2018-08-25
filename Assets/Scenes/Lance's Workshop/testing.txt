@@ -1,0 +1,5 @@
+1:tf:Is a potato a potato?:True:False:True
+2:tf:This is a test question?:True:False:True
+3:tf:Is Albert Einstein a world renowned psychologist?:True:False:False
+4:mc:What is a potato?:A. A fruit:B. A vegetable:C .A potato:C
+5:mc:It is an HTML tag for paragraphs.:A. <par>:B. <p>:C. <para>:B
