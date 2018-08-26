@@ -7,19 +7,28 @@ using UnityEngine.UI;
 
 public class testHandler : MonoBehaviour
 {
+	[Header("Test Questionaire File Path")]
 	[SerializeField] private string textPath = "Assets/Scenes/Lance's Workshop/testing.txt";
+
+	[Header("Game Prefabs")]
 	[SerializeField] private GameObject player;
 	[SerializeField] private GameObject testPrefab_TF;
 	[SerializeField] private GameObject testPrefab_MC;
+
+	[Header("Platform Spawn Positions")]
 	[SerializeField] private Transform platSpawnA;
 	[SerializeField] private Transform platSpawnB;
 	[SerializeField] private Transform platSpawnC;
 	[SerializeField] private Transform platSpawnT;
 	[SerializeField] private Transform platSpawnF;
+
+	[Header("Test Questions")]
 	[SerializeField] private List<String> questions;
 	[SerializeField] private string[] test;
 
+	[Header("Scoring and Miscellaneous")]
 	[SerializeField] private int questionNumber = 0;
+	[SerializeField] private int playerScore = 0;
 
 	private Text questionText;
 
@@ -28,7 +37,7 @@ public class testHandler : MonoBehaviour
 
 	private Vector3 currentObjectSpawnPoint;
 	private Vector3 newObjectSpawnPoint;
-	[SerializeField] private float platformSpawnOffset;
+	[SerializeField] private float platformSpawnOffset = 40;
 
 	[SerializeField] private GameObject testPlatform;
 
@@ -102,14 +111,26 @@ public class testHandler : MonoBehaviour
 				//Platform Canvas settings
 				//Question Canvas
 				questionText = currentPlatform.transform.Find("QuestionCanvas").Find("QuestionText").GetComponent<Text>();
-				questionText.text = test [2];
+
+				if (questionText.text != test [2])
+				{
+					questionText.text = test [2];
+				}
 
 				//Choices Canvas
 				Text choiceTrue = currentPlatform.transform.Find("ChoicesCanvas").Find("Button_True").Find ("Choice_True").GetComponent<Text>();
 				Text choiceFalse = currentPlatform.transform.Find("ChoicesCanvas").Find("Button_False").Find ("Choice_False").GetComponent<Text>();
 
-				choiceTrue.text = test [3];
-				choiceFalse.text = test [4];
+				if (choiceTrue.text != test [3] || choiceFalse.text != test [4])
+				{
+					choiceTrue.text = test [3];
+					choiceFalse.text = test [4];
+				}
+
+				if (spawnTrigger.answer == test [5])
+				{
+					playerScore++;
+				}
 
 				if (spawnTrigger.answer == "T")
 				{
@@ -159,16 +180,28 @@ public class testHandler : MonoBehaviour
 				//Platform Canvas settings
 				//Question Canvas
 				questionText = currentPlatform.transform.Find("QuestionCanvas").Find("QuestionText").GetComponent<Text>();
-				questionText.text = test [2];
+
+				if (questionText.text != test [2])
+				{
+					questionText.text = test [2];
+				}
 
 				//Choices Canvas
 				Text choiceA = currentPlatform.transform.Find("ChoicesCanvas").Find("Button_A").Find ("Choice_A").GetComponent<Text>();
 				Text choiceB = currentPlatform.transform.Find("ChoicesCanvas").Find("Button_B").Find ("Choice_B").GetComponent<Text>();
 				Text ChoiceC = currentPlatform.transform.Find("ChoicesCanvas").Find("Button_C").Find ("Choice_C").GetComponent<Text>();
 
-				choiceA.text = test [3];
-				choiceB.text = test [4];
-				ChoiceC.text = test [5];
+				if (choiceA.text != test [3] || choiceB.text != test [4] || ChoiceC.text != test [5])
+				{
+					choiceA.text = test [3];
+					choiceB.text = test [4];
+					ChoiceC.text = test [5];
+				}
+
+				if (spawnTrigger.answer == test [6])
+				{
+					playerScore++;
+				}
 
 				if (spawnTrigger.answer == "A")
 				{
@@ -210,8 +243,14 @@ public class testHandler : MonoBehaviour
 
 			if (isCreated == false)
 			{
+				Debug.Log ("Total Score is: " + playerScore);
 				testPlatform = (GameObject)Instantiate (endPlatform, newObjectSpawnPoint, transform.localRotation, transform);
 				testPlatform.gameObject.name = "platform_end";
+
+				GameObject finalPlatform = GameObject.Find ("platform_end");
+
+				Text Scoring = finalPlatform.transform.Find ("UI Components").Find ("UICanvas").Find("Text").GetComponent<Text> ();
+				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count + 1);
 			}
 			isCreated = true;
 		}
