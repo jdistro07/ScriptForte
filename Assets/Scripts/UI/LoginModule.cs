@@ -42,6 +42,11 @@ public class LoginModule : MonoBehaviour {
 		StartCoroutine(DB_Login(input_username, input_password));
 	}
 
+	public void ClickLogout(){
+		loginCanvas.SetActive(true);
+		StartCoroutine(enableLogin());
+	}
+
 	IEnumerator DB_Login(string username, string password){
 		WWWForm form = new WWWForm();
 
@@ -58,7 +63,7 @@ public class LoginModule : MonoBehaviour {
 		
 		if(www.text == "Login granted!"){
 			//Animate and disable canvas to open the main menu
-			loginAnimator.SetBool("isLogged", true);
+			loginAnimator.SetInteger("LogState", 2);
 			StartCoroutine(disableLogin());
 		}else if(www.text == "Login denied!" || www.text == "No username on the input!" || www.text == "No password on the input!"){
 			loginCanvas_btnLogin.enabled = true;
@@ -79,5 +84,19 @@ public class LoginModule : MonoBehaviour {
 
 			mainMenu.SetActive(true);
 		}
+	}
+
+	IEnumerator enableLogin(){
+		loginAnimator.SetInteger("LogState", 3);
+		mainMenu.SetActive(false);
+		LoggedIn = false;
+
+		yield return new WaitForSeconds(loginTransition_Allow.length);
+		
+		if(loginCanvas_btnLogin.enabled == false){
+			//enable login button if disabled
+			loginCanvas_btnLogin.enabled = true;
+		}
+		//loginAnimator.SetInteger("LogState", 1);
 	}
 }
