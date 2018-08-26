@@ -10,7 +10,7 @@ public class GameSettingsManager : MonoBehaviour {
 	public PostProcessingProfile ppProfile;
 
 	[Header("Game Configuration State")]
-	[SerializeField] string link;
+	public string link;
 	[SerializeField] bool bloom;
 	[SerializeField] bool blur;
 

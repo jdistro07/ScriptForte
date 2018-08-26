@@ -27,7 +27,8 @@ public class Interact : MonoBehaviour {
     bool interactable;
 
     //Contributed by Lance
-    private InputField gateInput;
+	[SerializeField] private InputField gateInput;
+	private bool inputActive = false;
 
     void Start()
     {
@@ -40,9 +41,6 @@ public class Interact : MonoBehaviour {
         //player
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
-
-        //Contributed by Lance
-        gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
     }
 
     void Update()
@@ -92,7 +90,7 @@ public class Interact : MonoBehaviour {
         }
 
         //Contributed by Lance
-        raycastWorldUI();
+		raycastWorldUI();
     }
 
     private IEnumerator closeIDEAnimation()
@@ -110,27 +108,36 @@ public class Interact : MonoBehaviour {
     //Contributed by Lance
     void raycastWorldUI()
     {
-        PointerEventData pointer = new PointerEventData(EventSystem.current);
+		if (Input.GetKeyDown(KeyCode.Mouse0))
+		{
+			PointerEventData pointer = new PointerEventData(EventSystem.current);
+			gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
 
-        pointer.position = Input.mousePosition;
+			pointer.position = Input.mousePosition;
 
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointer, results);
+			List<RaycastResult> results = new List<RaycastResult>();
+			EventSystem.current.RaycastAll(pointer, results);
 
-        if (results.Count > 0)
-        {
-            Cursor.visible = true;
+			if (results.Count > 0)
+			{
+				gateInput.ActivateInputField();
+				inputActive = true;
+			}
+		}
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                gateInput.ActivateInputField();
-                playerController.walkToggle = false;
-            }
+		if (Input.GetKeyDown(KeyCode.Return))
+		{
+			gateInput.DeactivateInputField ();
+			inputActive = false;
+		}
 
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                playerController.walkToggle = true;
-            }
-        }
+		if (inputActive == true)
+		{
+			playerController.walkToggle = false;
+		}
+		else
+		{
+			playerController.walkToggle = true;
+		}
     }
 }
