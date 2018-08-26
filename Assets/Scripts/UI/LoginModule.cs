@@ -21,6 +21,7 @@ public class LoginModule : MonoBehaviour {
 
 	[Header("Gameobjects")]
 	[SerializeField]GameObject loginCanvas;
+	[SerializeField]GameObject mainMenu;
 	[SerializeField]InputField loginCanvas_username;
 	[SerializeField]InputField loginCanvas_password;
 	[SerializeField]Button loginCanvas_btnLogin;
@@ -75,6 +76,8 @@ public class LoginModule : MonoBehaviour {
 		if(loginCanvas.activeSelf == false){
 			LoggedIn = true;
 			Debug.Log("Login confirmed! Launching main menu...");
+
+			mainMenu.SetActive(true);
 		}
 	}
 }
