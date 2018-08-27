@@ -92,6 +92,7 @@ public class LoginModule : MonoBehaviour {
 		LoggedIn = false;
 
 		yield return new WaitForSeconds(loginTransition_Allow.length);
+		loginAnimator.SetInteger("LogState", 1);
 		
 		if(loginCanvas_btnLogin.enabled == false){
 			//enable login button if disabled
