@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 4257005917757550}
   - component: {fileID: 114598881035710210}
   m_Layer: 0
-  m_Name: Testing Ground
+  m_Name: The Testing Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1092,6 +1092,7 @@ MonoBehaviour:
   questions: []
   test: []
   questionNumber: 0
+  playerScore: 0
   platformSpawnOffset: 40
   testPlatform: {fileID: 0}
 --- !u!114 &114638725031623484

@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 114449133232141522}
   m_Layer: 0
   m_Name: Gate T
-  m_TagString: Untagged
+  m_TagString: Gates
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 114921725015234238}
   m_Layer: 0
   m_Name: Gate F
-  m_TagString: Untagged
+  m_TagString: Gates
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

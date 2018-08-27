@@ -14,7 +14,7 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private GameObject player;
 	[SerializeField] private GameObject testPrefab_TF;
 	[SerializeField] private GameObject testPrefab_MC;
-
+	
 	[Header("Platform Spawn Positions")]
 	[SerializeField] private Transform platSpawnA;
 	[SerializeField] private Transform platSpawnB;
