@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 1224114874}
   - component: {fileID: 1224114873}
   - component: {fileID: 1224114872}
-  - component: {fileID: 1224114871}
   - component: {fileID: 1224114875}
   m_Layer: 0
   m_Name: Main Camera
@@ -131,14 +130,7 @@ GameObject:
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!81 &1224114871
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1224114870}
-  m_Enabled: 1
+  m_IsActive: 1
 --- !u!124 &1224114872
 Behaviour:
   m_ObjectHideFlags: 0
@@ -188,13 +180,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1224114870}
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 56.68, z: -57.18}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 173, y: 103, z: 461.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1224114875
 MonoBehaviour:
   m_ObjectHideFlags: 0
