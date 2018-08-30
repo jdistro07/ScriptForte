@@ -14,6 +14,12 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private GameObject player;
 	[SerializeField] private GameObject testPrefab_TF;
 	[SerializeField] private GameObject testPrefab_MC;
+
+	[Header("Player UI Components")]
+	[SerializeField] GameObject DialogPanel;
+	[SerializeField] Text DialogTitle;
+	[SerializeField] Text DialogMessage;
+	[SerializeField] RawImage DialogIcon;
 	
 	[Header("Platform Spawn Positions")]
 	[SerializeField] private Transform platSpawnA;
@@ -29,6 +35,8 @@ public class testHandler : MonoBehaviour
 	[Header("Scoring and Miscellaneous")]
 	[SerializeField] private int questionNumber = 0;
 	[SerializeField] private int playerScore = 0;
+
+	public bool isCorrect;
 
 	private Text questionText;
 
@@ -127,9 +135,18 @@ public class testHandler : MonoBehaviour
 					choiceFalse.text = test [4];
 				}
 
-				if (spawnTrigger.answer == test [5])
-				{
-					playerScore++;
+				if(spawnTrigger.answer != null){
+					if (spawnTrigger.answer == test [5])
+					{
+						playerScore++;
+						isCorrect = true;
+						Debug.Log("TF: Correct answer...");
+					}
+					else
+					{
+						isCorrect = false;
+						Debug.Log("TF: Incorrect answer");
+					}
 				}
 
 				if (spawnTrigger.answer == "T")
@@ -198,9 +215,18 @@ public class testHandler : MonoBehaviour
 					ChoiceC.text = test [5];
 				}
 
-				if (spawnTrigger.answer == test [6])
-				{
-					playerScore++;
+				if(spawnTrigger.answer != null){
+					if (spawnTrigger.answer == test [6])
+					{
+						playerScore++;
+						isCorrect = true;
+						Debug.Log("TF: Correct answer...");
+					}
+					else
+					{
+						isCorrect = false;
+						Debug.Log("MC: Incorrect answer");
+					}
 				}
 
 				if (spawnTrigger.answer == "A")
@@ -254,5 +280,15 @@ public class testHandler : MonoBehaviour
 			}
 			isCreated = true;
 		}
+	}
+
+	public void DialogueMessageControl(string title, string message){
+		
+		DialogPanel.SetActive(true);
+		
+		DialogTitle.text = title;
+		DialogMessage.text = message;
+
+		Debug.Log("Situational Panel Opened");
 	}
 }
