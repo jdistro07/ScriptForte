@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class Interact : MonoBehaviour {
 
@@ -110,19 +111,23 @@ public class Interact : MonoBehaviour {
     {
 		if (Input.GetKeyDown(KeyCode.Mouse0))
 		{
-			PointerEventData pointer = new PointerEventData(EventSystem.current);
-			gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
+			try{
+                PointerEventData pointer = new PointerEventData(EventSystem.current);
+                gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
 
-			pointer.position = Input.mousePosition;
+                pointer.position = Input.mousePosition;
 
-			List<RaycastResult> results = new List<RaycastResult>();
-			EventSystem.current.RaycastAll(pointer, results);
+                List<RaycastResult> results = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(pointer, results);
 
-			if (results.Count > 0)
-			{
-				gateInput.ActivateInputField();
-				inputActive = true;
-			}
+                if (results.Count > 0)
+                {
+                    gateInput.ActivateInputField();
+                    inputActive = true;
+                }
+            }catch(NullReferenceException nre){
+                Debug.Log("Raycast cannot detect any UI in range!");
+            }
 		}
 
 		if (Input.GetKeyDown(KeyCode.Return))

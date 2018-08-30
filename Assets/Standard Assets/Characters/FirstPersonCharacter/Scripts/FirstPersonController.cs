@@ -4,6 +4,7 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
+using System.IO;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -68,7 +69,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             walkToggle = true;
 
             //Modified by Lance
-            gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
+            try{
+                gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
+            }catch(NullReferenceException nre){
+                Debug.Log("FPSC: No UI Interaction!");
+            }
+            
         }
 
 
