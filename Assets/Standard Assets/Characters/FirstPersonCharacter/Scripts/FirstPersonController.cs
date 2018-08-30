@@ -52,6 +52,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [Header("Customs (Johndel)")]
         bool EnableWalk = true;
 
+        private void Awake()
+        {
+            //disable main camera when spawned
+            var mainCamera = GameObject.Find("Main Camera");
+            if(mainCamera.activeSelf){
+                mainCamera.SetActive(false);
+                Debug.Log("Main Camera disabled!");
+            }
+        }
+
         // Use this for initialization
         private void Start()
         {
