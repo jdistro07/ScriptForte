@@ -24,6 +24,10 @@ public class Interact : MonoBehaviour {
     public AnimationClip closeIDE;
     public Canvas canvasObject;
 
+    [Header("Audio")]
+    AudioSource audioSource_Interact;
+    [SerializeField] AudioClip sfx_UIinteractError;
+
     //Components
     bool interactable;
 
@@ -33,6 +37,8 @@ public class Interact : MonoBehaviour {
 
     void Start()
     {
+        audioSource_Interact = gameObject.GetComponent<AudioSource>();
+
         //scripts
         playerController = new UnityStandardAssets.Characters.FirstPerson.FirstPersonController();
 
@@ -126,7 +132,8 @@ public class Interact : MonoBehaviour {
                     inputActive = true;
                 }
             }catch(NullReferenceException nre){
-                Debug.Log("Raycast cannot detect any UI in range!");
+                // play error audio
+                audioSource_Interact.PlayOneShot(sfx_UIinteractError);
             }
 		}
 

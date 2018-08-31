@@ -47,6 +47,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_StepCycle;
         private float m_NextStep;
         private bool m_Jumping;
+
+        [Header("Audio")]
         private AudioSource m_AudioSource;
 
         [Header("Customs (Johndel)")]
@@ -82,7 +84,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             try{
                 gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
             }catch(NullReferenceException nre){
-                Debug.Log("FPSC: No UI Interaction!");
+                Debug.Log("No inputfield with set tag: UIWS Inputfield");
             }
             
         }

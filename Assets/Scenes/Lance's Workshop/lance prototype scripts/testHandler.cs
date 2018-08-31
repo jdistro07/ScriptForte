@@ -17,8 +17,8 @@ public class testHandler : MonoBehaviour
 
 	[Header("Player UI Components")]
 	[SerializeField] GameObject DialogPanel;
-	[SerializeField] Text DialogTitle;
-	[SerializeField] Text DialogMessage;
+	public Text DialogTitle;
+	public Text DialogMessage;
 	[SerializeField] RawImage DialogIcon;
 	
 	[Header("Platform Spawn Positions")]
@@ -283,12 +283,14 @@ public class testHandler : MonoBehaviour
 	}
 
 	public void DialogueMessageControl(string title, string message){
+		try{
+			DialogPanel.SetActive(true);
 		
-		DialogPanel.SetActive(true);
-		
-		DialogTitle.text = title;
-		DialogMessage.text = message;
+			DialogTitle.text = title;
+			DialogMessage.text = message;
 
-		Debug.Log("Situational Panel Opened");
+			Debug.Log("Situational Panel Opened");
+		}catch(MissingReferenceException mre){
+		}
 	}
 }

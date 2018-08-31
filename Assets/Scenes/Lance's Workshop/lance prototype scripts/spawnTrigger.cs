@@ -21,10 +21,17 @@ public class spawnTrigger : MonoBehaviour
 	string warning_title = "Security Warning!";
 
 	//correct answer message
-
 	[SerializeField] bool isCorrect;
 	string correct_message = "You have chosen the correct Gate! Security activation time has been added by ";
 	string correct_title = "Correct!";
+
+	//color values
+	//YELLOW
+	float yr = 255; float yg = 255; float yb = 0; float ya = 255;
+
+	//GREEN
+	float gr = 0; float gg = 255; float gb = 0; float ga = 255;
+
 
 
 	private void Start()
@@ -56,10 +63,16 @@ public class spawnTrigger : MonoBehaviour
 		
 		var dialog = testManagerObject.GetComponent<testHandler>();
 
-		if(!isCorrect){
-			dialog.DialogueMessageControl(warning_title,warning_message);
-		}else{
-			dialog.DialogueMessageControl(correct_title,correct_message);
+		try{
+			if(!isCorrect){
+				dialog.DialogueMessageControl(warning_title,warning_message);
+				dialog.DialogTitle.color = new Color(yr, yg, yb, ya);
+			}else{
+				dialog.DialogueMessageControl(correct_title,correct_message);
+				dialog.DialogTitle.color = new Color(gr, gg, gb, ga);
+			}
+		}catch(MissingReferenceException mre){
+			Debug.Log("Canvas required do not exist: "+mre);
 		}
 	}
 }
