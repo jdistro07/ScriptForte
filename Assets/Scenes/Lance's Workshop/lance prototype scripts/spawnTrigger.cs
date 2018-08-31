@@ -67,9 +67,13 @@ public class spawnTrigger : MonoBehaviour
 			if(!isCorrect){
 				dialog.DialogueMessageControl(warning_title,warning_message);
 				dialog.DialogTitle.color = new Color(yr, yg, yb, ya);
+
+				Debug.Log("Incorrect answer.");
 			}else{
 				dialog.DialogueMessageControl(correct_title,correct_message);
 				dialog.DialogTitle.color = new Color(gr, gg, gb, ga);
+
+				Debug.Log("Correct answer");
 			}
 		}catch(MissingReferenceException mre){
 			Debug.Log("Canvas required do not exist: "+mre);

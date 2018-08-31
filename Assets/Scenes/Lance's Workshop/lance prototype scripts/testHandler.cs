@@ -138,14 +138,13 @@ public class testHandler : MonoBehaviour
 				if(spawnTrigger.answer != null){
 					if (spawnTrigger.answer == test [5])
 					{
+						//correct answer for TF
 						playerScore++;
 						isCorrect = true;
-						Debug.Log("TF: Correct answer...");
 					}
 					else
 					{
 						isCorrect = false;
-						Debug.Log("TF: Incorrect answer");
 					}
 				}
 
@@ -218,14 +217,13 @@ public class testHandler : MonoBehaviour
 				if(spawnTrigger.answer != null){
 					if (spawnTrigger.answer == test [6])
 					{
+						//correct answer for MC
 						playerScore++;
 						isCorrect = true;
-						Debug.Log("TF: Correct answer...");
 					}
 					else
 					{
 						isCorrect = false;
-						Debug.Log("MC: Incorrect answer");
 					}
 				}
 
@@ -288,8 +286,6 @@ public class testHandler : MonoBehaviour
 		
 			DialogTitle.text = title;
 			DialogMessage.text = message;
-
-			Debug.Log("Situational Panel Opened");
 		}catch(MissingReferenceException mre){
 		}
 	}

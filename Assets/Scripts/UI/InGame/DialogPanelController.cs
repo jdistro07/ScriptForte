@@ -20,6 +20,8 @@ public class DialogPanelController : MonoBehaviour {
 
 	// Use this for initialization
 	void OnEnable () {
+		Debug.Log("Situational Dialog opened");
+
 		sfx_source = this.GetComponent<AudioSource>();
 		isCorrect = testManager.GetComponent<testHandler>().isCorrect;
 
