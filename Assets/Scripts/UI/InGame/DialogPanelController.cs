@@ -13,8 +13,10 @@ public class DialogPanelController : MonoBehaviour {
 	[SerializeField] bool activation;
 
 	//components
+	[Header("Audio")]
 	AudioSource sfx_source;
 	[SerializeField] AudioClip sfx_warning;
+	[SerializeField] AudioClip sfx_correct;
 
 	// Use this for initialization
 	void OnEnable () {
@@ -24,6 +26,8 @@ public class DialogPanelController : MonoBehaviour {
 		//play appropriate sound effect
 		if(!isCorrect){
 			sfx_source.PlayOneShot(sfx_warning);
+		}else{
+			sfx_source.PlayOneShot(sfx_correct);
 		}
 
 		StartCoroutine(closeTime(timeSettings));

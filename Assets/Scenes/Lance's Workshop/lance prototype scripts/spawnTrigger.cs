@@ -16,10 +16,16 @@ public class spawnTrigger : MonoBehaviour
 	[SerializeField] GameObject testManagerObject;
 
 	//variables;
+	//wrong answer message
 	string warning_message = "You have chosen an incorrect Gate. Security protocols are now activating!";
 	string warning_title = "Security Warning!";
 
+	//correct answer message
+
 	[SerializeField] bool isCorrect;
+	string correct_message = "You have chosen the correct Gate! Security activation time has been added by ";
+	string correct_title = "Correct!";
+
 
 	private void Start()
 	{
@@ -52,6 +58,8 @@ public class spawnTrigger : MonoBehaviour
 
 		if(!isCorrect){
 			dialog.DialogueMessageControl(warning_title,warning_message);
+		}else{
+			dialog.DialogueMessageControl(correct_title,correct_message);
 		}
 	}
 }

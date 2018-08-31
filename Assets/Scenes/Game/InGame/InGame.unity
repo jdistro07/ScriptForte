@@ -533,7 +533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1046755612
 RectTransform:
   m_ObjectHideFlags: 0
@@ -598,11 +598,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530222627b555dc469f6d4b173996771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeSettings: 3
+  timeSettings: 5
   testManager: {fileID: 711796996}
   isCorrect: 0
   activation: 0
   sfx_warning: {fileID: 8300000, guid: a311af8d30e8248039087421007391e9, type: 3}
+  sfx_correct: {fileID: 8300000, guid: a22b8c429f521429084d616c68dda19a, type: 3}
 --- !u!82 &1046755616
 AudioSource:
   m_ObjectHideFlags: 0
@@ -715,7 +716,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 16.2, y: -51.6}
+  m_AnchoredPosition: {x: 16.2, y: -45.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1116278826
@@ -739,7 +740,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 57cadf1616071f44ba0170602901eb74, type: 3}
-    m_FontSize: 10
+    m_FontSize: 11
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
