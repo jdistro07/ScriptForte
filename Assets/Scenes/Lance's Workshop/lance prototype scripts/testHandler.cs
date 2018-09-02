@@ -36,6 +36,13 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private int questionNumber = 0;
 	[SerializeField] private int playerScore = 0;
 
+	[Header("Timer Components")]
+	[Range(0,30)]
+	public float timeToAdd;
+
+	[Range(0,60)]
+	public float time;
+
 	public bool isCorrect;
 
 	private Text questionText;
@@ -140,6 +147,7 @@ public class testHandler : MonoBehaviour
 					{
 						//correct answer for TF
 						playerScore++;
+						time += timeToAdd;
 						isCorrect = true;
 					}
 					else
@@ -219,6 +227,7 @@ public class testHandler : MonoBehaviour
 					{
 						//correct answer for MC
 						playerScore++;
+						time += timeToAdd;
 						isCorrect = true;
 					}
 					else
@@ -277,6 +286,11 @@ public class testHandler : MonoBehaviour
 				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count + 1);
 			}
 			isCreated = true;
+		}
+
+		//start timer
+		if(time > 0){
+			time = time-Time.deltaTime;
 		}
 	}
 

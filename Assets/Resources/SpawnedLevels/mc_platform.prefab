@@ -815,6 +815,7 @@ GameObject:
   - component: {fileID: 4422125164049920}
   - component: {fileID: 95462482411906438}
   - component: {fileID: 82968781851321770}
+  - component: {fileID: 114896759466684164}
   m_Layer: 0
   m_Name: mc_platform
   m_TagString: Untagged
@@ -6017,6 +6018,8 @@ MonoBehaviour:
   respawnTrigger: 1
   spawnPoint: {fileID: 4644340216374932}
   answerValue: 
+  testManagerObject: {fileID: 0}
+  isCorrect: 0
 --- !u!114 &114248097461100742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6284,6 +6287,8 @@ MonoBehaviour:
   respawnTrigger: 0
   spawnPoint: {fileID: 0}
   answerValue: A
+  testManagerObject: {fileID: 0}
+  isCorrect: 0
 --- !u!114 &114613822783358988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6431,6 +6436,8 @@ MonoBehaviour:
   respawnTrigger: 0
   spawnPoint: {fileID: 0}
   answerValue: C
+  testManagerObject: {fileID: 0}
+  isCorrect: 0
 --- !u!114 &114813064939897184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6486,6 +6493,19 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &114896759466684164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1350449730280400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a7688c9da9363b4e8a6eea7b5476a01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerDisplay: {fileID: 114766644883444206}
+  testPlatformHandler: {fileID: 0}
 --- !u!114 &114902643739888838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6500,6 +6520,8 @@ MonoBehaviour:
   respawnTrigger: 0
   spawnPoint: {fileID: 0}
   answerValue: B
+  testManagerObject: {fileID: 0}
+  isCorrect: 0
 --- !u!114 &114903220178345508
 MonoBehaviour:
   m_ObjectHideFlags: 1

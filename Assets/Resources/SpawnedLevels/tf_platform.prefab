@@ -1444,6 +1444,7 @@ GameObject:
   - component: {fileID: 4398065485721736}
   - component: {fileID: 95452681809644260}
   - component: {fileID: 82551286719884914}
+  - component: {fileID: 114704243955968114}
   m_Layer: 0
   m_Name: tf_platform
   m_TagString: Untagged
@@ -5382,6 +5383,8 @@ MonoBehaviour:
   respawnTrigger: 0
   spawnPoint: {fileID: 0}
   answerValue: T
+  testManagerObject: {fileID: 0}
+  isCorrect: 0
 --- !u!114 &114517369176050468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5445,6 +5448,21 @@ MonoBehaviour:
   respawnTrigger: 0
   spawnPoint: {fileID: 0}
   answerValue: F
+  testManagerObject: {fileID: 0}
+  isCorrect: 0
+--- !u!114 &114704243955968114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1988597784872348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a7688c9da9363b4e8a6eea7b5476a01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerDisplay: {fileID: 114344212717011750}
+  testPlatformHandler: {fileID: 0}
 --- !u!114 &114736983493124550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5603,6 +5621,8 @@ MonoBehaviour:
   respawnTrigger: 1
   spawnPoint: {fileID: 4553893367423088}
   answerValue: 
+  testManagerObject: {fileID: 0}
+  isCorrect: 0
 --- !u!114 &114972407377215216
 MonoBehaviour:
   m_ObjectHideFlags: 1
