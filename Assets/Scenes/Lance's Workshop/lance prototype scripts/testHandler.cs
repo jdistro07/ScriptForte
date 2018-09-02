@@ -12,6 +12,7 @@ public class testHandler : MonoBehaviour
 
 	[Header("Game Prefabs")]
 	[SerializeField] private GameObject player;
+	[SerializeField] private GameObject BotAI;
 	[SerializeField] private GameObject testPrefab_TF;
 	[SerializeField] private GameObject testPrefab_MC;
 
@@ -53,8 +54,10 @@ public class testHandler : MonoBehaviour
 	private Vector3 currentObjectSpawnPoint;
 	private Vector3 newObjectSpawnPoint;
 	[SerializeField] private float platformSpawnOffset = 40;
-
 	[SerializeField] private GameObject testPlatform;
+
+	[SerializeField] private int maxBots = 4;
+	private int botCount;
 
 	private void Start()
 	{
@@ -93,6 +96,12 @@ public class testHandler : MonoBehaviour
 		currentObjectSpawnPoint = GameObject.Find ("testPlatform_Spawn_Start").GetComponent<Transform> ().transform.position;
 		currentObjectSpawnPoint.z += platformSpawnOffset;
 		newObjectSpawnPoint.z += platformSpawnOffset;
+
+		if (GameObject.FindWithTag("AI"))
+		{
+			GameObject[] bots = GameObject.FindGameObjectsWithTag ("AI");
+			botCount = bots.Length;
+		}
 
 		if (questionNumber <= (questions.Count - 1))
 		{
@@ -142,7 +151,8 @@ public class testHandler : MonoBehaviour
 					choiceFalse.text = test [4];
 				}
 
-				if(spawnTrigger.answer != null){
+				if(spawnTrigger.answer != null)
+				{
 					if (spawnTrigger.answer == test [5])
 					{
 						//correct answer for TF
@@ -152,6 +162,12 @@ public class testHandler : MonoBehaviour
 					}
 					else
 					{
+						if (botCount < maxBots && spawnTrigger.answer != null)
+						{
+							Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
+							Instantiate (BotAI, target.position, player.transform.rotation);
+						}
+
 						isCorrect = false;
 					}
 				}
@@ -232,6 +248,12 @@ public class testHandler : MonoBehaviour
 					}
 					else
 					{
+						if (botCount < maxBots && spawnTrigger.answer != null)
+						{
+							Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
+							Instantiate (BotAI, target.position, player.transform.rotation);
+						}
+
 						isCorrect = false;
 					}
 				}
@@ -283,7 +305,7 @@ public class testHandler : MonoBehaviour
 				GameObject finalPlatform = GameObject.Find ("platform_end");
 
 				Text Scoring = finalPlatform.transform.Find ("UI Components").Find ("UICanvas").Find("Text").GetComponent<Text> ();
-				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count + 1);
+				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count);
 			}
 			isCreated = true;
 		}

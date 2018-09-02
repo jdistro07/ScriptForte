@@ -613,6 +613,7 @@ MonoBehaviour:
   RaycastRange: 5
   closeIDE: {fileID: 7400000, guid: 05e6f4ec22153f64a807db095dd80338, type: 2}
   canvasObject: {fileID: 223646190714578164}
+  gateInput: {fileID: 0}
 --- !u!114 &114862865922102570
 MonoBehaviour:
   m_ObjectHideFlags: 1
