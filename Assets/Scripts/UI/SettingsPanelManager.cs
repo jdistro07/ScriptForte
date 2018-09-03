@@ -17,6 +17,7 @@ public class SettingsPanelManager : MonoBehaviour {
 
 	private void OnEnable()
 	{
+		Debug.Log(Screen.resolutions);
 		if(SettingsAndControls.IsLoaded()){
 			InputLink.text = SettingsAndControls.Settings.GetString("link");
 			Toggle_Bloom.isOn = SettingsAndControls.Settings.GetBool("bloom");
