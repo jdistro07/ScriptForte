@@ -36,6 +36,8 @@ public class testHandler : MonoBehaviour
 	[Header("Scoring and Miscellaneous")]
 	[SerializeField] private int questionNumber = 0;
 	[SerializeField] private int playerScore = 0;
+	[SerializeField] private GameObject[] bots;
+	[SerializeField] private float botHeightOffset = 10;
 
 	[Header("Timer Components")]
 	[Range(0,30)]
@@ -99,7 +101,7 @@ public class testHandler : MonoBehaviour
 
 		if (GameObject.FindWithTag("AI"))
 		{
-			GameObject[] bots = GameObject.FindGameObjectsWithTag ("AI");
+			bots = GameObject.FindGameObjectsWithTag ("AI");
 			botCount = bots.Length;
 		}
 
@@ -159,13 +161,17 @@ public class testHandler : MonoBehaviour
 						playerScore++;
 						time += timeToAdd;
 						isCorrect = true;
+
+						Destroy (bots [0]);
 					}
 					else
 					{
 						if (botCount < maxBots && spawnTrigger.answer != null)
 						{
 							Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
-							Instantiate (BotAI, target.position, player.transform.rotation);
+							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
+
+							Instantiate (BotAI, position, player.transform.rotation);
 						}
 
 						isCorrect = false;
@@ -245,13 +251,17 @@ public class testHandler : MonoBehaviour
 						playerScore++;
 						time += timeToAdd;
 						isCorrect = true;
+
+						Destroy (bots [0]);
 					}
 					else
 					{
 						if (botCount < maxBots && spawnTrigger.answer != null)
 						{
 							Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
-							Instantiate (BotAI, target.position, player.transform.rotation);
+							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
+
+							Instantiate (BotAI, position, player.transform.rotation);
 						}
 
 						isCorrect = false;
@@ -296,6 +306,11 @@ public class testHandler : MonoBehaviour
 			newObjectSpawnPoint.z += platformSpawnOffset;
 			GameObject endPlatform = GameObject.Find ("Start_End Platform");
 
+			if (GameObject.FindGameObjectWithTag("AI"))
+			{
+				Destroy (bots [0]);
+			}
+
 			if (isCreated == false)
 			{
 				Debug.Log ("Total Score is: " + playerScore);
@@ -311,8 +326,19 @@ public class testHandler : MonoBehaviour
 		}
 
 		//start timer
-		if(time > 0){
+		if(time > 0)
+		{
 			time = time-Time.deltaTime;
+		}
+		else if (time <= 0)
+		{
+			if (botCount < maxBots)
+			{
+				Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
+				Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
+
+				Instantiate (BotAI, position, player.transform.rotation);
+			}
 		}
 	}
 

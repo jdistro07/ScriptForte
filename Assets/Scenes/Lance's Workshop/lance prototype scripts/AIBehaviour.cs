@@ -4,22 +4,83 @@ using UnityEngine;
 
 public class AIBehaviour : MonoBehaviour
 {
-	public GameObject target;
-	public float moveSpeed;
-	public float followOffset;
+	public Transform target;
+	public GameObject projectile;
+	public float projectileSpawnOffset;
+	public float projectileStrength;
+	public float shootInterval;
+	public int moveSpeed;
+	public float hoverHeight;
+	public float hoverStrength;
+	public double maxDistance;
+	public double minDistance;
 
-	private Vector3 targetPos;
-	[SerializeField] private int botCount;
+	private float YPos;
+
+	private Rigidbody rb;
+	private GameObject bullet;
+	private bool fire = true;
+
+	void Start()
+	{
+		rb = GetComponent<Rigidbody> ();
+	}
+
+	void Awake()
+	{
+		YPos = transform.position.y;
+	}
 
 	void Update()
 	{
-		//AI Count
-		GameObject[] bots = GameObject.FindGameObjectsWithTag ("AI");
-		botCount = bots.Length;
+		if (target == null)
+		{
+			if (GameObject.FindGameObjectWithTag ("Player"))
+			{
+				Transform player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
+				target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
+			}
 
-		//Player Targeting
-		target = GameObject.FindWithTag ("Player");
-		targetPos = new Vector3 (target.transform.position.x, transform.position.y, target.transform.position.z);
-		transform.position = Vector3.MoveTowards (transform.position, targetPos, moveSpeed * Time.deltaTime);
+		}
+		else
+		{
+			transform.LookAt (target);
+
+			if (fire == true)
+			{
+				StartCoroutine (shoot ());
+			}
+		}
+	}
+
+	void FixedUpdate()
+	{
+		if (transform.position.y < (YPos + hoverHeight))
+		{
+			rb.AddForce (Vector3.up * hoverStrength);
+		}
+		else if (transform.position.y > (YPos + hoverHeight))
+		{
+			rb.AddForce (Vector3.down * (hoverStrength * 0.75f));
+		}
+
+		if (Vector3.Distance(transform.position, target.position) >= minDistance)
+		{
+			rb.AddRelativeForce(Vector3.forward * moveSpeed);
+		}
+		else if (Vector3.Distance(transform.position, target.position) <= minDistance)
+		{
+			rb.AddRelativeForce (Vector3.back * (moveSpeed / 0.75f));
+		}
+	}
+
+	IEnumerator shoot()
+	{
+		Transform bulletSpawn = transform.Find ("bulletSpawn");
+		bullet = Instantiate (projectile, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+
+		fire = false;
+		yield return new WaitForSeconds (shootInterval);
+		fire = true;
 	}
 }

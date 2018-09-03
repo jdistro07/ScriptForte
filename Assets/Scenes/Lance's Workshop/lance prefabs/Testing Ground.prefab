@@ -1080,10 +1080,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textPath: Assets/Scenes/Lance's Workshop/testing.txt
   player: {fileID: 1629321883996314, guid: 650b2ce1b1535f4428ea490b7011758e, type: 2}
+  BotAI: {fileID: 0}
   testPrefab_TF: {fileID: 1988597784872348, guid: 7964b7738de4fe94caf642e49a25559b,
     type: 2}
   testPrefab_MC: {fileID: 1350449730280400, guid: 3c09976f8b4300b44bfa58b0e8412edc,
     type: 2}
+  DialogPanel: {fileID: 0}
+  DialogTitle: {fileID: 0}
+  DialogMessage: {fileID: 0}
+  DialogIcon: {fileID: 0}
   platSpawnA: {fileID: 0}
   platSpawnB: {fileID: 0}
   platSpawnC: {fileID: 0}
@@ -1092,8 +1097,15 @@ MonoBehaviour:
   questions: []
   test: []
   questionNumber: 0
+  playerScore: 0
+  bots: []
+  botHeightOffset: 10
+  timeToAdd: 0
+  time: 0
+  isCorrect: 0
   platformSpawnOffset: 40
   testPlatform: {fileID: 0}
+  maxBots: 4
 --- !u!114 &114638725031623484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1129,6 +1141,8 @@ MonoBehaviour:
   respawnTrigger: 1
   spawnPoint: {fileID: 4275864902219550}
   answerValue: 
+  testManagerObject: {fileID: 0}
+  isCorrect: 0
 --- !u!222 &222847193405683282
 CanvasRenderer:
   m_ObjectHideFlags: 1
