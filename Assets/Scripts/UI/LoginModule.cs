@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class LoginModule : MonoBehaviour {
 
@@ -10,10 +11,16 @@ public class LoginModule : MonoBehaviour {
 	[SerializeField] string input_username;
 	string input_password;
 
-	[Header("User Credentials")]
-	public string acc_id;
-	public string completeName;
-	public string acc_level;
+	[Header("Login Data Organization Processor")]
+	[SerializeField] string dataString;
+	[SerializeField] string[] splitDataString;
+
+	[Header("User Processed Credentials")]
+	public string userID;
+	public string accountUsername;
+	public string fullName;
+	public string accountLevel;
+	
 
 	[Header("Animation Components")]
 	public AnimationClip loginTransition_Allow;
@@ -30,24 +37,31 @@ public class LoginModule : MonoBehaviour {
 	public bool LoggedIn;
 
 	void Start(){
+
 		loginAnimator = loginCanvas.GetComponent<Animator>();
+
 	}
 
 	public void ClickLogin(){
+
 		// WWW Login Logic
 		link = "http://"+gameObject.GetComponent<GameSettingsManager>().link+"/game_client/client_login.php";
 		input_username = loginCanvas_username.text;
 		input_password = loginCanvas_password.text;
 
 		StartCoroutine(DB_Login(input_username, input_password));
+
 	}
 
 	public void ClickLogout(){
+
 		loginCanvas.SetActive(true);
 		StartCoroutine(enableLogin());
+
 	}
 
 	IEnumerator DB_Login(string username, string password){
+
 		WWWForm form = new WWWForm();
 
 		form.AddField("client_username",username);
@@ -55,38 +69,75 @@ public class LoginModule : MonoBehaviour {
 
 		WWW www = new WWW(link,form);
 
-		//disable button to avoid spam requests
+		//disable button to avoid spam requests and enable if login process has an error
 		loginCanvas_btnLogin.enabled = false;
 
 		Debug.Log("Processing request at "+link);
 		yield return www;
+
+		//split the values. 1 for login 1 for the string data
+		dataString = www.text;
+		splitDataString = dataString.Split(':');
 		
-		if(www.text == "Login granted!"){
-			//Animate and disable canvas to open the main menu
+		if(splitDataString[0] == "Login granted"){
+
+			//Grant login access Animate and disable canvas to open the main menu
 			loginAnimator.SetInteger("LogState", 2);
 			StartCoroutine(disableLogin());
-		}else if(www.text == "Login denied!" || www.text == "No username on the input!" || www.text == "No password on the input!"){
+
+			//set the user credentials
+			userID = CredentialSeperator(splitDataString[1], "ID=");
+			fullName = CredentialSeperator(splitDataString[1], "Name=");
+			accountUsername = CredentialSeperator(splitDataString[1], "Username=");
+			accountLevel = CredentialSeperator(splitDataString[1], "AccountLevel=");
+
+			Debug.Log("Login granted: " + www.text);
+
+		}else if(splitDataString[0] == "Login denied"){
+
 			loginCanvas_btnLogin.enabled = true;
-			Debug.Log("Login failed: "+www.text);
+			Debug.Log("Login denied: " + www.text);
+
 		}else{
+
 			loginCanvas_btnLogin.enabled = true;
-			Debug.Log("Something went wrong: "+www.text);
+			Debug.Log("Something went wrong: " + www.text);
+
 		}
 	}
 
+	string CredentialSeperator(string data_text, string index_category){
+		
+		//seperate credentials into specific indexes seperated by ":"
+		string processedString = data_text.Substring(data_text.IndexOf(index_category) + index_category.Length);
+		
+		if(processedString.Contains("|")){
+
+			processedString = processedString.Remove(processedString.IndexOf('|'));
+
+		}
+
+		return processedString;
+
+	}
+
 	IEnumerator disableLogin(){
+
 		yield return new WaitForSeconds(loginTransition_Allow.length);
 		loginCanvas.SetActive(false);
 		
 		if(loginCanvas.activeSelf == false){
+
 			LoggedIn = true;
 			Debug.Log("Login confirmed! Launching main menu...");
 
 			mainMenu.SetActive(true);
+
 		}
 	}
 
 	IEnumerator enableLogin(){
+
 		loginAnimator.SetInteger("LogState", 3);
 		mainMenu.SetActive(false);
 		LoggedIn = false;
@@ -95,9 +146,12 @@ public class LoginModule : MonoBehaviour {
 		loginAnimator.SetInteger("LogState", 1);
 		
 		if(loginCanvas_btnLogin.enabled == false){
+
 			//enable login button if disabled
 			loginCanvas_btnLogin.enabled = true;
+
 		}
 		//loginAnimator.SetInteger("LogState", 1);
+
 	}
 }
