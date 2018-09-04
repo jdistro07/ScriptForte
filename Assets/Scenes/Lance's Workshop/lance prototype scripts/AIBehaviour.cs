@@ -5,13 +5,21 @@ using UnityEngine;
 public class AIBehaviour : MonoBehaviour
 {
 	[SerializeField] AudioClip shootSound;
+	[SerializeField] AnimationClip animationDestroyed;
+	[SerializeField] Animator DroneAnimator;
+
+	[Header("Sounds")]
+	[SerializeField] AudioClip SoundDisable;
+	[SerializeField] AudioSource droneAudioSource;
 
 	public Transform target;
 	public GameObject projectile;
 	public float projectileSpawnOffset;
 	public float projectileStrength;
 
-	[SerializeField,Range(2,5)]
+	[SerializeField] GameObject drone;
+
+	[Range(2,5)]
 	public float shootInterval;
 
 	public int moveSpeed;
@@ -28,6 +36,7 @@ public class AIBehaviour : MonoBehaviour
 
 	void Start()
 	{
+		droneAudioSource = drone.GetComponent<AudioSource>();
 		rb = GetComponent<Rigidbody> ();
 	}
 
@@ -82,6 +91,12 @@ public class AIBehaviour : MonoBehaviour
 		}
 	}
 
+	private void OnDestroy()
+	{
+		//play destroyed animation
+		StartCoroutine(destroyed());
+	}
+
 	IEnumerator shoot()
 	{
 		Transform bulletSpawn = transform.Find ("bulletSpawn");
@@ -94,5 +109,21 @@ public class AIBehaviour : MonoBehaviour
 		shootInterval = Random.Range(2,5);
 		yield return new WaitForSeconds (shootInterval);
 		fire = true;
+	}
+
+	IEnumerator destroyed(){
+
+		AudioSource mainAudioSource = gameObject.GetComponent<AudioSource>();
+
+
+		//disable engine sound
+		mainAudioSource.enabled = false;
+		
+		//play disable sound effects
+		droneAudioSource.PlayOneShot(SoundDisable);
+
+		DroneAnimator.SetBool("Alive",false);
+		yield return new WaitForSeconds(animationDestroyed.length);
+
 	}
 }
