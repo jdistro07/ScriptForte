@@ -43,12 +43,11 @@ public class spawnTrigger : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
-			//normal gate trigger
-			answer = answerValue;
-			//close gate
-
-			//player fall respawn trigger
-			if (respawnTrigger == true)
+			if (respawnTrigger == false)
+			{
+				answer = answerValue;
+			}
+			else if (respawnTrigger == true)
 			{
 				Transform player = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
 				player.transform.position = spawnPoint.position;

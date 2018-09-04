@@ -12,6 +12,7 @@ public class testHandler : MonoBehaviour
 
 	[Header("Game Prefabs")]
 	[SerializeField] private GameObject player;
+	[SerializeField] private GameObject BotAI;
 	[SerializeField] private GameObject testPrefab_TF;
 	[SerializeField] private GameObject testPrefab_MC;
 
@@ -35,10 +36,13 @@ public class testHandler : MonoBehaviour
 	[Header("Scoring and Miscellaneous")]
 	[SerializeField] private int questionNumber = 0;
 	[SerializeField] private int playerScore = 0;
+	[SerializeField] private GameObject[] bots;
+	[SerializeField] private float botHeightOffset = 10;
 
 	[Header("Timer Components")]
 	[Range(0,30)]
 	public float timeToAdd;
+	bool isTimeAdded;
 
 	[Range(0,60)]
 	public float time;
@@ -49,12 +53,15 @@ public class testHandler : MonoBehaviour
 
 	private bool firstCreation = true;
 	private bool isCreated = false;
+	private bool botSpawned = false;
 
 	private Vector3 currentObjectSpawnPoint;
 	private Vector3 newObjectSpawnPoint;
 	[SerializeField] private float platformSpawnOffset = 40;
-
 	[SerializeField] private GameObject testPlatform;
+
+	[SerializeField] private int maxBots = 4;
+	private int botCount;
 
 	private void Start()
 	{
@@ -93,6 +100,12 @@ public class testHandler : MonoBehaviour
 		currentObjectSpawnPoint = GameObject.Find ("testPlatform_Spawn_Start").GetComponent<Transform> ().transform.position;
 		currentObjectSpawnPoint.z += platformSpawnOffset;
 		newObjectSpawnPoint.z += platformSpawnOffset;
+
+		if (GameObject.FindWithTag("AI"))
+		{
+			bots = GameObject.FindGameObjectsWithTag ("AI");
+			botCount = bots.Length;
+		}
 
 		if (questionNumber <= (questions.Count - 1))
 		{
@@ -142,16 +155,31 @@ public class testHandler : MonoBehaviour
 					choiceFalse.text = test [4];
 				}
 
-				if(spawnTrigger.answer != null){
+				if(spawnTrigger.answer != null)
+				{
 					if (spawnTrigger.answer == test [5])
 					{
 						//correct answer for TF
 						playerScore++;
 						time += timeToAdd;
 						isCorrect = true;
+						botSpawned = false;
+
+						if (bots.Length > 0)
+						{
+							Destroy (bots [0]);
+						}
 					}
 					else
 					{
+						if (botCount < maxBots && spawnTrigger.answer != null)
+						{
+							Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
+							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
+
+							Instantiate (BotAI, position, player.transform.rotation);
+						}
+
 						isCorrect = false;
 					}
 				}
@@ -229,9 +257,23 @@ public class testHandler : MonoBehaviour
 						playerScore++;
 						time += timeToAdd;
 						isCorrect = true;
+						botSpawned = false;
+
+						if (bots.Length > 0)
+						{
+							Destroy (bots [0]);
+						}
 					}
 					else
 					{
+						if (botCount < maxBots && spawnTrigger.answer != null)
+						{
+							Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
+							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
+
+							Instantiate (BotAI, position, player.transform.rotation);
+						}
+
 						isCorrect = false;
 					}
 				}
@@ -274,6 +316,11 @@ public class testHandler : MonoBehaviour
 			newObjectSpawnPoint.z += platformSpawnOffset;
 			GameObject endPlatform = GameObject.Find ("Start_End Platform");
 
+			if (GameObject.FindGameObjectWithTag("AI"))
+			{
+				Destroy (bots [0]);
+			}
+
 			if (isCreated == false)
 			{
 				Debug.Log ("Total Score is: " + playerScore);
@@ -283,14 +330,36 @@ public class testHandler : MonoBehaviour
 				GameObject finalPlatform = GameObject.Find ("platform_end");
 
 				Text Scoring = finalPlatform.transform.Find ("UI Components").Find ("UICanvas").Find("Text").GetComponent<Text> ();
-				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count + 1);
+				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count);
 			}
 			isCreated = true;
 		}
 
 		//start timer
-		if(time > 0){
+		if(time > 0)
+		{
 			time = time-Time.deltaTime;
+			isTimeAdded = false;
+		}
+		else if (time <= 0)
+		{
+			if (botCount < maxBots && botSpawned == false)
+			{
+				Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
+				Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
+
+				Instantiate (BotAI, position, player.transform.rotation);
+			}
+			botSpawned = true;
+
+			if(isTimeAdded == false){
+
+				// reset time and enable bot spawn again
+				time += 60f;
+				isTimeAdded = true;
+				botSpawned = false;
+
+			}
 		}
 	}
 

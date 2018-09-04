@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ec5cf00ca181d45a42ba1870e148c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: 5
   idecanvas: {fileID: 1046396218943142}
   gateInput: {fileID: 0}
   walkToggle: 0
@@ -613,6 +614,8 @@ MonoBehaviour:
   RaycastRange: 5
   closeIDE: {fileID: 7400000, guid: 05e6f4ec22153f64a807db095dd80338, type: 2}
   canvasObject: {fileID: 223646190714578164}
+  sfx_UIinteractError: {fileID: 0}
+  gateInput: {fileID: 0}
 --- !u!114 &114862865922102570
 MonoBehaviour:
   m_ObjectHideFlags: 1
