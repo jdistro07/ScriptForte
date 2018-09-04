@@ -332,6 +332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4257005917757550}
   - component: {fileID: 114598881035710210}
+  - component: {fileID: 82928445919396464}
   m_Layer: 0
   m_Name: The Testing Ground
   m_TagString: Untagged
@@ -992,6 +993,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &82928445919396464
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1885906479785942}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ca7a9e4a3d02a46a7ac93ffc34907652, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 256
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114079962444427416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1080,10 +1161,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textPath: Assets/Scenes/Lance's Workshop/testing.txt
   player: {fileID: 1629321883996314, guid: 650b2ce1b1535f4428ea490b7011758e, type: 2}
+  BotAI: {fileID: 1033129611683146, guid: 8aadc31d06d66ef4ab1c1bde189d6375, type: 2}
   testPrefab_TF: {fileID: 1988597784872348, guid: 7964b7738de4fe94caf642e49a25559b,
     type: 2}
   testPrefab_MC: {fileID: 1350449730280400, guid: 3c09976f8b4300b44bfa58b0e8412edc,
     type: 2}
+  DialogPanel: {fileID: 0}
+  DialogTitle: {fileID: 0}
+  DialogMessage: {fileID: 0}
+  DialogIcon: {fileID: 0}
   platSpawnA: {fileID: 0}
   platSpawnB: {fileID: 0}
   platSpawnC: {fileID: 0}
@@ -1093,8 +1179,14 @@ MonoBehaviour:
   test: []
   questionNumber: 0
   playerScore: 0
+  bots: []
+  botHeightOffset: 10
+  timeToAdd: 5
+  time: 60
+  isCorrect: 1
   platformSpawnOffset: 40
   testPlatform: {fileID: 0}
+  maxBots: 4
 --- !u!114 &114638725031623484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1130,6 +1222,8 @@ MonoBehaviour:
   respawnTrigger: 1
   spawnPoint: {fileID: 4275864902219550}
   answerValue: 
+  testManagerObject: {fileID: 0}
+  isCorrect: 0
 --- !u!222 &222847193405683282
 CanvasRenderer:
   m_ObjectHideFlags: 1
