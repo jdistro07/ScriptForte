@@ -42,6 +42,7 @@ public class testHandler : MonoBehaviour
 	[Header("Timer Components")]
 	[Range(0,30)]
 	public float timeToAdd;
+	bool isTimeAdded;
 
 	[Range(0,60)]
 	public float time;
@@ -338,6 +339,7 @@ public class testHandler : MonoBehaviour
 		if(time > 0)
 		{
 			time = time-Time.deltaTime;
+			isTimeAdded = false;
 		}
 		else if (time <= 0)
 		{
@@ -349,6 +351,15 @@ public class testHandler : MonoBehaviour
 				Instantiate (BotAI, position, player.transform.rotation);
 			}
 			botSpawned = true;
+
+			if(isTimeAdded == false){
+
+				// reset time and enable bot spawn again
+				time += 60f;
+				isTimeAdded = true;
+				botSpawned = false;
+
+			}
 		}
 	}
 
