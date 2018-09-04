@@ -91,12 +91,6 @@ public class AIBehaviour : MonoBehaviour
 		}
 	}
 
-	private void OnDestroy()
-	{
-		//play destroyed animation
-		StartCoroutine(destroyed());
-	}
-
 	IEnumerator shoot()
 	{
 		Transform bulletSpawn = transform.Find ("bulletSpawn");
@@ -111,7 +105,7 @@ public class AIBehaviour : MonoBehaviour
 		fire = true;
 	}
 
-	IEnumerator destroyed(){
+	public IEnumerator destroyed(){
 
 		AudioSource mainAudioSource = gameObject.GetComponent<AudioSource>();
 
