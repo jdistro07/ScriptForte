@@ -52,6 +52,7 @@ public class testHandler : MonoBehaviour
 
 	private bool firstCreation = true;
 	private bool isCreated = false;
+	private bool botSpawned = false;
 
 	private Vector3 currentObjectSpawnPoint;
 	private Vector3 newObjectSpawnPoint;
@@ -161,8 +162,12 @@ public class testHandler : MonoBehaviour
 						playerScore++;
 						time += timeToAdd;
 						isCorrect = true;
+						botSpawned = false;
 
-						Destroy (bots [0]);
+						if (bots.Length > 0)
+						{
+							Destroy (bots [0]);
+						}
 					}
 					else
 					{
@@ -251,8 +256,12 @@ public class testHandler : MonoBehaviour
 						playerScore++;
 						time += timeToAdd;
 						isCorrect = true;
+						botSpawned = false;
 
-						Destroy (bots [0]);
+						if (bots.Length > 0)
+						{
+							Destroy (bots [0]);
+						}
 					}
 					else
 					{
@@ -332,13 +341,14 @@ public class testHandler : MonoBehaviour
 		}
 		else if (time <= 0)
 		{
-			if (botCount < maxBots)
+			if (botCount < maxBots && botSpawned == false)
 			{
 				Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
 				Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
 
 				Instantiate (BotAI, position, player.transform.rotation);
 			}
+			botSpawned = true;
 		}
 	}
 

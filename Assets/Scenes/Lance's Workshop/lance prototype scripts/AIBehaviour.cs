@@ -64,13 +64,16 @@ public class AIBehaviour : MonoBehaviour
 			rb.AddForce (Vector3.down * (hoverStrength * 0.75f));
 		}
 
-		if (Vector3.Distance(transform.position, target.position) >= minDistance)
+		if (target != null)
 		{
-			rb.AddRelativeForce(Vector3.forward * moveSpeed);
-		}
-		else if (Vector3.Distance(transform.position, target.position) <= minDistance)
-		{
-			rb.AddRelativeForce (Vector3.back * (moveSpeed / 0.75f));
+			if (Vector3.Distance(transform.position, target.position) >= minDistance)
+			{
+				rb.AddRelativeForce(Vector3.forward * moveSpeed);
+			}
+			else if (Vector3.Distance(transform.position, target.position) <= minDistance)
+			{
+				rb.AddRelativeForce (Vector3.back * (moveSpeed / 0.75f));
+			}
 		}
 	}
 
