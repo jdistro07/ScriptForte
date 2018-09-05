@@ -28,7 +28,14 @@ public class bulletBehaviour : MonoBehaviour
 	{
 		if (col.transform.tag == "Player")
 		{
-			Debug.Log ("hit");
+			
+			var playerHealth = GameObject.FindWithTag ("Player").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ();
+
+			// reduce player hp if more than 0 and return to the nearest spawn point
+			if(playerHealth.playerLife > 0){
+				playerHealth.playerLife -= 1;
+			}
+			
 		}
 
 		if (col.transform.tag != "Projectile")

@@ -50,6 +50,13 @@ public class spawnTrigger : MonoBehaviour
 			else if (respawnTrigger == true)
 			{
 				Transform player = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
+				var playerHealth = GameObject.FindWithTag ("Player").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ();
+
+				// reduce player hp if more than 0 and return to the nearest spawn point
+				if(playerHealth.playerLife > 0){
+					playerHealth.playerLife -= 1;
+				}
+
 				player.transform.position = spawnPoint.position;
 			}
 		}

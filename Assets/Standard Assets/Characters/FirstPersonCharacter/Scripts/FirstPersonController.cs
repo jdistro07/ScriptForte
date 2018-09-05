@@ -16,6 +16,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private GameObject idecanvas;
         [SerializeField] private InputField gateInput;
 
+        public int playerLife;
+
         public bool walkToggle;
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;

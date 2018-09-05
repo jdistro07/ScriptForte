@@ -1160,7 +1160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPath: Assets/Scenes/Lance's Workshop/testing.txt
-  player: {fileID: 1629321883996314, guid: 650b2ce1b1535f4428ea490b7011758e, type: 2}
+  player: {fileID: 0}
   BotAI: {fileID: 1033129611683146, guid: 8aadc31d06d66ef4ab1c1bde189d6375, type: 2}
   testPrefab_TF: {fileID: 1988597784872348, guid: 7964b7738de4fe94caf642e49a25559b,
     type: 2}
