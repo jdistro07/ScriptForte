@@ -349,9 +349,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ec5cf00ca181d45a42ba1870e148c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHP: 5
   idecanvas: {fileID: 1621099870564586}
   gateInput: {fileID: 0}
+  playerLife: 5
   walkToggle: 0
   m_IsWalking: 0
   m_WalkSpeed: 5
