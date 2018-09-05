@@ -372,6 +372,10 @@ public class testHandler : MonoBehaviour
 		if (questionNumber >= 2 && notified == false)
 		{
 			GameObject currentPlatform = GameObject.Find("platform_" + questionNumber);
+			Animator animator = currentPlatform.GetComponent<Animator>();
+
+			//under construction
+
 			Debug.Log ("platform_" + (questionNumber - 2) + "can now be removed.");
 		}
 		notified = true;
