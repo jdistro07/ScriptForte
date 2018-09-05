@@ -54,6 +54,7 @@ public class testHandler : MonoBehaviour
 	private bool firstCreation = true;
 	private bool isCreated = false;
 	private bool botSpawned = false;
+	private bool notified = false;
 
 	private Vector3 currentObjectSpawnPoint;
 	private Vector3 newObjectSpawnPoint;
@@ -127,6 +128,8 @@ public class testHandler : MonoBehaviour
 					{
 						testPlatform = (GameObject)Instantiate (testPrefab_TF, newObjectSpawnPoint, transform.localRotation, transform);
 						testPlatform.gameObject.name = "platform_" + questionNumber;
+
+						notified = false;
 					}
 				}
 				isCreated = true;
@@ -174,7 +177,7 @@ public class testHandler : MonoBehaviour
 					{
 						if (botCount < maxBots && spawnTrigger.answer != null)
 						{
-							Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
+							Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
 							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
 
 							Instantiate (BotAI, position, player.transform.rotation);
@@ -219,6 +222,8 @@ public class testHandler : MonoBehaviour
 					{
 						testPlatform = (GameObject)Instantiate (testPrefab_MC, newObjectSpawnPoint, transform.localRotation, transform);
 						testPlatform.gameObject.name = "platform_" + questionNumber;
+
+						notified = false;
 					}
 				}
 				isCreated = true;
@@ -268,7 +273,7 @@ public class testHandler : MonoBehaviour
 					{
 						if (botCount < maxBots && spawnTrigger.answer != null)
 						{
-							Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
+							Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
 							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
 
 							Instantiate (BotAI, position, player.transform.rotation);
@@ -331,6 +336,8 @@ public class testHandler : MonoBehaviour
 
 				Text Scoring = finalPlatform.transform.Find ("UI Components").Find ("UICanvas").Find("Text").GetComponent<Text> ();
 				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count);
+
+				notified = false;
 			}
 			isCreated = true;
 		}
@@ -345,7 +352,8 @@ public class testHandler : MonoBehaviour
 		{
 			if (botCount < maxBots && botSpawned == false)
 			{
-				Transform target = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
+				GameObject currentPlatform = GameObject.Find("platform_" + questionNumber);
+				Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
 				Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
 
 				Instantiate (BotAI, position, player.transform.rotation);
@@ -358,9 +366,15 @@ public class testHandler : MonoBehaviour
 				time += 60f;
 				isTimeAdded = true;
 				botSpawned = false;
-
 			}
 		}
+
+		if (questionNumber >= 2 && notified == false)
+		{
+			GameObject currentPlatform = GameObject.Find("platform_" + questionNumber);
+			Debug.Log ("platform_" + (questionNumber - 2) + "can now be removed.");
+		}
+		notified = true;
 	}
 
 	public void DialogueMessageControl(string title, string message){
