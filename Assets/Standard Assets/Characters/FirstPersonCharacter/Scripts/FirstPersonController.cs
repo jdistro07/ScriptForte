@@ -132,6 +132,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
+        private void LateUpdate()
+        {
+            if(playerLife <= 0){
+
+                //destroy player object
+                Destroy(gameObject);
+
+            }
+        }
+
 
         private void PlayLandingSound()
         {
