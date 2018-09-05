@@ -9,7 +9,6 @@ public class SceneCamera : MonoBehaviour {
 
 	[Header("Values")]
 	[SerializeField] Vector3 RotationOffset;
-	[SerializeField] Quaternion localRotation;
 	[SerializeField] float RotationSpeed;
 	
 	// Update is called once per frame
