@@ -58,12 +58,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Awake()
         {
-            //disable main camera when spawned
-            var mainCamera = GameObject.Find("Main Camera");
-            if(mainCamera.activeSelf){
-                mainCamera.SetActive(false);
-                Debug.Log("Main Camera disabled!");
+            try{
+                //disable main camera when spawned
+                var mainCamera = GameObject.Find("Main Camera");
+                if(mainCamera.activeSelf){
+                    mainCamera.SetActive(false);
+                    Debug.Log("Main Camera disabled!");
+                }
+            }catch{
+                Debug.Log("No Main Camera found!");
             }
+            
         }
 
         // Use this for initialization
