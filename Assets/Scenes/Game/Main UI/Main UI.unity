@@ -550,9 +550,11 @@ MonoBehaviour:
   InputLink: {fileID: 943337494}
   Toggle_Bloom: {fileID: 2031441576}
   Toggle_MotionBlur: {fileID: 1447465053}
+  dropdown_resolution: {fileID: 279561203}
   link: 
   bloom: 0
   motionblur: 0
+  resolutionIndex: 0
 --- !u!1 &233822030
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,13 +795,7 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: Option A
-      m_Image: {fileID: 0}
-    - m_Text: Option B
-      m_Image: {fileID: 0}
-    - m_Text: Option C
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3674,6 +3670,45 @@ MonoBehaviour:
       month: 8
       day: 21
       year: 2018
+  - Name: resolution_index
+    Type: 1
+    _VAL_String:
+      val: Setting Value
+    _VAL_Int:
+      val: 0
+    _VAL_Float:
+      val: 0
+    _VAL_Bool:
+      val: 1
+    _VAL_Color:
+      r: 1
+      g: 1
+      b: 1
+      a: 1
+    _VAL_Vector2:
+      x: 0
+      y: 0
+    _VAL_Vector3:
+      x: 0
+      y: 0
+      z: 0
+    _VAL_Vector4:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    _VAL_Quaternion:
+      x: 0
+      y: 0
+      z: 0
+      w: 1
+    _VAL_DateTime:
+      hour: 15
+      min: 2
+      sec: 7
+      month: 9
+      day: 7
+      year: 2018
   FileName: sfconfig.dat
   CurrentSettings:
     names: []
@@ -3707,9 +3742,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   link: 
   input_username: 
-  acc_id: 
-  completeName: 
-  acc_level: 
+  dataString: 
+  splitDataString: []
+  userID: 
+  accountUsername: 
+  fullName: 
+  accountLevel: 
   loginTransition_Allow: {fileID: 7400000, guid: 580417eb1a997a5488494a01ce24e18b,
     type: 2}
   loginAnimator: {fileID: 0}
@@ -4120,8 +4158,8 @@ MonoBehaviour:
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 1
+    m_MaxSize: 128
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
