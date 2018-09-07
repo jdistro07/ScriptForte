@@ -27,11 +27,15 @@ public class LoginModule : MonoBehaviour {
 	[SerializeField]Animator loginAnimator;
 
 	[Header("Gameobjects")]
-	[SerializeField]GameObject loginCanvas;
-	[SerializeField]GameObject mainMenu;
-	[SerializeField]InputField loginCanvas_username;
-	[SerializeField]InputField loginCanvas_password;
-	[SerializeField]Button loginCanvas_btnLogin;
+	[SerializeField] GameObject loginCanvas;
+	[SerializeField] GameObject mainMenu;
+	[SerializeField] InputField loginCanvas_username;
+	[SerializeField] InputField loginCanvas_password;
+	[SerializeField] Button loginCanvas_btnLogin;
+
+	[Header("Loading Panel")]
+	[SerializeField] GameObject loadingPanel;
+	[SerializeField] Text loadingText;
 
 	[Header("Components")]
 	public bool LoggedIn;
@@ -61,6 +65,9 @@ public class LoginModule : MonoBehaviour {
 	}
 
 	IEnumerator DB_Login(string username, string password){
+
+		loadingPanel.SetActive(true);
+		loadingText.text = "Logging you in...";
 
 		WWWForm form = new WWWForm();
 
@@ -104,6 +111,14 @@ public class LoginModule : MonoBehaviour {
 			Debug.Log("Something went wrong: " + www.text);
 
 		}
+
+
+		// disable loading panel if it's still active after processing any type of request
+		if(loadingPanel.activeSelf == true){
+
+			loadingPanel.SetActive(false);
+
+		}
 	}
 
 	string CredentialSeperator(string data_text, string index_category){
@@ -120,7 +135,7 @@ public class LoginModule : MonoBehaviour {
 		return processedString;
 
 	}
-
+	
 	IEnumerator disableLogin(){
 
 		yield return new WaitForSeconds(loginTransition_Allow.length);
