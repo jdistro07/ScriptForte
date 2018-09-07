@@ -37,6 +37,10 @@ public class LoginModule : MonoBehaviour {
 	[SerializeField] GameObject loadingPanel;
 	[SerializeField] Text loadingText;
 
+	[Header("Message Box")]
+	[SerializeField] GameObject MessageBox;
+	[SerializeField] Text MessageBoxText;
+
 	[Header("Components")]
 	public bool LoggedIn;
 
@@ -103,11 +107,14 @@ public class LoginModule : MonoBehaviour {
 		}else if(splitDataString[0] == "Login denied"){
 
 			loginCanvas_btnLogin.enabled = true;
+			messagePrompt("Username/Password does not exist in the database!", 1);
+
 			Debug.Log("Login denied: " + www.text);
 
 		}else{
 
 			loginCanvas_btnLogin.enabled = true;
+			messagePrompt("Something went wrong communicating with the server.", 3);
 			Debug.Log("Something went wrong: " + www.text);
 
 		}
@@ -135,7 +142,39 @@ public class LoginModule : MonoBehaviour {
 		return processedString;
 
 	}
-	
+
+	public void messagePrompt(string message, int prompType){
+
+		MessageBox.SetActive(true);
+		var messageBoxController = MessageBox.GetComponent<MessageBoxController>();
+
+		switch(prompType){
+			case 1:
+
+			// send warning signal
+			messageBoxController.warning = true;
+			break;
+
+			case 2:
+
+			// send information signal
+			messageBoxController.information = true;
+			break;
+
+			default:
+			
+			// set warning and information to false to default the signal with error
+			messageBoxController.information = false;
+			messageBoxController.warning = false;
+			break;
+
+		}
+
+		//display the message
+		MessageBoxText.text = message;
+
+	}
+
 	IEnumerator disableLogin(){
 
 		yield return new WaitForSeconds(loginTransition_Allow.length);
