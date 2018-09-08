@@ -552,7 +552,7 @@ MonoBehaviour:
   Toggle_MotionBlur: {fileID: 1447465053}
   dropdown_resolution: {fileID: 279561203}
   link: 
-  bloom: 0
+  bloom: 1
   motionblur: 0
   resolutionIndex: 0
 --- !u!1 &233822030
@@ -1288,6 +1288,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 242795681}
         m_MethodName: onClickOK
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1456857081}
+        m_MethodName: sfxClose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
