@@ -58,6 +58,11 @@ public class SettingsPanelManager : MonoBehaviour {
 		SettingsAndControls.Settings.SetSetting("resolution_index", new SACInt(resolutionIndex), Setting.SettingType.INTEGER);
 		SettingsAndControls.Save();
 
+
+		//display messagebox from login module
+		LoginModule loginModule = GameObject.FindGameObjectWithTag("GameController").GetComponent<LoginModule>();
+		loginModule.messagePrompt("Settings has been changed successfully",2);
+
 	}
 
 }
