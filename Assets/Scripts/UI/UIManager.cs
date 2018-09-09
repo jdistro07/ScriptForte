@@ -17,34 +17,45 @@ public class UIManager : MonoBehaviour {
 	public AudioClip closeSfx;
 	public AudioClip specialSfx;
 
-	//universal methods
+	// sound effects UI
 	public void sfxOpen(){
+
 		UIAudioSource.PlayOneShot(openSfx);
+
 	}
 
 	public void sfxClose(){
+
 		UIAudioSource.PlayOneShot(closeSfx);
+
 	}
 
 	public void sfxSpecial(){
+
 		UIAudioSource.PlayOneShot(specialSfx);
+
 	}
-	//universal methods END
 
 	//universal methods
 	public void OpengameSettings(){
+
 		loginPanel.SetActive(false);
 		gameSettingsPanel.SetActive(true);
+
 	}
 
 	public void ClosegameSettings(){
+
 		var loginCheck = this.GetComponent<LoginModule>();
 
 		if(!loginCheck.LoggedIn){
+
 			loginPanel.SetActive(true);
+			
 		}
 		
 		gameSettingsPanel.SetActive(false);
+
 	}
 	//universal methods END
 	

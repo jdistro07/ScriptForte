@@ -50,6 +50,15 @@ public class LoginModule : MonoBehaviour {
 
 	}
 
+	private void OnEnable()
+	{
+
+		//set LoggedIn state to false every time this is enabled
+		LoggedIn = false;
+		Debug.Log("Log state: "+LoggedIn);
+
+	}
+
 	public void ClickLogin(){
 
 		// WWW Login Logic
@@ -101,6 +110,9 @@ public class LoginModule : MonoBehaviour {
 			fullName = CredentialSeperator(splitDataString[1], "Name=");
 			accountUsername = CredentialSeperator(splitDataString[1], "Username=");
 			accountLevel = CredentialSeperator(splitDataString[1], "AccountLevel=");
+
+			//make LogginState to true
+			LoggedIn = true;
 
 			Debug.Log("Login granted: " + www.text);
 
