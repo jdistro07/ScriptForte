@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class testHandler : MonoBehaviour
 {
 	[Header("Test Questionaire File Path")]
-	[SerializeField] private string textPath = "Assets/Scenes/Lance's Workshop/testing.txt";
+	[SerializeField] private GameObject GameController;
+	[SerializeField] private string questionsFetch;
 
 	[Header("Game Prefabs")]
 	[SerializeField] private GameObject player;
@@ -66,11 +67,6 @@ public class testHandler : MonoBehaviour
 
 	private void Start()
 	{
-		if (!File.Exists(textPath))
-		{
-			File.Create (textPath);
-		}
-
 		GameObject playerFind = GameObject.Find ("FPSController");
 		Vector3 playerSpawn = GameObject.Find ("PlayerSpawn").GetComponent<Transform> ().position;
 		Quaternion playerRotation = GameObject.Find ("PlayerSpawn").GetComponent<Transform> ().rotation;
@@ -83,17 +79,17 @@ public class testHandler : MonoBehaviour
 
 	private void Awake()
 	{
-		if (File.Exists(textPath))
-		{
-			string line;
-			StreamReader stream = new StreamReader(textPath);
-			while ((line = stream.ReadLine()) != null)
-			{
-				questions.Add(line);
-			}
+		GameController = GameObject.FindGameObjectWithTag("GameController");
+		questionsFetch = GameController.GetComponent<DBContentProcessor> ().questionData;
 
-			stream.Close();
+		test = questionsFetch.Split (new String[] {"~"}, StringSplitOptions.RemoveEmptyEntries);
+
+		for (int x = 0; x < test.Length; x++)
+		{
+			questions.Add (test [x]);
 		}
+
+		Debug.Log ("total number of questions added: " + questions.Count);
 	}
 
 	private void Update()
