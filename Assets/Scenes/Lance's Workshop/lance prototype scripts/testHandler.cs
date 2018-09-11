@@ -34,11 +34,17 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private List<String> questions;
 	[SerializeField] private string[] test;
 
-	[Header("Scoring and Miscellaneous")]
+	[Header("Scoring")]
 	[SerializeField] private int questionNumber = 0;
-	[SerializeField] private int playerScore = 0;
+	[SerializeField] private double totalQuestions;
+	[SerializeField] private double playerScore = 0;
+	[SerializeField] private double scoreAverage;
+
+	[Header("AI")]
 	[SerializeField] private GameObject[] bots;
 	[SerializeField] private float botHeightOffset = 10;
+	[SerializeField] private int maxBots = 4;
+	private int botCount;
 
 	[Header("Timer Components")]
 	[Range(0,30)]
@@ -57,13 +63,12 @@ public class testHandler : MonoBehaviour
 	private bool botSpawned = false;
 	private bool notified = false;
 
+	[Header("Miscellaneous")]
 	private Vector3 currentObjectSpawnPoint;
 	private Vector3 newObjectSpawnPoint;
 	[SerializeField] private float platformSpawnOffset = 40;
 	[SerializeField] private GameObject testPlatform;
-
-	[SerializeField] private int maxBots = 4;
-	private int botCount;
+	[SerializeField] private GameObject closest;
 
 	private void Start()
 	{
@@ -90,6 +95,7 @@ public class testHandler : MonoBehaviour
 		}
 
 		Debug.Log ("total number of questions added: " + questions.Count);
+		totalQuestions = questions.Count;
 	}
 
 	private void Update()
@@ -97,6 +103,8 @@ public class testHandler : MonoBehaviour
 		currentObjectSpawnPoint = GameObject.Find ("testPlatform_Spawn_Start").GetComponent<Transform> ().transform.position;
 		currentObjectSpawnPoint.z += platformSpawnOffset;
 		newObjectSpawnPoint.z += platformSpawnOffset;
+
+		EnableFallTrigger ();
 
 		if (GameObject.FindWithTag("AI"))
 		{
@@ -183,14 +191,17 @@ public class testHandler : MonoBehaviour
 					}
 				}
 
+				GameObject trigT = GameObject.Find("Spawn Trigger T");
+				GameObject trigF = GameObject.Find("Spawn Trigger F");
+
 				if (spawnTrigger.answer == "T")
 				{
 					Debug.Log ("Answered T");
 					newObjectSpawnPoint = platSpawnT.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
-					GameObject trigT = GameObject.Find("Spawn Trigger T");
 					Destroy(trigT);
+					Destroy(trigF);
 					isCreated = false;
 				}
 				else if (spawnTrigger.answer == "F")
@@ -199,7 +210,7 @@ public class testHandler : MonoBehaviour
 					newObjectSpawnPoint = platSpawnF.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
-					GameObject trigF = GameObject.Find("Spawn Trigger F");
+					Destroy(trigT);
 					Destroy(trigF);
 					isCreated = false;
 				}
@@ -279,14 +290,19 @@ public class testHandler : MonoBehaviour
 					}
 				}
 
+				GameObject trigA = GameObject.Find("Spawn Trigger A");
+				GameObject trigB = GameObject.Find("Spawn Trigger B");
+				GameObject trigC = GameObject.Find("Spawn Trigger C");
+
 				if (spawnTrigger.answer == "A")
 				{
 					Debug.Log ("Answered A");
 					newObjectSpawnPoint = platSpawnA.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
-					GameObject trigA = GameObject.Find("Spawn Trigger A");
 					Destroy(trigA);
+					Destroy(trigB);
+					Destroy(trigC);
 					isCreated = false;
 				}
 				else if (spawnTrigger.answer == "B")
@@ -295,8 +311,9 @@ public class testHandler : MonoBehaviour
 					newObjectSpawnPoint = platSpawnB.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
-					GameObject trigB = GameObject.Find("Spawn Trigger B");
+					Destroy(trigA);
 					Destroy(trigB);
+					Destroy(trigC);
 					isCreated = false;
 				}
 				else if (spawnTrigger.answer == "C")
@@ -305,9 +322,37 @@ public class testHandler : MonoBehaviour
 					newObjectSpawnPoint = platSpawnC.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
-					GameObject trigC = GameObject.Find("Spawn Trigger C");
+					Destroy(trigA);
+					Destroy(trigB);
 					Destroy(trigC);
 					isCreated = false;
+				}
+			}
+
+			//start timer
+			if(time > 0)
+			{
+				time = time-Time.deltaTime;
+				isTimeAdded = false;
+			}
+			else if (time <= 0)
+			{
+				if (botCount < maxBots && botSpawned == false)
+				{
+					GameObject currentPlatform = GameObject.Find("platform_" + questionNumber);
+					Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
+					Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
+
+					Instantiate (BotAI, position, player.transform.rotation);
+				}
+				botSpawned = true;
+
+				if(isTimeAdded == false){
+
+					// reset time and enable bot spawn again
+					time += 60f;
+					isTimeAdded = true;
+					botSpawned = false;
 				}
 			}
 		}
@@ -331,38 +376,13 @@ public class testHandler : MonoBehaviour
 				GameObject finalPlatform = GameObject.Find ("platform_end");
 
 				Text Scoring = finalPlatform.transform.Find ("UI Components").Find ("UICanvas").Find("Text").GetComponent<Text> ();
-				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count);
+
+				scoreAverage = (playerScore / totalQuestions) * 100;
+				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count) + "\n Score Percentage: \n" + scoreAverage + "%";
 
 				notified = false;
 			}
 			isCreated = true;
-		}
-
-		//start timer
-		if(time > 0)
-		{
-			time = time-Time.deltaTime;
-			isTimeAdded = false;
-		}
-		else if (time <= 0)
-		{
-			if (botCount < maxBots && botSpawned == false)
-			{
-				GameObject currentPlatform = GameObject.Find("platform_" + questionNumber);
-				Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
-				Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
-
-				Instantiate (BotAI, position, player.transform.rotation);
-			}
-			botSpawned = true;
-
-			if(isTimeAdded == false){
-
-				// reset time and enable bot spawn again
-				time += 60f;
-				isTimeAdded = true;
-				botSpawned = false;
-			}
 		}
 
 		if (questionNumber >= 2 && notified == false)
@@ -374,6 +394,30 @@ public class testHandler : MonoBehaviour
 			Debug.Log ("platform_" + (questionNumber - 2) + "can now be removed.");
 		}
 		notified = true;
+	}
+
+	private void EnableFallTrigger()
+	{
+		//This will find the nearest Fall Trigger
+		GameObject[] fallTriggers;
+		fallTriggers = GameObject.FindGameObjectsWithTag ("Fall Trigger");
+		closest = null;
+		float distance = Mathf.Infinity;
+		Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position;
+		foreach (GameObject fallTrigger in fallTriggers)
+		{
+			fallTrigger.GetComponent<BoxCollider> ().enabled = false;
+			fallTrigger.GetComponent<spawnTrigger> ().enabled = false;
+			Vector3 diff = fallTrigger.transform.position - playerPos;
+			float curDistance = diff.sqrMagnitude;
+			if (curDistance < distance)
+			{
+				closest = fallTrigger;
+				distance = curDistance;
+			}
+		}
+		closest.GetComponent<BoxCollider> ().enabled = true;
+		closest.GetComponent<spawnTrigger> ().enabled = true;
 	}
 
 	public void DialogueMessageControl(string title, string message){
