@@ -58,5 +58,13 @@ public class UIManager : MonoBehaviour {
 
 	}
 	//universal methods END
+
+	public void OnApplicationQuit(){
+
+		Debug.Log("Application Close");
+		Application.Quit();
+
+
+	}
 	
 }
