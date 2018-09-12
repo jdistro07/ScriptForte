@@ -7,9 +7,15 @@ using UnityEngine.UI;
 
 public class testHandler : MonoBehaviour
 {
-	[Header("Test Questionaire File Path")]
+	[Header("Database Data")]
+	[SerializeField] private string link;
 	[SerializeField] private GameObject GameController;
 	[SerializeField] private string questionsFetch;
+
+	[SerializeField] private string userID;
+	[SerializeField] private string username;
+	[SerializeField] private string testID;
+	[SerializeField] private string rating;
 
 	[Header("Game Prefabs")]
 	[SerializeField] private GameObject player;
@@ -381,6 +387,14 @@ public class testHandler : MonoBehaviour
 				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count) + "\n Score Percentage: \n" + scoreAverage + "%";
 
 				notified = false;
+
+				//Data to be submitted to the database
+				userID = GameController.GetComponent<LoginModule> ().userID;
+				username = GameController.GetComponent<LoginModule> ().accountUsername;
+				testID = GameController.GetComponent<DBContentProcessor> ().testIndexID;
+				rating = scoreAverage.ToString ();
+
+				submitScore (userID, username, testID, rating);
 			}
 			isCreated = true;
 		}
@@ -394,6 +408,18 @@ public class testHandler : MonoBehaviour
 			Debug.Log ("platform_" + (questionNumber - 2) + "can now be removed.");
 		}
 		notified = true;
+	}
+
+	private void submitScore(string sf_userID, string sf_username, string sf_testID, string sf_rating)
+	{
+		WWWForm form = new WWWForm ();
+		form.AddField ("sf_userID", sf_userID);
+		form.AddField ("sf_username", sf_username);
+		form.AddField ("sf_testID", sf_testID);
+		form.AddField ("sf_rating", sf_rating);
+
+		link = "http://" + GameController.GetComponent<GameSettingsManager> ().link + "/game_client/score_submit.php";
+		WWW www = new WWW (link, form);
 	}
 
 	private void EnableFallTrigger()
