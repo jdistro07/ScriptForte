@@ -4,6 +4,7 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
+using System.IO;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -14,6 +15,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         //Modified By Lance
         [SerializeField] private GameObject idecanvas;
         [SerializeField] private InputField gateInput;
+
+        public int playerLife;
 
         public bool walkToggle;
         [SerializeField] private bool m_IsWalking;
@@ -46,10 +49,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_StepCycle;
         private float m_NextStep;
         private bool m_Jumping;
+
+        [Header("Audio")]
         private AudioSource m_AudioSource;
 
         [Header("Customs (Johndel)")]
         bool EnableWalk = true;
+
+        private void Awake()
+        {
+            try{
+                //disable main camera when spawned
+                var mainCamera = GameObject.Find("Main Camera");
+                if(mainCamera.activeSelf){
+                    mainCamera.SetActive(false);
+                    Debug.Log("Main Camera disabled!");
+                }
+            }catch{
+                Debug.Log("No Main Camera found!");
+            }
+            
+        }
 
         // Use this for initialization
         private void Start()
@@ -68,7 +88,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             walkToggle = true;
 
             //Modified by Lance
-            gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
+            try{
+                gateInput = GameObject.FindGameObjectWithTag("UIWS Inputfield").GetComponent<InputField>();
+            }catch(NullReferenceException nre){
+                Debug.Log("No inputfield with set tag: UIWS Inputfield");
+            }
+            
         }
 
 
@@ -109,6 +134,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
 
                 m_PreviouslyGrounded = m_CharacterController.isGrounded;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if(playerLife <= 0){
+
+                //destroy player object
+                Destroy(gameObject);
+
             }
         }
 
@@ -165,8 +200,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_MouseLook.UpdateCursorLock();
         }
-
-
+        
         private void PlayJumpSound()
         {
             if(m_JumpSpeed > 0){

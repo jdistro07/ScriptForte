@@ -9,6 +9,10 @@ TagManager:
   - InputField
   - Feet
   - UIWS Inputfield
+  - Stage Spawn
+  - Gates
+  - AI
+  - Projectile
   layers:
   - Default
   - TransparentFX
