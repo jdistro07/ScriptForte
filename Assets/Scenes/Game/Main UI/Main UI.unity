@@ -2871,7 +2871,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Overall Consistency
+  m_Text: Overall Consistency (%)
 --- !u!222 &890534649
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5228,7 +5228,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 57cadf1616071f44ba0170602901eb74, type: 3}
-    m_FontSize: 8
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -5730,9 +5730,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022c1c2ce2f40424ea67904cb05895d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  user_credential: {fileID: 0}
   fullName: {fileID: 721339349}
   user_grade_or_account_level: {fileID: 750103748}
-  overallConsistency: {fileID: 890534648}
+  overallConsistency: {fileID: 1701282860}
 --- !u!1 &1955309303
 GameObject:
   m_ObjectHideFlags: 0

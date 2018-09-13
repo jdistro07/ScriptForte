@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour {
 
+	[Header("Script Reference")]
+	[SerializeField]LoginModule user_credential;
+
 	[Header("Profile Panel")]
 	[SerializeField] Text fullName;
 	[SerializeField] Text user_grade_or_account_level;
@@ -13,7 +16,8 @@ public class MainMenuController : MonoBehaviour {
 	void OnEnable() {
 
 		// get user credentials
-		LoginModule user_credential = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
+		user_credential = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
+		
 
 		var user_level = int.Parse(user_credential.accountLevel);
 		
@@ -38,7 +42,31 @@ public class MainMenuController : MonoBehaviour {
 
 		}
 
+		StartCoroutine(QueryConsistency());
+
+	}
+
+	IEnumerator QueryConsistency(){
+
 		// get consistency approximation (all scores added together from the DB / the count of the scores)
+		string link = GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>().link+"/game_client/query_consistency.php";
+
+		Debug.Log(link);
+
+		string username = user_credential.accountUsername;
+		string accountID = user_credential.userID;
+
+		WWWForm form = new WWWForm();
+
+		form.AddField("client_username",username);
+		form.AddField("client_user_ID",accountID);
+
+		WWW www = new WWW(link,form);
+
+		yield return www;
+
+		Debug.Log(www.text);
+		overallConsistency.text = www.text+" %";
 
 	}
 
