@@ -351,6 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idecanvas: {fileID: 1621099870564586}
   gateInput: {fileID: 0}
+  maxHealth: 5
   playerLife: 5
   walkToggle: 0
   m_IsWalking: 0

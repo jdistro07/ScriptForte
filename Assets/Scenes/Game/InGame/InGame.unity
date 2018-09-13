@@ -668,6 +668,27 @@ Prefab:
       propertyPath: m_TagString
       value: Fall Trigger
       objectReference: {fileID: 0}
+    - target: {fileID: 114598881035710210, guid: dfc7bdb5d6fc92a4db3c6896d2ec785f,
+        type: 2}
+      propertyPath: maxPlayerHealth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598881035710210, guid: dfc7bdb5d6fc92a4db3c6896d2ec785f,
+        type: 2}
+      propertyPath: healthBox
+      value: 
+      objectReference: {fileID: 1932730573111836, guid: 0ed1b7030bb9e9c4690f28039780f7be,
+        type: 2}
+    - target: {fileID: 114598881035710210, guid: dfc7bdb5d6fc92a4db3c6896d2ec785f,
+        type: 2}
+      propertyPath: healthBox_zOffset
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598881035710210, guid: dfc7bdb5d6fc92a4db3c6896d2ec785f,
+        type: 2}
+      propertyPath: healthBox_yOffset
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dfc7bdb5d6fc92a4db3c6896d2ec785f, type: 2}
   m_IsPrefabParent: 0
