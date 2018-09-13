@@ -664,6 +664,10 @@ Prefab:
       propertyPath: DialogIcon
       value: 
       objectReference: {fileID: 2100892642}
+    - target: {fileID: 1290638755122212, guid: dfc7bdb5d6fc92a4db3c6896d2ec785f, type: 2}
+      propertyPath: m_TagString
+      value: Fall Trigger
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dfc7bdb5d6fc92a4db3c6896d2ec785f, type: 2}
   m_IsPrefabParent: 0
