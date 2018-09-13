@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 114927258219037754}
   m_Layer: 0
   m_Name: Fall Trigger
-  m_TagString: Untagged
+  m_TagString: Fall Trigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1793,7 +1793,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1988597784872348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -79.4543, y: 211.40944, z: 286.62335}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224595368978409352}

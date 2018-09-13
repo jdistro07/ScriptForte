@@ -16,6 +16,6 @@ public class PlatformManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		timerDisplay.text = testPlatformHandler.GetComponent<testHandler>().time.ToString();
+		timerDisplay.text = testPlatformHandler.GetComponent<testHandler>().time.ToString("F1");
 	}
 }
