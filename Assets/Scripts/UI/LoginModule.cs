@@ -20,7 +20,6 @@ public class LoginModule : MonoBehaviour {
 	public string accountUsername;
 	public string fullName;
 	public string accountLevel;
-	public string gradeLevel;
 	
 
 	[Header("Animation Components")]
@@ -29,7 +28,7 @@ public class LoginModule : MonoBehaviour {
 
 	[Header("Gameobjects")]
 	[SerializeField] GameObject loginCanvas;
-	[SerializeField] GameObject profileMenu;
+	[SerializeField] GameObject mainMenu;
 	[SerializeField] InputField loginCanvas_username;
 	[SerializeField] InputField loginCanvas_password;
 	[SerializeField] Button loginCanvas_btnLogin;
@@ -111,7 +110,6 @@ public class LoginModule : MonoBehaviour {
 			fullName = CredentialSeperator(splitDataString[1], "Name=");
 			accountUsername = CredentialSeperator(splitDataString[1], "Username=");
 			accountLevel = CredentialSeperator(splitDataString[1], "AccountLevel=");
-			gradeLevel = CredentialSeperator(splitDataString[1], "Class=");
 
 			//make LogginState to true
 			LoggedIn = true;
@@ -199,8 +197,7 @@ public class LoginModule : MonoBehaviour {
 			LoggedIn = true;
 			Debug.Log("Login confirmed! Launching main menu...");
 
-			//main menu components
-			profileMenu.SetActive(true);
+			mainMenu.SetActive(true);
 
 		}
 	}
@@ -208,11 +205,7 @@ public class LoginModule : MonoBehaviour {
 	IEnumerator enableLogin(){
 
 		loginAnimator.SetInteger("LogState", 3);
-
-		//main menu components
-		profileMenu.SetActive(false);
-
-
+		mainMenu.SetActive(false);
 		LoggedIn = false;
 
 		yield return new WaitForSeconds(loginTransition_Allow.length);
