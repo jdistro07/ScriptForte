@@ -28,7 +28,7 @@ public class LoginModule : MonoBehaviour {
 
 	[Header("Gameobjects")]
 	[SerializeField] GameObject loginCanvas;
-	[SerializeField] GameObject mainMenu;
+	[SerializeField] GameObject profileMenu;
 	[SerializeField] InputField loginCanvas_username;
 	[SerializeField] InputField loginCanvas_password;
 	[SerializeField] Button loginCanvas_btnLogin;
@@ -197,7 +197,8 @@ public class LoginModule : MonoBehaviour {
 			LoggedIn = true;
 			Debug.Log("Login confirmed! Launching main menu...");
 
-			mainMenu.SetActive(true);
+			//main menu components
+			profileMenu.SetActive(true);
 
 		}
 	}
@@ -205,7 +206,11 @@ public class LoginModule : MonoBehaviour {
 	IEnumerator enableLogin(){
 
 		loginAnimator.SetInteger("LogState", 3);
-		mainMenu.SetActive(false);
+
+		//main menu components
+		profileMenu.SetActive(false);
+
+
 		LoggedIn = false;
 
 		yield return new WaitForSeconds(loginTransition_Allow.length);
