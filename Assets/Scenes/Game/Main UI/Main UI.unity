@@ -733,7 +733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &256486765
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2286,7 +2286,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 57cadf1616071f44ba0170602901eb74, type: 3}
-    m_FontSize: 8
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -4610,6 +4610,7 @@ MonoBehaviour:
   accountUsername: 
   fullName: 
   accountLevel: 
+  gradeLevel: 
   loginTransition_Allow: {fileID: 7400000, guid: 580417eb1a997a5488494a01ce24e18b,
     type: 2}
   loginAnimator: {fileID: 0}
@@ -5655,6 +5656,7 @@ GameObject:
   - component: {fileID: 1888017986}
   - component: {fileID: 1888017988}
   - component: {fileID: 1888017987}
+  - component: {fileID: 1888017989}
   m_Layer: 5
   m_Name: ProfilePanel
   m_TagString: Untagged
@@ -5717,6 +5719,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1888017985}
+--- !u!114 &1888017989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1888017985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022c1c2ce2f40424ea67904cb05895d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fullName: {fileID: 721339349}
+  user_grade_or_account_level: {fileID: 750103748}
+  overallConsistency: {fileID: 890534648}
 --- !u!1 &1955309303
 GameObject:
   m_ObjectHideFlags: 0

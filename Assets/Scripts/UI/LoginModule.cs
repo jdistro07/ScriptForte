@@ -20,6 +20,7 @@ public class LoginModule : MonoBehaviour {
 	public string accountUsername;
 	public string fullName;
 	public string accountLevel;
+	public string gradeLevel;
 	
 
 	[Header("Animation Components")]
@@ -110,6 +111,7 @@ public class LoginModule : MonoBehaviour {
 			fullName = CredentialSeperator(splitDataString[1], "Name=");
 			accountUsername = CredentialSeperator(splitDataString[1], "Username=");
 			accountLevel = CredentialSeperator(splitDataString[1], "AccountLevel=");
+			gradeLevel = CredentialSeperator(splitDataString[1], "Class=");
 
 			//make LogginState to true
 			LoggedIn = true;
