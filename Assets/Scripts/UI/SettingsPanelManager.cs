@@ -19,9 +19,8 @@ public class SettingsPanelManager : MonoBehaviour {
 
 	Resolution[] resolutions;
 
-	private void OnEnable()
+	private void Awake()
 	{
-
 		// supply resolution list inside the resolution dropdown menu
 		resolutions = Screen.resolutions;
 
@@ -30,6 +29,10 @@ public class SettingsPanelManager : MonoBehaviour {
 			dropdown_resolution.options.Add(new Dropdown.OptionData(list_resolution.ToString()));
 
 		}
+	}
+
+	private void OnEnable()
+	{	
 
 		// set game configuration values to controls when SeetingAndControls is loaded
 		if(SettingsAndControls.IsLoaded()){
