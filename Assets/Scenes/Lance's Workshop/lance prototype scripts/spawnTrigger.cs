@@ -6,6 +6,7 @@ public class spawnTrigger : MonoBehaviour
 {
 	[Header("Respawn Settings")]
 	[SerializeField] private bool respawnTrigger = false;
+	public bool isActive;
 	[SerializeField] private Transform spawnPoint;
 
 	[Header("Gate Trigger Settings")]
@@ -47,7 +48,7 @@ public class spawnTrigger : MonoBehaviour
 			{
 				answer = answerValue;
 			}
-			else if (respawnTrigger == true)
+			else if (respawnTrigger == true && isActive == true)
 			{
 				Transform player = GameObject.FindWithTag ("Player").GetComponent<Transform> ();
 				var playerHealth = GameObject.FindWithTag ("Player").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ();

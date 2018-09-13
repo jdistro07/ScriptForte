@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.IO;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class testHandler : MonoBehaviour
 {
@@ -20,8 +21,13 @@ public class testHandler : MonoBehaviour
 	[Header("Game Prefabs")]
 	[SerializeField] private GameObject player;
 	[SerializeField] private GameObject BotAI;
+	[SerializeField] private GameObject healthBox;
 	[SerializeField] private GameObject testPrefab_TF;
 	[SerializeField] private GameObject testPrefab_MC;
+
+	[Header("Player")]
+	[SerializeField] private int maxPlayerHealth;
+	[SerializeField] private int playerHealth;
 
 	[Header("Player UI Components")]
 	[SerializeField] GameObject DialogPanel;
@@ -67,6 +73,7 @@ public class testHandler : MonoBehaviour
 	private bool firstCreation = true;
 	private bool isCreated = false;
 	private bool botSpawned = false;
+	private bool healthSpawned = false;
 	private bool notified = false;
 
 	[Header("Miscellaneous")]
@@ -74,13 +81,20 @@ public class testHandler : MonoBehaviour
 	private Vector3 newObjectSpawnPoint;
 	[SerializeField] private float platformSpawnOffset = 40;
 	[SerializeField] private GameObject testPlatform;
+	[SerializeField] private GameObject currentPlatform;
 	[SerializeField] private GameObject closest;
+	[SerializeField] private Transform healthBox_spawn;
+	[SerializeField] private float healthBox_yOffset;
+	private float rand;
+
 
 	private void Start()
 	{
 		GameObject playerFind = GameObject.Find ("FPSController");
 		Vector3 playerSpawn = GameObject.Find ("PlayerSpawn").GetComponent<Transform> ().position;
 		Quaternion playerRotation = GameObject.Find ("PlayerSpawn").GetComponent<Transform> ().rotation;
+
+		GameObject.Find ("Start_End Platform").transform.Find ("UI Components").Find ("UICanvas").gameObject.SetActive(false);
 
 		if (!playerFind)
 		{
@@ -110,6 +124,14 @@ public class testHandler : MonoBehaviour
 		currentObjectSpawnPoint.z += platformSpawnOffset;
 		newObjectSpawnPoint.z += platformSpawnOffset;
 
+		maxPlayerHealth = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ().maxHealth;
+		playerHealth = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ().playerLife;
+
+		if (playerHealth > maxPlayerHealth)
+		{
+			playerHealth = maxPlayerHealth;
+		}
+
 		EnableFallTrigger ();
 
 		if (GameObject.FindWithTag("AI"))
@@ -131,6 +153,7 @@ public class testHandler : MonoBehaviour
 					testPlatform = (GameObject)Instantiate (testPrefab_TF, currentObjectSpawnPoint, transform.localRotation, transform);
 					testPlatform.gameObject.name = "platform_" + questionNumber;
 					firstCreation = false;
+					healthSpawned = false;
 				}
 				else
 				{
@@ -140,11 +163,12 @@ public class testHandler : MonoBehaviour
 						testPlatform.gameObject.name = "platform_" + questionNumber;
 
 						notified = false;
+						healthSpawned = false;
 					}
 				}
 				isCreated = true;
 
-				GameObject currentPlatform = GameObject.Find("platform_" + questionNumber);
+				currentPlatform = GameObject.Find("platform_" + questionNumber);
 
 				platSpawnT = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn T");
 				platSpawnF = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn F");
@@ -228,6 +252,7 @@ public class testHandler : MonoBehaviour
 					testPlatform = (GameObject)Instantiate (testPrefab_MC, currentObjectSpawnPoint, transform.localRotation, transform);
 					testPlatform.gameObject.name = "platform_" + questionNumber;
 					firstCreation = false;
+					healthSpawned = false;
 				}
 				else
 				{
@@ -237,11 +262,12 @@ public class testHandler : MonoBehaviour
 						testPlatform.gameObject.name = "platform_" + questionNumber;
 
 						notified = false;
+						healthSpawned = false;
 					}
 				}
 				isCreated = true;
 
-				GameObject currentPlatform = GameObject.Find("platform_" + questionNumber);
+				currentPlatform = GameObject.Find("platform_" + questionNumber);
 
 				platSpawnA = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn A");
 				platSpawnB = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn B");
@@ -345,7 +371,7 @@ public class testHandler : MonoBehaviour
 			{
 				if (botCount < maxBots && botSpawned == false)
 				{
-					GameObject currentPlatform = GameObject.Find("platform_" + questionNumber);
+					currentPlatform = GameObject.Find("platform_" + questionNumber);
 					Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
 					Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
 
@@ -361,6 +387,24 @@ public class testHandler : MonoBehaviour
 					botSpawned = false;
 				}
 			}
+
+			//randomly spawn healthbox in each platform
+			if (playerHealth < maxPlayerHealth && healthSpawned == false)
+			{
+				rand = UnityEngine.Random.value;
+
+				Debug.Log ("Random value is: " + rand);
+
+				if (rand > 0.5f && healthSpawned == false)
+				{
+					healthBox_spawn = currentPlatform.transform.Find ("HealthSpawn");
+					Vector3 healthSpawn = healthBox_spawn.transform.position;
+					healthSpawn.y += healthBox_yOffset;
+
+					Instantiate (healthBox, healthSpawn, healthBox_spawn.rotation, healthBox_spawn);
+				}
+			}
+			healthSpawned = true;
 		}
 		else if (questionNumber > (questions.Count - 1))
 		{
@@ -380,6 +424,7 @@ public class testHandler : MonoBehaviour
 				testPlatform.gameObject.name = "platform_end";
 
 				GameObject finalPlatform = GameObject.Find ("platform_end");
+				GameObject.Find ("platform_end").transform.Find ("UI Components").Find ("UICanvas").gameObject.SetActive (true);
 
 				Text Scoring = finalPlatform.transform.Find ("UI Components").Find ("UICanvas").Find("Text").GetComponent<Text> ();
 
@@ -401,7 +446,7 @@ public class testHandler : MonoBehaviour
 
 		if (questionNumber >= 2 && notified == false)
 		{
-			GameObject currentPlatform = GameObject.Find("platform_" + questionNumber);
+			currentPlatform = GameObject.Find("platform_" + questionNumber);
 
 			//under construction
 
@@ -432,8 +477,7 @@ public class testHandler : MonoBehaviour
 		Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position;
 		foreach (GameObject fallTrigger in fallTriggers)
 		{
-			fallTrigger.GetComponent<BoxCollider> ().enabled = false;
-			fallTrigger.GetComponent<spawnTrigger> ().enabled = false;
+			fallTrigger.GetComponent<spawnTrigger> ().isActive = false;
 			Vector3 diff = fallTrigger.transform.position - playerPos;
 			float curDistance = diff.sqrMagnitude;
 			if (curDistance < distance)
@@ -442,8 +486,7 @@ public class testHandler : MonoBehaviour
 				distance = curDistance;
 			}
 		}
-		closest.GetComponent<BoxCollider> ().enabled = true;
-		closest.GetComponent<spawnTrigger> ().enabled = true;
+		closest.GetComponent<spawnTrigger> ().isActive = true;
 	}
 
 	public void DialogueMessageControl(string title, string message){
