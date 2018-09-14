@@ -13,7 +13,20 @@ public class MainMenuController : MonoBehaviour {
 	[SerializeField] Text user_grade_or_account_level;
 	[SerializeField] Text overallConsistency;
 
+	[Header("Elements to show upon enable")]
+	[SerializeField] GameObject btnMenuCredits;
+	[SerializeField] GameObject btnMenuTutorial;
+	[SerializeField] GameObject btnMenuLearn;
+
+	[SerializeField] GameObject MenuPanel;
+
 	void OnEnable() {
+
+		//enable main menu
+		btnMenuCredits.SetActive(true);
+		btnMenuTutorial.SetActive(true);
+		btnMenuLearn.SetActive(true);
+		MenuPanel.SetActive(true);
 
 		// get user credentials
 		user_credential = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
@@ -44,6 +57,15 @@ public class MainMenuController : MonoBehaviour {
 
 		StartCoroutine(QueryConsistency());
 
+	}
+
+	private void OnDisable()
+	{
+		//disable main menu
+		btnMenuCredits.SetActive(false);
+		btnMenuTutorial.SetActive(false);
+		btnMenuLearn.SetActive(false);
+		MenuPanel.SetActive(false);
 	}
 
 	IEnumerator QueryConsistency(){
