@@ -142,7 +142,7 @@ public class LoginModule : MonoBehaviour {
 		}
 	}
 
-	string CredentialSeperator(string data_text, string index_category){
+	public string CredentialSeperator(string data_text, string index_category){
 		
 		//seperate credentials into specific indexes seperated by ":"
 		string processedString = data_text.Substring(data_text.IndexOf(index_category) + index_category.Length);
