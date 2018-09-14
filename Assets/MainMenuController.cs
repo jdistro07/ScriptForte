@@ -26,7 +26,6 @@ public class MainMenuController : MonoBehaviour {
 		btnMenuCredits.SetActive(true);
 		btnMenuTutorial.SetActive(true);
 		btnMenuLearn.SetActive(true);
-
 		MenuPanel.SetActive(true);
 
 		// get user credentials
@@ -58,6 +57,15 @@ public class MainMenuController : MonoBehaviour {
 
 		StartCoroutine(QueryConsistency());
 
+	}
+
+	private void OnDisable()
+	{
+		//disable main menu
+		btnMenuCredits.SetActive(false);
+		btnMenuTutorial.SetActive(false);
+		btnMenuLearn.SetActive(false);
+		MenuPanel.SetActive(false);
 	}
 
 	IEnumerator QueryConsistency(){

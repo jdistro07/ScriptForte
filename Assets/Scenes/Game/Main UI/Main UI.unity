@@ -4596,6 +4596,7 @@ GameObject:
   - component: {fileID: 1259923086}
   - component: {fileID: 1259923088}
   - component: {fileID: 1259923087}
+  - component: {fileID: 1259923089}
   m_Layer: 5
   m_Name: MainMenuPanel
   m_TagString: Untagged
@@ -4655,6 +4656,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1259923085}
+--- !u!95 &1259923089
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1259923085}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 09952bb0691c1e94b8b74eb02115c3bf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1294168446
 GameObject:
   m_ObjectHideFlags: 0
@@ -6472,6 +6490,7 @@ GameObject:
   - component: {fileID: 1888017988}
   - component: {fileID: 1888017987}
   - component: {fileID: 1888017989}
+  - component: {fileID: 1888017990}
   m_Layer: 5
   m_Name: ProfilePanel
   m_TagString: Untagged
@@ -6499,7 +6518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -208, y: -88}
+  m_AnchoredPosition: {x: -208, y: 85}
   m_SizeDelta: {x: 89.8, y: 83.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1888017987
@@ -6553,6 +6572,23 @@ MonoBehaviour:
   btnMenuTutorial: {fileID: 816980138}
   btnMenuLearn: {fileID: 381426982}
   MenuPanel: {fileID: 1259923085}
+--- !u!95 &1888017990
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1888017985}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e3002c09c02f802429ce983c9b0d0670, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1955309303
 GameObject:
   m_ObjectHideFlags: 0
