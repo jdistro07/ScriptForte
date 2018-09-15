@@ -280,9 +280,11 @@ GameObject:
   - component: {fileID: 114225251564804550}
   - component: {fileID: 114778377617134830}
   - component: {fileID: 114659786938358442}
+  - component: {fileID: 95239612459971714}
+  - component: {fileID: 114407485527821916}
   m_Layer: 5
   m_Name: panel_test_item
-  m_TagString: Untagged
+  m_TagString: List Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -304,6 +306,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95239612459971714
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1957872012393292}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 11101a3b640c8b345b18f8b21748a734, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114001943008350016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -422,7 +441,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '# [Test ID]'
+  m_Text: 'Test ID: #'
 --- !u!114 &114225251564804550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -555,9 +574,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114474492687754156, guid: 15b886c3a41dc014693decf64810ee5d,
-          type: 2}
-        m_MethodName: sfxOpen
+      - m_Target: {fileID: 0}
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -602,6 +620,23 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '[Rating here (%)]'
+--- !u!114 &114407485527821916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1957872012393292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da69fa13b8042a14b956c81def76aefa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnPost: {fileID: 114601670061286434}
+  btnPre: {fileID: 114315882524291276}
+  txtTestID: {fileID: 114188791033861794}
+  txtPreTestRate: {fileID: 114862421248229840}
+  txtPostTestRate: {fileID: 114353074399084686}
+  credentials: []
 --- !u!114 &114562613276187334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -674,9 +709,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114474492687754156, guid: 15b886c3a41dc014693decf64810ee5d,
-          type: 2}
-        m_MethodName: sfxOpen
+      - m_Target: {fileID: 0}
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -832,7 +866,7 @@ MonoBehaviour:
   m_MinHeight: -1
   m_PreferredWidth: 1200
   m_PreferredHeight: 146
-  m_FlexibleWidth: -1
+  m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
 --- !u!114 &114800934741244568

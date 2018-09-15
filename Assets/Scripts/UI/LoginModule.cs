@@ -8,6 +8,10 @@ public class LoginModule : MonoBehaviour {
 
 	[SerializeField]string link;
 
+	[Header ("Scroll Rect")]
+	[SerializeField] GameObject scrollRectContent;
+	[SerializeField] GameObject[] itemPanels;
+
 	[SerializeField] string input_username;
 	string input_password;
 
@@ -73,8 +77,23 @@ public class LoginModule : MonoBehaviour {
 
 	public void ClickLogout(){
 
+		StartCoroutine(logoutCleanUp());
+
 		loginCanvas.SetActive(true);
 		StartCoroutine(enableLogin());
+
+	}
+
+	IEnumerator logoutCleanUp(){
+
+		itemPanels = GameObject.FindGameObjectsWithTag("List Item");
+		
+		foreach(GameObject items in itemPanels){
+
+			Destroy(items);
+			yield return null;
+
+		}
 
 	}
 

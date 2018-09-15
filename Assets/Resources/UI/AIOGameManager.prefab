@@ -168,6 +168,7 @@ MonoBehaviour:
   loginCanvas_username: {fileID: 0}
   loginCanvas_password: {fileID: 0}
   loginCanvas_btnLogin: {fileID: 0}
+  scrollRectContent: {fileID: 0}
   loadingPanel: {fileID: 0}
   loadingText: {fileID: 0}
   MessageBox: {fileID: 0}
@@ -380,3 +381,4 @@ MonoBehaviour:
   testStringData: 
   testCredentialData: 
   questionData: 
+  testMode: 

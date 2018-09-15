@@ -19,6 +19,9 @@ public class DBContentProcessor : MonoBehaviour {
 	[Header("Question")]
 	public string questionData;
 
+	[Header("Other Values")]
+	public string testMode;
+
 	public void OnClickTest(){
 
 		testIndexID = EventSystem.current.currentSelectedGameObject.name;
@@ -62,6 +65,27 @@ public class DBContentProcessor : MonoBehaviour {
 	public void LevelLoader(string scene_name){
 
 		StartCoroutine(LoadScene(scene_name));
+
+	}
+
+	public void TestMode(string mode){
+
+		switch(mode){
+
+			case "PRE":
+
+			testMode = "PRE";
+			
+			break;
+
+			default:
+
+			testMode = "POST";
+
+			break;
+		}
+
+		Debug.Log("Test Mode: "+testMode);
 
 	}
 

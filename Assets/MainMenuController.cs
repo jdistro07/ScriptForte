@@ -57,15 +57,19 @@ public class MainMenuController : MonoBehaviour {
 
 		StartCoroutine(QueryConsistency());
 
+		
+
 	}
 
 	private void OnDisable()
 	{
+
 		//disable main menu
 		btnMenuCredits.SetActive(false);
 		btnMenuTutorial.SetActive(false);
 		btnMenuLearn.SetActive(false);
 		MenuPanel.SetActive(false);
+		
 	}
 
 	IEnumerator QueryConsistency(){
