@@ -7,6 +7,12 @@ public class LoadingSceneController : MonoBehaviour {
 
 	
 	[Header("UI Controls"),SerializeField] Button start;
+	Animator LoadingCanvasAnimator;
+
+	private void Awake()
+	{
+		LoadingCanvasAnimator = gameObject.GetComponent<Animator>();
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -16,13 +22,15 @@ public class LoadingSceneController : MonoBehaviour {
 
 		start.onClick.AddListener(() => {
 
+			LoadingCanvasAnimator.SetTrigger("fadeOut");
+
 			uiManager.sfxSpecial();
 			dbProcessor.StartGame();
 
 		});
 
-
-
 	}
+
+	
 
 }
