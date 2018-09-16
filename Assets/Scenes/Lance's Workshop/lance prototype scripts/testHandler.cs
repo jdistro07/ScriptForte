@@ -49,9 +49,9 @@ public class testHandler : MonoBehaviour
 
 	[Header("Scoring")]
 	[SerializeField] private int questionNumber = 0;
-	[SerializeField] private double totalQuestions;
-	[SerializeField] private double playerScore = 0;
-	[SerializeField] private double scoreAverage;
+	public double totalQuestions;
+	public double playerScore = 0;
+	public double scoreAverage;
 
 	[Header("AI")]
 	[SerializeField] private GameObject[] bots;
