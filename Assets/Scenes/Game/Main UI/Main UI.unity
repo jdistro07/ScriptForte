@@ -223,6 +223,11 @@ Prefab:
       propertyPath: BypassEffects
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 82969277614951586, guid: 15b886c3a41dc014693decf64810ee5d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 15b886c3a41dc014693decf64810ee5d, type: 2}
   m_IsPrefabParent: 0
@@ -4596,28 +4601,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1071713078}
---- !u!1 &1086495221 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1051189304380748, guid: 15b886c3a41dc014693decf64810ee5d,
-    type: 2}
-  m_PrefabInternal: {fileID: 71146003}
---- !u!95 &1086495222
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1086495221}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fd15874b28545ad4e940ebecf6da25f4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1104003928
 GameObject:
   m_ObjectHideFlags: 0
