@@ -95,4 +95,10 @@ public class DBContentProcessor : MonoBehaviour {
 
 	}
 
+	public void OnClickInGameFinish(){
+
+		Initiate.Fade("Main UI", Color.black, 0.3f);
+
+	}
+
 }
