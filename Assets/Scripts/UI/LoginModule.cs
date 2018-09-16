@@ -8,6 +8,10 @@ public class LoginModule : MonoBehaviour {
 
 	[SerializeField]string link;
 
+	[Header ("Music")]
+	[SerializeField] AudioClip mainTheme;
+	[SerializeField] AudioSource musicAudioSource;
+
 	[Header ("Scroll Rect")]
 	[SerializeField] GameObject scrollRectContent;
 	[SerializeField] GameObject[] itemPanels;
@@ -52,6 +56,7 @@ public class LoginModule : MonoBehaviour {
 	void Start(){
 
 		loginAnimator = loginCanvas.GetComponent<Animator>();
+		StartCoroutine(musicPlay(mainTheme));
 
 	}
 
@@ -81,6 +86,7 @@ public class LoginModule : MonoBehaviour {
 
 		loginCanvas.SetActive(true);
 		StartCoroutine(enableLogin());
+		StartCoroutine(musicPlay(mainTheme));
 
 	}
 
@@ -222,6 +228,13 @@ public class LoginModule : MonoBehaviour {
 			profileMenu.SetActive(true);
 
 		}
+
+		if(LoggedIn == true){
+
+			StartCoroutine(musicPlay(mainTheme));
+
+		}
+
 	}
 
 	IEnumerator enableLogin(){
@@ -244,6 +257,27 @@ public class LoginModule : MonoBehaviour {
 
 		}
 		//loginAnimator.SetInteger("LogState", 1);
+
+	}
+
+	IEnumerator musicPlay(AudioClip audioClip){
+
+		yield return null;
+		if(LoggedIn == true){
+
+			musicAudioSource.PlayOneShot(audioClip);
+
+		}else{
+
+			musicAudioSource.Stop();
+
+		}
+
+	}
+
+	public void themeMusicStop(){
+
+		musicAudioSource.Stop();
 
 	}
 }
