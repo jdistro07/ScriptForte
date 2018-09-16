@@ -18,6 +18,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		public int maxHealth;
         public int playerLife;
+		public Texture2D crosshair;
+		private Rect crosshairPos;
 
         public bool walkToggle;
         [SerializeField] private bool m_IsWalking;
@@ -325,5 +327,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
+
+		private void OnGUI()
+		{
+			float xMin = (Screen.width / 2) - (crosshair.width / 2);
+			float yMin = (Screen.height / 2) - (crosshair.height / 2);
+			GUI.DrawTexture (new Rect (xMin, yMin, crosshair.width, crosshair.height), crosshair);
+		}
     }
 }
