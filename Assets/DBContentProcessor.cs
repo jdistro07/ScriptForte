@@ -57,14 +57,20 @@ public class DBContentProcessor : MonoBehaviour {
 		questionData = seperator[1];
 
 		//load InGame scene after the arrangement process
-		LevelLoader("InGame");
+		//LevelLoader("InGame");
+
+	}
+
+	public void StartGame(){
+
+		Initiate.Fade("InGame", Color.black, .2f);
 
 	}
 
 	//global scene loader
 	public void LevelLoader(string scene_name){
 
-		StartCoroutine(LoadScene(scene_name));
+		Initiate.Fade(scene_name, Color.black, 3f);
 
 	}
 
@@ -89,19 +95,4 @@ public class DBContentProcessor : MonoBehaviour {
 
 	}
 
-	IEnumerator LoadScene(string scene_name){
-
-		AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene_name);
-
-		// debug loading status after a frame and clamp the progress to 1 for scene activation completing the whole loading process
-		while(!asyncOperation.isDone){
-
-			float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
-			Debug.Log(scene_name+" = "+progress);
-
-			yield return null;
-
-		}
-
-	}
 }
