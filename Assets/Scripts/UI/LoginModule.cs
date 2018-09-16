@@ -8,6 +8,10 @@ public class LoginModule : MonoBehaviour {
 
 	[SerializeField]string link;
 
+	[Header ("Scroll Rect")]
+	[SerializeField] GameObject scrollRectContent;
+	[SerializeField] GameObject[] itemPanels;
+
 	[SerializeField] string input_username;
 	string input_password;
 
@@ -73,8 +77,23 @@ public class LoginModule : MonoBehaviour {
 
 	public void ClickLogout(){
 
+		StartCoroutine(logoutCleanUp());
+
 		loginCanvas.SetActive(true);
 		StartCoroutine(enableLogin());
+
+	}
+
+	IEnumerator logoutCleanUp(){
+
+		itemPanels = GameObject.FindGameObjectsWithTag("List Item");
+		
+		foreach(GameObject items in itemPanels){
+
+			Destroy(items);
+			yield return null;
+
+		}
 
 	}
 
@@ -142,7 +161,7 @@ public class LoginModule : MonoBehaviour {
 		}
 	}
 
-	string CredentialSeperator(string data_text, string index_category){
+	public string CredentialSeperator(string data_text, string index_category){
 		
 		//seperate credentials into specific indexes seperated by ":"
 		string processedString = data_text.Substring(data_text.IndexOf(index_category) + index_category.Length);

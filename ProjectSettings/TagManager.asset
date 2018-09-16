@@ -14,6 +14,7 @@ TagManager:
   - AI
   - Projectile
   - Fall Trigger
+  - List Item
   layers:
   - Default
   - TransparentFX
