@@ -1272,6 +1272,17 @@ Prefab:
       propertyPath: DialogIcon
       value: 
       objectReference: {fileID: 2100892642}
+    - target: {fileID: 114598881035710210, guid: dfc7bdb5d6fc92a4db3c6896d2ec785f,
+        type: 2}
+      propertyPath: healthBox
+      value: 
+      objectReference: {fileID: 1316163824198322, guid: 1a481d285b7f80044a0bd755122d972f,
+        type: 2}
+    - target: {fileID: 114598881035710210, guid: dfc7bdb5d6fc92a4db3c6896d2ec785f,
+        type: 2}
+      propertyPath: fetchLimit
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dfc7bdb5d6fc92a4db3c6896d2ec785f, type: 2}
   m_IsPrefabParent: 0

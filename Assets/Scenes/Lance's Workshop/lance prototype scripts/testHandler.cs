@@ -14,7 +14,7 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private string questionsFetch;
 
 	[SerializeField] private string testType;
-	[SerializeField] private float fetchLimit;
+	[SerializeField, Range(0, 100)] private float fetchLimit;
 
 	[SerializeField] private string userID;
 	[SerializeField] private string username;
