@@ -30,8 +30,8 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private GameObject testPrefab_MC;
 
 	[Header("Player")]
-	[SerializeField] private int maxPlayerHealth;
-	[SerializeField] private int playerHealth;
+	[SerializeField] public float maxPlayerHealth;
+	[SerializeField] public float playerHealth;
 
 	[Header("Player UI Components")]
 	[SerializeField] GameObject DialogPanel;
@@ -92,6 +92,7 @@ public class testHandler : MonoBehaviour
 	private float rand;
 
 	private bool playerCheck;
+	TestingGroundMonitor playerCanvas;
 
 
 	private void Start()
@@ -106,6 +107,9 @@ public class testHandler : MonoBehaviour
 		{
 			Instantiate (player, playerSpawn, playerRotation);
 		}
+
+		playerCanvas = GameObject.Find("PlayerUI_Canvas").GetComponent<TestingGroundMonitor>();
+
 	}
 
 	private void Awake()
@@ -162,6 +166,7 @@ public class testHandler : MonoBehaviour
 		}
 
 		EnableFallTrigger ();
+		playerCanvas.updateHP(playerHealth, maxPlayerHealth);
 
 		if (GameObject.FindWithTag("AI"))
 		{
