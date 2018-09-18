@@ -37,6 +37,8 @@ public class PanelTestController : MonoBehaviour {
 		// add functionalities to pre and post buttons
 		btnPost.onClick.AddListener(()=> {
 			
+			loginModule.themeMusicStop();
+
 			ui_Manager.sfxOpen(); 
 			db_processor.TestMode("POST");
 			db_processor.OnClickTest();
@@ -44,6 +46,8 @@ public class PanelTestController : MonoBehaviour {
 			});
 
 		btnPre.onClick.AddListener(()=> {
+		
+			loginModule.themeMusicStop();
 
 			ui_Manager.sfxOpen(); 
 			db_processor.TestMode("PRE");

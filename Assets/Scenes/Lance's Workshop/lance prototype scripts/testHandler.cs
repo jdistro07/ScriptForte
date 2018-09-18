@@ -13,6 +13,9 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private GameObject GameController;
 	[SerializeField] private string questionsFetch;
 
+	[SerializeField] private string testType;
+	[SerializeField, Range(0, 100)] private float fetchLimit;
+
 	[SerializeField] private string userID;
 	[SerializeField] private string username;
 	[SerializeField] private string testID;
@@ -27,8 +30,8 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private GameObject testPrefab_MC;
 
 	[Header("Player")]
-	[SerializeField] private int maxPlayerHealth;
-	[SerializeField] private int playerHealth;
+	[SerializeField] public float maxPlayerHealth;
+	[SerializeField] public float playerHealth;
 
 	[Header("Player UI Components")]
 	[SerializeField] GameObject DialogPanel;
@@ -49,9 +52,9 @@ public class testHandler : MonoBehaviour
 
 	[Header("Scoring")]
 	[SerializeField] private int questionNumber = 0;
-	[SerializeField] private double totalQuestions;
-	[SerializeField] private double playerScore = 0;
-	[SerializeField] private double scoreAverage;
+	public double totalQuestions;
+	public double playerScore = 0;
+	public double scoreAverage;
 
 	[Header("AI")]
 	[SerializeField] private GameObject[] bots;
@@ -88,6 +91,9 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private float healthBox_yOffset;
 	private float rand;
 
+	private bool playerCheck;
+	TestingGroundMonitor playerCanvas;
+
 
 	private void Start()
 	{
@@ -101,18 +107,32 @@ public class testHandler : MonoBehaviour
 		{
 			Instantiate (player, playerSpawn, playerRotation);
 		}
+
+		playerCanvas = GameObject.Find("PlayerUI_Canvas").GetComponent<TestingGroundMonitor>();
+
 	}
 
 	private void Awake()
 	{
 		GameController = GameObject.FindGameObjectWithTag("GameController");
+		testType = GameController.GetComponent<DBContentProcessor> ().testMode;
 		questionsFetch = GameController.GetComponent<DBContentProcessor> ().questionData;
 
 		test = questionsFetch.Split (new String[] {"~"}, StringSplitOptions.RemoveEmptyEntries);
 
-		for (int x = 0; x < test.Length; x++)
+		if (testType == "PRE")
 		{
-			questions.Add (test [x]);
+			for (int x = 0; x < Mathf.Round(test.Length * (fetchLimit / 100)) ; x++)
+			{
+				questions.Add (test [x]);
+			}
+		}
+		else if (testType == "POST")
+		{
+			for (int x = 0; x < test.Length; x++)
+			{
+				questions.Add (test [x]);
+			}
 		}
 
 		Debug.Log ("total number of questions added: " + questions.Count);
@@ -125,8 +145,20 @@ public class testHandler : MonoBehaviour
 		currentObjectSpawnPoint.z += platformSpawnOffset;
 		newObjectSpawnPoint.z += platformSpawnOffset;
 
-		maxPlayerHealth = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ().maxHealth;
-		playerHealth = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ().playerLife;
+		if (GameObject.FindGameObjectWithTag("Player"))
+		{
+			playerCheck = true;
+		}
+		else
+		{
+			playerCheck = false;
+		}
+
+		if (playerCheck == true)
+		{
+			maxPlayerHealth = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ().maxHealth;
+			playerHealth = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ().playerLife;
+		}
 
 		if (playerHealth > maxPlayerHealth)
 		{
@@ -134,6 +166,7 @@ public class testHandler : MonoBehaviour
 		}
 
 		EnableFallTrigger ();
+		playerCanvas.updateHP(playerHealth, maxPlayerHealth);
 
 		if (GameObject.FindWithTag("AI"))
 		{
@@ -363,7 +396,7 @@ public class testHandler : MonoBehaviour
 			}
 
 			//start timer
-			if(time > 0)
+			if(time > 0 && botCount < maxBots && playerCheck == true)
 			{
 				time = time-Time.deltaTime;
 				isTimeAdded = false;
@@ -477,24 +510,27 @@ public class testHandler : MonoBehaviour
 
 	private void EnableFallTrigger()
 	{
-		//This will find the nearest Fall Trigger
-		GameObject[] fallTriggers;
-		fallTriggers = GameObject.FindGameObjectsWithTag ("Fall Trigger");
-		closest = null;
-		float distance = Mathf.Infinity;
-		Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position;
-		foreach (GameObject fallTrigger in fallTriggers)
+		if (playerCheck == true)
 		{
-			fallTrigger.GetComponent<spawnTrigger> ().isActive = false;
-			Vector3 diff = fallTrigger.transform.position - playerPos;
-			float curDistance = diff.sqrMagnitude;
-			if (curDistance < distance)
+			//This will find the nearest Fall Trigger
+			GameObject[] fallTriggers;
+			fallTriggers = GameObject.FindGameObjectsWithTag ("Fall Trigger");
+			closest = null;
+			float distance = Mathf.Infinity;
+			Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position;
+			foreach (GameObject fallTrigger in fallTriggers)
 			{
-				closest = fallTrigger;
-				distance = curDistance;
+				fallTrigger.GetComponent<spawnTrigger> ().isActive = false;
+				Vector3 diff = fallTrigger.transform.position - playerPos;
+				float curDistance = diff.sqrMagnitude;
+				if (curDistance < distance)
+				{
+					closest = fallTrigger;
+					distance = curDistance;
+				}
 			}
+			closest.GetComponent<spawnTrigger> ().isActive = true;
 		}
-		closest.GetComponent<spawnTrigger> ().isActive = true;
 	}
 
 	public void DialogueMessageControl(string title, string message){

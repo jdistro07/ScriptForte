@@ -80,7 +80,7 @@ public class TestListLoader : MonoBehaviour {
 		for(int i = 0; i != tests.Length; i++){
 
 			var item = Instantiate(testItemPrefab) as GameObject;
-			item.transform.parent = ScrollContent.transform;
+			item.transform.SetParent(ScrollContent.transform, false);
 
 			// sperate credentials while LoginModule CredentialSeperator Function
 			// display it to the appropriate text element of each panel

@@ -353,6 +353,7 @@ MonoBehaviour:
   gateInput: {fileID: 0}
   maxHealth: 5
   playerLife: 5
+  crosshair: {fileID: 2800000, guid: f2eff7f9790fe7147a34a2753683d132, type: 3}
   walkToggle: 0
   m_IsWalking: 0
   m_WalkSpeed: 5
