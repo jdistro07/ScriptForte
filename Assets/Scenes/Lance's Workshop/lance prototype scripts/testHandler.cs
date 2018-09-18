@@ -30,8 +30,8 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private GameObject testPrefab_MC;
 
 	[Header("Player")]
-	[SerializeField] private int maxPlayerHealth;
-	[SerializeField] private int playerHealth;
+	[SerializeField] public float maxPlayerHealth;
+	[SerializeField] public float playerHealth;
 
 	[Header("Player UI Components")]
 	[SerializeField] GameObject DialogPanel;
