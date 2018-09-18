@@ -1308,6 +1308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d05249c20ccc646844bb56406a8edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dbContent_Processor: {fileID: 0}
+  uiManager: {fileID: 0}
   btnFinish: {fileID: 114253777460277434}
 --- !u!114 &114540153030321592
 MonoBehaviour:
@@ -1340,6 +1342,8 @@ MonoBehaviour:
   link: 
   GameController: {fileID: 0}
   questionsFetch: 
+  testType: 
+  fetchLimit: 30
   userID: 
   username: 
   testID: 
@@ -1347,7 +1351,7 @@ MonoBehaviour:
   testMode: 
   player: {fileID: 1537339139949136, guid: 5820be5513330ad4e84b8a27a9f0069d, type: 2}
   BotAI: {fileID: 1033129611683146, guid: 8aadc31d06d66ef4ab1c1bde189d6375, type: 2}
-  healthBox: {fileID: 1932730573111836, guid: 0ed1b7030bb9e9c4690f28039780f7be, type: 2}
+  healthBox: {fileID: 1316163824198322, guid: 1a481d285b7f80044a0bd755122d972f, type: 2}
   testPrefab_TF: {fileID: 1988597784872348, guid: 7964b7738de4fe94caf642e49a25559b,
     type: 2}
   testPrefab_MC: {fileID: 1350449730280400, guid: 3c09976f8b4300b44bfa58b0e8412edc,

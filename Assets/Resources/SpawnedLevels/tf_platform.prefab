@@ -1632,13 +1632,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1983761127671996}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0.25, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4398065485721736}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
 --- !u!4 &4207537575017346
 Transform:
   m_ObjectHideFlags: 1
@@ -5410,6 +5410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTrigger: 0
+  isActive: 0
   spawnPoint: {fileID: 0}
   answerValue: T
   testManagerObject: {fileID: 0}
@@ -5475,6 +5476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTrigger: 0
+  isActive: 0
   spawnPoint: {fileID: 0}
   answerValue: F
   testManagerObject: {fileID: 0}
@@ -5648,6 +5650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTrigger: 1
+  isActive: 0
   spawnPoint: {fileID: 4553893367423088}
   answerValue: 
   testManagerObject: {fileID: 0}
