@@ -15,7 +15,6 @@ public class spawnTrigger : MonoBehaviour
 
 	[Header("Gameobject")]
 	[SerializeField] GameObject testManagerObject;
-	TestingGroundMonitor playerCanvas;
 	testHandler testHandler;
 
 	//variables;
@@ -40,7 +39,6 @@ public class spawnTrigger : MonoBehaviour
 	private void Start()
 	{
 		testManagerObject = GameObject.Find("The Testing Ground");
-		playerCanvas = GameObject.Find("PlayerUI_Canvas").GetComponent<TestingGroundMonitor>();
 		testHandler = GameObject.Find("The Testing Ground").GetComponent<testHandler>();
 	}
 
@@ -61,7 +59,6 @@ public class spawnTrigger : MonoBehaviour
 				// reduce player hp if more than 0 and return to the nearest spawn point
 				if(playerHealth.playerLife > 0){
 					playerHealth.playerLife -= 1;
-					playerCanvas.updateHP(testHandler.playerHealth, testHandler.maxPlayerHealth);
 				}
 
 				player.transform.position = spawnPoint.position;

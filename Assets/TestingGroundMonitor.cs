@@ -22,11 +22,6 @@ public class TestingGroundMonitor : MonoBehaviour {
 
 		//display static values on start for optimality
 		totalQuestions.text = testHandler.totalQuestions.ToString();
-
-		// update total HP value
-		hpLevel.fillAmount = 5f;
-
-
 	}
 
 	// Update is called once per frame

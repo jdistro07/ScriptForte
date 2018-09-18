@@ -6,6 +6,8 @@ using UnityEngine.Video;
 
 public class videoPlayer_script : MonoBehaviour
 {
+	public string videoURL;
+
 	public RawImage rawImage;
 	public VideoPlayer videoPlayer;
 	public AudioSource audioSource;
