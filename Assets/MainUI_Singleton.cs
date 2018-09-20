@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainUI_Singleton : MonoBehaviour {
 
 	static MainUI_Singleton instance;
+	[SerializeField] LoginModule loginModule;
 
 	private void Awake()
 	{
@@ -21,7 +22,16 @@ public class MainUI_Singleton : MonoBehaviour {
 
 		}
 
-		
+	}
+
+	private void OnEnable()
+	{
+
+		if(loginModule.LoggedIn){
+
+			StartCoroutine(loginModule.musicPlay(loginModule.mainTheme));
+
+		}
 
 	}
 

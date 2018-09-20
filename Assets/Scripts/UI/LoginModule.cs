@@ -9,7 +9,7 @@ public class LoginModule : MonoBehaviour {
 	[SerializeField]string link;
 
 	[Header ("Music")]
-	[SerializeField] AudioClip mainTheme;
+	public AudioClip mainTheme;
 	[SerializeField] AudioSource musicAudioSource;
 
 	[Header ("Scroll Rect")]
@@ -260,7 +260,7 @@ public class LoginModule : MonoBehaviour {
 
 	}
 
-	IEnumerator musicPlay(AudioClip audioClip){
+	public IEnumerator musicPlay(AudioClip audioClip){
 
 		yield return null;
 		if(LoggedIn == true){
