@@ -414,7 +414,12 @@ namespace SimpleWebBrowser
             //
             lock (_clientSocket.GetStream())
             {
-                _clientSocket.GetStream().Write(b, 0, b.Length);
+                try{
+                    _clientSocket.GetStream().Write(b, 0, b.Length);
+                }catch{
+
+                }
+                
             }
         }
 
