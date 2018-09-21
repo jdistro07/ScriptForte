@@ -149,3 +149,7 @@
 [0921/194815.568:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
 [0921/194815.569:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
 [0921/194815.557:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/220321.681:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0921/220321.682:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0921/220321.682:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0921/220321.682:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
