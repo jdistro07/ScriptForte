@@ -862,3 +862,17 @@
 2018-09-21 23:32:29,928 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
 2018-09-21 23:32:30,183 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:4051e501-535a-45d7-af7d-3476948f2277,port:8850
 2018-09-21 23:33:06,610 [7] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-22 00:16:16,464 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-22 00:16:18,419 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:2d0ace85-0d76-4d03-8f31-dbd553fbb1c9,port:8199
+2018-09-22 00:17:41,429 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-09-22 00:18:26,375 [10] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-22 00:23:40,671 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-22 00:23:41,379 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:951cd962-2cd5-4690-84fa-0e4b740fd468,port:8096
+2018-09-22 00:23:48,055 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-09-22 00:23:48,168 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-09-22 00:23:48,618 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-22 00:23:48,760 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:1280,height:720,url:http://test.webrtc.org,memfile:MainSharedMem,port:8885
+2018-09-22 00:23:51,896 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-09-22 00:23:52,318 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:951cd962-2cd5-4690-84fa-0e4b740fd468,port:8096
+2018-09-22 00:23:58,922 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-09-22 00:24:23,252 [9] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========

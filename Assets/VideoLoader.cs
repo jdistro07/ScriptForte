@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class VideoLoader : MonoBehaviour {
@@ -40,9 +41,17 @@ public class VideoLoader : MonoBehaviour {
 
 		returnedList = www.text.Split(new string[] {"<br>"}, StringSplitOptions.RemoveEmptyEntries);
 
-		foreach(string entry in returnedList){
+		for(int i = 0; i != returnedList.Length; i++){
 
-			Instantiate(videoItemPanel).transform.SetParent(videoContentParent.transform);
+			var item = Instantiate(videoItemPanel) as GameObject;
+			item.transform.SetParent(videoContentParent.transform);
+
+			// set controls
+			Text lessonName = item.transform.GetChild(2).GetChild(0).GetComponent<Text>();
+
+			// display values
+			lessonName.text = returnedList[i].Replace(".mp4", string.Empty);
+
 			yield return null;
 
 		}
