@@ -65,19 +65,25 @@ public class Interact : MonoBehaviour {
                 Debug.Log("Interactable");
                 interactable = true; // interactable object is present!
 
+                //modified testing in standalone is required
                 if (Input.GetMouseButtonDown(0) && interactable)
                 {
-                    holdingGameobject = hit.transform.gameObject;
+                    try{
+                        holdingGameobject = hit.transform.gameObject;
 
-                    //Debug.Log("Mouse 0 pressed");
-                    idecanvas.SetActive(true); //open IDE
-                    isOpen.SetInteger("isOpen", 1);
+                        //Debug.Log("Mouse 0 pressed");
+                        idecanvas.SetActive(true); //open IDE
+                        isOpen.SetInteger("isOpen", 1);
 
-                    inputfield.Select();
-                    inputfield.ActivateInputField();
+                        inputfield.Select();
+                        inputfield.ActivateInputField();
 
-                    //disable player controls
-                    playerController.walkToggle = false;
+                        //disable player controls
+                        playerController.walkToggle = false;
+                    }catch{
+
+                    }
+                    
                 }
             }
 

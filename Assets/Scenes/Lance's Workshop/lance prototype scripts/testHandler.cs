@@ -539,7 +539,7 @@ public class testHandler : MonoBehaviour
 		
 			DialogTitle.text = title;
 			DialogMessage.text = message;
-		}catch(MissingReferenceException mre){
+		}catch{
 		}
 	}
 }
