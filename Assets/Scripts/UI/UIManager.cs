@@ -36,6 +36,13 @@ public class UIManager : MonoBehaviour {
 
 	}
 
+	public void OnClickLearn(){
+
+		Initiate.Fade("learn", Color.black, .3f);
+		gameObject.GetComponent<LoginModule>().themeMusicStop();
+
+	}
+
 	//universal methods
 	public void OpengameSettings(){
 

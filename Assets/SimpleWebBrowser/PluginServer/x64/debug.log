@@ -140,3 +140,12 @@
 [0920/171237.369:WARNING:dns_config_service_win.cc(661)] Failed to read DnsConfig.
 [0920/172503.641:WARNING:spdy_session.cc(2224)] Received HEADERS for invalid stream 1
 [0920/181714.431:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.566:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.571:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.557:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.560:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.559:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.958:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.568:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.569:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.557:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
