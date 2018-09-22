@@ -8,9 +8,10 @@ public class videoPlayer_script : MonoBehaviour
 {
 	public string videoURL;
 
-	[SerializeField] private RawImage rawImage;
-	[SerializeField] private VideoPlayer videoPlayer;
-	[SerializeField] private AudioSource audioSource;
+	private RawImage rawImage;
+	private VideoPlayer videoPlayer;
+	private AudioSource audioSource;
+
 	[SerializeField] private Button playButton;
 	[SerializeField] private Button stopButton;
 	[SerializeField] private Slider seekBar;
@@ -18,8 +19,19 @@ public class videoPlayer_script : MonoBehaviour
 	private float vidLength;
 	private bool isDone = false;
 
+	private void Awake()
+	{
+		
+		// get the components in this same gameobject
+		audioSource = gameObject.GetComponent<AudioSource>();
+		rawImage = gameObject.GetComponent<RawImage>();
+		videoPlayer = gameObject.GetComponent<VideoPlayer>();
+
+	}
+
 	private void Start()
 	{
+
 		playButton.onClick.AddListener (playVideo);
 		stopButton.onClick.AddListener (stopVideo);
 

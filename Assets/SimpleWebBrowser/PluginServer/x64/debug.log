@@ -154,3 +154,11 @@
 [0921/220321.682:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
 [0921/220321.682:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
 [0922/005809.313:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
+[0922/150929.318:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.319:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.320:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.319:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.319:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.319:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.318:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.318:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()

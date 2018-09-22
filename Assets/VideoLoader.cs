@@ -45,6 +45,9 @@ public class VideoLoader : MonoBehaviour {
 
 			var item = Instantiate(videoItemPanel) as GameObject;
 			item.transform.SetParent(videoContentParent.transform);
+			
+			// give the target video to the panel
+			item.GetComponent<item_video>().videoTarget = returnedList[i];
 
 			// set controls
 			Text lessonName = item.transform.GetChild(2).GetChild(0).GetComponent<Text>();
