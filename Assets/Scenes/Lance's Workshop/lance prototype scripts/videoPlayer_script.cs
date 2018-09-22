@@ -21,7 +21,8 @@ public class videoPlayer_script : MonoBehaviour
 	[SerializeField] GameObject viewPort;
 
 	private float vidLength;
-	private bool isDone = false;
+	private bool isSet = false;
+	private bool donePreparing = false;
 
 	private void Awake()
 	{
@@ -43,29 +44,44 @@ public class videoPlayer_script : MonoBehaviour
 			closePlayer();
 			
 			});
-
-		//StartCoroutine (playVideo ());
 	}
 
 	void Update()
 	{
-		if (videoPlayer.url != videoURL && isDone == false)
+		if (videoPlayer.url != videoURL && isSet == false)
 		{
 			statusText.text = "Loading...";
 			Debug.Log("Loading video from server");
 
 			videoPlayer.url = videoURL;
+
+			videoPlayer.Prepare ();
+			donePreparing = false;
+			isSet = true;
+		}
+
+		if (videoPlayer.url != videoURL)
+		{
+			isSet = false;
+		}
+
+		if (!videoPlayer.isPrepared)
+		{
+			statusText.gameObject.SetActive(true);
 			videoPlayer.Prepare ();
 		}
-		isDone = true;
 
-		if (videoPlayer.isPrepared)
+		if (videoPlayer.isPrepared && donePreparing == false)
 		{
 			statusText.gameObject.SetActive(false);
 
 			vidLength = (float)videoPlayer.frameCount / (float)videoPlayer.frameRate;
 			seekBar.minValue = 0;
 			seekBar.maxValue = vidLength;
+			donePreparing = true;
+
+			//Automatically play the video after preparing
+			playVideo ();
 		}
 
 		seekBar.value = (float)videoPlayer.time;
@@ -97,10 +113,8 @@ public class videoPlayer_script : MonoBehaviour
 
 	void stopVideo()
 	{
-		if (!videoPlayer.isPlaying)
-			return;
 		videoPlayer.Stop ();
-		videoPlayer.Prepare ();
+		donePreparing = false;
 	}
 
 	void closePlayer(){
@@ -110,17 +124,4 @@ public class videoPlayer_script : MonoBehaviour
 		viewPort.SetActive(true);
 
 	}
-
-	/*private IEnumerator playVideo()
-	{
-		videoPlayer.Prepare ();
-		while (!videoPlayer.isPrepared)
-		{
-			yield return new WaitForSeconds (2);
-			break;
-		}
-		rawImage.texture = videoPlayer.texture;
-		videoPlayer.Play ();
-		audioSource.Play ();
-	}*/
 }
