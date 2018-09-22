@@ -974,3 +974,25 @@
 2018-09-22 20:37:28,802 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
 2018-09-22 20:37:28,920 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:becad02e-7f5c-41ff-aa22-b80ca338edf4,port:8686
 2018-09-22 20:38:55,086 [7] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-23 02:28:41,355 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-23 02:28:43,577 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:1210b906-06c6-4114-bb64-054d5dc80f56,port:8852
+2018-09-23 02:29:09,825 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-23 02:29:10,919 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:1280,height:720,url:http://test.webrtc.org,memfile:MainSharedMem,port:8885
+2018-09-23 02:29:17,447 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-09-23 02:29:20,808 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-09-23 02:29:33,294 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-23 02:29:33,390 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:2ef433a6-8232-48af-a2e5-cd25d9013b75,port:8635
+2018-09-23 02:31:38,039 [10] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-23 02:41:07,896 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-23 02:41:08,119 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:71122e41-e53c-4f2b-9dd9-f7c28f03a003,port:8777
+2018-09-23 02:41:11,110 [3] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-23 02:41:44,460 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-23 02:41:44,538 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:e2902b8c-4dcf-4e89-a142-257ef0d2bab9,port:8855
+2018-09-23 02:42:03,662 [9] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-23 02:43:58,154 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-23 02:43:58,339 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:3ba8f3e6-bc40-4568-8c93-709bd574cbed,port:8504
+2018-09-23 02:44:13,757 [8] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-23 02:47:03,186 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-23 02:47:03,260 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:96862b0a-cecb-449d-ab80-c5e048b485e3,port:8921
+2018-09-23 02:47:08,200 [3] ERROR SharedPluginServer.Interprocess.SocketServer [(null)] - Exception in receive:The input stream is not a valid binary format. The starting contents (in bytes) are: 65-73-73-61-67-65-4C-69-62-72-61-72-79-2E-4D-6F-75 ...
+2018-09-23 02:47:36,068 [8] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========

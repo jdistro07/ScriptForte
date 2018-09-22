@@ -12,8 +12,13 @@ public class videoPlayer_script : MonoBehaviour
 	private VideoPlayer videoPlayer;
 	private AudioSource audioSource;
 
+	[SerializeField] Sprite sprite_pause;
+	[SerializeField] Sprite sprite_play;
+
+	[SerializeField] private Image icn_playButton;
 	[SerializeField] private Button playButton;
 	[SerializeField] private Button stopButton;
+
 	[SerializeField] private Slider seekBar;
 	[SerializeField] Text statusText;
 
@@ -101,12 +106,18 @@ public class videoPlayer_script : MonoBehaviour
 				rawImage.texture = videoPlayer.texture;
 				videoPlayer.Play ();
 				audioSource.Play ();
+				
+				icn_playButton.sprite = sprite_pause;
+				playButton.image.color = new Color(0, 255, 118, 255);
 			}
 			else if (videoPlayer.isPlaying)
 			{
 				rawImage.texture = videoPlayer.texture;
 				videoPlayer.Pause ();
 				audioSource.Pause ();
+
+				icn_playButton.sprite = sprite_play;
+				playButton.image.color = new Color(199, 255, 255, 255);
 			}
 		}
 	}
