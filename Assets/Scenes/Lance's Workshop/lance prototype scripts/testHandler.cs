@@ -94,7 +94,6 @@ public class testHandler : MonoBehaviour
 	private bool playerCheck;
 	TestingGroundMonitor playerCanvas;
 
-
 	private void Start()
 	{
 		GameObject playerFind = GameObject.Find ("FPSController");

@@ -34,12 +34,12 @@ public class spawnTrigger : MonoBehaviour
 	//GREEN
 	float gr = 0; float gg = 255; float gb = 0; float ga = 255;
 
-
-
 	private void Start()
 	{
+		
 		testManagerObject = GameObject.Find("The Testing Ground");
 		testHandler = GameObject.Find("The Testing Ground").GetComponent<testHandler>();
+
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -75,17 +75,17 @@ public class spawnTrigger : MonoBehaviour
 
 		try{
 			if(!isCorrect){
+
 				dialog.DialogueMessageControl(warning_title,warning_message);
 				dialog.DialogTitle.color = new Color(yr, yg, yb, ya);
-
-				Debug.Log("Incorrect answer.");
+				
 			}else{
+
 				correct_message = correct_message+" "+testManagerObject.GetComponent<testHandler>().timeToAdd;
 				
 				dialog.DialogueMessageControl(correct_title,correct_message);
 				dialog.DialogTitle.color = new Color(gr, gg, gb, ga);
 
-				Debug.Log("Correct answer");
 			}
 		}catch(MissingReferenceException mre){
 			Debug.Log("Canvas required do not exist: "+mre);

@@ -265,13 +265,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2dc7ef2a7be74894e9ef442ca1d3b2c8, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 20
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 15.018013
   MaxDistance: 28.545612
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8771d0d09f77d4e8a2333491df7481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootSound: {fileID: 8300000, guid: 800a06780fc9a26468e7d950432e3d07, type: 3}
+  shootSound: {fileID: 8300000, guid: 1501e3d7d15a040129d93930913a231e, type: 3}
   animationDestroyed: {fileID: 0}
   DroneAnimator: {fileID: 0}
   SoundDisable: {fileID: 0}
