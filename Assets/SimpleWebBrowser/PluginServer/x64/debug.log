@@ -164,3 +164,5 @@
 [0922/150929.318:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
 [0922/164203.130:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
 [0922/165104.145:WARNING:spdy_session.cc(2224)] Received HEADERS for invalid stream 9
+[0922/224111.502:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
+[0922/224130.250:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
