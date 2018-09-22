@@ -94,7 +94,6 @@ public class testHandler : MonoBehaviour
 	private bool playerCheck;
 	TestingGroundMonitor playerCanvas;
 
-
 	private void Start()
 	{
 		GameObject playerFind = GameObject.Find ("FPSController");
@@ -539,7 +538,7 @@ public class testHandler : MonoBehaviour
 		
 			DialogTitle.text = title;
 			DialogMessage.text = message;
-		}catch(MissingReferenceException mre){
+		}catch{
 		}
 	}
 }

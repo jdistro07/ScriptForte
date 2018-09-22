@@ -98,7 +98,7 @@ namespace SimpleWebBrowser
 
 
 
-        private BrowserEngine _mainEngine;
+        public BrowserEngine _mainEngine;
 
 
 

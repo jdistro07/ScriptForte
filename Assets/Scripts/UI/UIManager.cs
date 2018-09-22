@@ -64,6 +64,18 @@ public class UIManager : MonoBehaviour {
 		Debug.Log("Application Close");
 		Application.Quit();
 
+	}
+
+	// scene
+	public void toMainUI(){
+
+		Initiate.Fade("Main UI",Color.black, .2f);
+
+	}
+
+	public void InGame_Retry(){
+
+		Initiate.Fade("InGame",Color.black, .8f);
 
 	}
 	
