@@ -15,6 +15,10 @@ public class videoPlayer_script : MonoBehaviour
 	[SerializeField] private Button playButton;
 	[SerializeField] private Button stopButton;
 	[SerializeField] private Slider seekBar;
+	[SerializeField] Text statusText;
+
+	[Header("UI References")]
+	[SerializeField] GameObject viewPort;
 
 	private float vidLength;
 	private bool isDone = false;
@@ -33,7 +37,12 @@ public class videoPlayer_script : MonoBehaviour
 	{
 
 		playButton.onClick.AddListener (playVideo);
-		stopButton.onClick.AddListener (stopVideo);
+		stopButton.onClick.AddListener (()=>{
+			
+			stopVideo();
+			closePlayer();
+			
+			});
 
 		//StartCoroutine (playVideo ());
 	}
@@ -42,7 +51,9 @@ public class videoPlayer_script : MonoBehaviour
 	{
 		if (videoPlayer.url != videoURL && isDone == false)
 		{
-			Debug.Log("Loading Video");
+			statusText.text = "Loading...";
+			Debug.Log("Loading video from server");
+
 			videoPlayer.url = videoURL;
 			videoPlayer.Prepare ();
 		}
@@ -50,6 +61,8 @@ public class videoPlayer_script : MonoBehaviour
 
 		if (videoPlayer.isPrepared)
 		{
+			statusText.gameObject.SetActive(false);
+
 			vidLength = (float)videoPlayer.frameCount / (float)videoPlayer.frameRate;
 			seekBar.minValue = 0;
 			seekBar.maxValue = vidLength;
@@ -62,6 +75,7 @@ public class videoPlayer_script : MonoBehaviour
 	{
 		if (!videoPlayer.isPrepared)
 		{
+			statusText.text = "Loading...";
 			Debug.Log ("Video is still preparing");
 		}
 		else
@@ -87,6 +101,14 @@ public class videoPlayer_script : MonoBehaviour
 			return;
 		videoPlayer.Stop ();
 		videoPlayer.Prepare ();
+	}
+
+	void closePlayer(){
+
+		// enable viewport and disable the player from player view
+		gameObject.SetActive(false);
+		viewPort.SetActive(true);
+
 	}
 
 	/*private IEnumerator playVideo()
