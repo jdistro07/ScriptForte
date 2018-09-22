@@ -18,8 +18,10 @@ public class videoPlayer_script : MonoBehaviour
 	[SerializeField] private Image icn_playButton;
 	[SerializeField] private Button playButton;
 	[SerializeField] private Button stopButton;
+	[SerializeField] private Button fullscreenButton;
 
 	[SerializeField] private Slider seekBar;
+	[SerializeField] private Slider slider_volume;
 	[SerializeField] Text statusText;
 
 	[Header("UI References")]
@@ -28,6 +30,7 @@ public class videoPlayer_script : MonoBehaviour
 	private float vidLength;
 	private bool isSet = false;
 	private bool donePreparing = false;
+	bool isFullscreen = false;
 
 	private void Awake()
 	{
@@ -43,12 +46,24 @@ public class videoPlayer_script : MonoBehaviour
 	{
 
 		playButton.onClick.AddListener (playVideo);
+
 		stopButton.onClick.AddListener (()=>{
 			
 			stopVideo();
 			closePlayer();
 			
 			});
+
+		fullscreenButton.onClick.AddListener(()=>{
+
+			fullscreen();
+
+		});
+	}
+
+	private void OnEnable()
+	{
+		slider_volume.value = audioSource.volume;
 	}
 
 	void Update()
@@ -90,6 +105,8 @@ public class videoPlayer_script : MonoBehaviour
 		}
 
 		seekBar.value = (float)videoPlayer.time;
+
+		audioSource.volume = slider_volume.value;
 	}
 
 	void playVideo()
@@ -133,6 +150,33 @@ public class videoPlayer_script : MonoBehaviour
 		// enable viewport and disable the player from player view
 		gameObject.SetActive(false);
 		viewPort.SetActive(true);
+
+	}
+
+	void fullscreen(){
+
+		if(!isFullscreen){
+
+			var camera = GameObject.Find("Main Camera");
+			var fullscreenPlayer = camera.AddComponent<UnityEngine.Video.VideoPlayer>();
+
+			videoPlayer.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
+
+			isFullscreen = true;
+
+			Debug.Log("Fullscreen");
+
+		}else{
+
+			var camera = GameObject.Find("Main Camera");
+			Destroy(camera.GetComponent<VideoPlayer>());
+
+			videoPlayer.renderMode = VideoRenderMode.RenderTexture;
+			isFullscreen = false;
+
+			Debug.Log("Not fullscreen");
+
+		}
 
 	}
 }
