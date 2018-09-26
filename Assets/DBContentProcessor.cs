@@ -70,7 +70,7 @@ public class DBContentProcessor : MonoBehaviour {
 	//global scene loader
 	public void LevelLoader(string scene_name){
 
-		Initiate.Fade(scene_name, Color.black, .5f);
+		Initiate.Fade(scene_name, Color.black, 3f);
 
 	}
 

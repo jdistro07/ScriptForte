@@ -9,6 +9,9 @@ public class InGameHelper : MonoBehaviour {
 	public AudioClip intenseTheme;
 	public AudioClip calmTheme;
 
+	[Header("SFX")]
+	public AudioClip crashSFX;
+
 	// Use this for initialization
 	void Awake () {
 		
