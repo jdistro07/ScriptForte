@@ -16,11 +16,11 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private string testType;
 	[SerializeField, Range(0, 100)] private float fetchLimit;
 
-	[SerializeField] private string userID;
+	/*[SerializeField] private string userID;
 	[SerializeField] private string username;
 	[SerializeField] private string testID;
 	[SerializeField] private string rating;
-	[SerializeField] private string testMode;
+	[SerializeField] private string testMode;*/
 
 	[Header("Game Prefabs")]
 	[SerializeField] private GameObject player;
@@ -101,6 +101,7 @@ public class testHandler : MonoBehaviour
 		Quaternion playerRotation = GameObject.Find ("PlayerSpawn").GetComponent<Transform> ().rotation;
 
 		GameObject.Find ("Start_End Platform").transform.Find ("UI Components").Find ("UICanvas").gameObject.SetActive(false);
+		GameObject.Find ("Start_End Platform").transform.Find ("sceneTrigger").gameObject.SetActive (false);
 
 		if (!playerFind)
 		{
@@ -458,6 +459,7 @@ public class testHandler : MonoBehaviour
 
 				GameObject finalPlatform = GameObject.Find ("platform_end");
 				GameObject.Find ("platform_end").transform.Find ("UI Components").Find ("UICanvas").gameObject.SetActive (true);
+				GameObject.Find ("platform_end").transform.Find ("sceneTrigger").gameObject.SetActive (true);
 
 				Text Scoring = finalPlatform.transform.Find ("UI Components").Find ("UICanvas").Find("Text").GetComponent<Text> ();
 
@@ -466,7 +468,7 @@ public class testHandler : MonoBehaviour
 
 				notified = false;
 
-				//Data to be submitted to the database
+				/*Data to be submitted to the database
 				userID = GameController.GetComponent<LoginModule> ().userID;
 				username = GameController.GetComponent<LoginModule> ().accountUsername;
 				testID = GameController.GetComponent<DBContentProcessor> ().testIndexID;
@@ -474,7 +476,7 @@ public class testHandler : MonoBehaviour
 				testMode = GameController.GetComponent<DBContentProcessor> ().testMode;
 
 
-				StartCoroutine(submitScore (userID, username, testID, rating, testMode));
+				StartCoroutine(submitScore (userID, username, testID, rating, testMode));*/
 			}
 			isCreated = true;
 		}
@@ -490,7 +492,7 @@ public class testHandler : MonoBehaviour
 		notified = true;
 	}
 
-	IEnumerator submitScore(string sf_userID, string sf_username, string sf_testID, string sf_rating, string sf_testMode)
+	/*IEnumerator submitScore(string sf_userID, string sf_username, string sf_testID, string sf_rating, string sf_testMode)
 	{
 		WWWForm form = new WWWForm ();
 		form.AddField ("sf_userID", sf_userID);
@@ -505,7 +507,7 @@ public class testHandler : MonoBehaviour
 		yield return www;
 
 		Debug.Log(www.text);
-	}
+	}*/
 
 	private void EnableFallTrigger()
 	{
