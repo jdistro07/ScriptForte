@@ -33,6 +33,11 @@ public class videoPlayer_script : MonoBehaviour
 	private bool donePreparing = false;
 	bool isFullscreen = false;
 
+	//Video rawImage canvas settings
+	private Vector2 originalPosition;
+	private float originalWidth;
+	private float originalHeight;
+
 	private void Start()
 	{
 		playButton.onClick.AddListener (playVideo);
@@ -55,6 +60,9 @@ public class videoPlayer_script : MonoBehaviour
 		rawImage = gameObject.GetComponent<RawImage>();
 		videoPlayer = gameObject.GetComponent<VideoPlayer>();
 
+		originalPosition = new Vector2 (transform.position.x, transform.position.y);
+		originalWidth = rawImage.rectTransform.rect.width;
+		originalHeight = rawImage.rectTransform.rect.height;
 	}
 		
 	private void OnEnable()
@@ -92,15 +100,11 @@ public class videoPlayer_script : MonoBehaviour
 			statusText.gameObject.SetActive(false);
 
 			vidLength = (float)videoPlayer.frameCount / (float)videoPlayer.frameRate;
-			//seekBar.minValue = 0;
-			//seekBar.maxValue = vidLength;
 			donePreparing = true;
 
 			//Automatically play the video after preparing
 			playVideo ();
 		}
-
-		//seekBar.value = (float)videoPlayer.time;
 
 		audioSource.volume = slider_volume.value;
 	}
@@ -154,10 +158,8 @@ public class videoPlayer_script : MonoBehaviour
 
 		if(!isFullscreen)
 		{
-			Camera camera = GameObject.Find ("Main Camera").GetComponent<Camera> ();
-			videoPlayer.targetCamera = camera;
-
-			videoPlayer.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
+			transform.position = new Vector2(Screen.width / 2, Screen.height/ 2);
+			rawImage.rectTransform.sizeDelta = new Vector2 (Screen.width, Screen.height);
 
 			isFullscreen = true;
 
@@ -166,7 +168,9 @@ public class videoPlayer_script : MonoBehaviour
 		}
 		else
 		{
-			videoPlayer.renderMode = VideoRenderMode.RenderTexture;
+			transform.position = originalPosition;
+			rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
+
 			isFullscreen = false;
 
 			Debug.Log("Not fullscreen");
