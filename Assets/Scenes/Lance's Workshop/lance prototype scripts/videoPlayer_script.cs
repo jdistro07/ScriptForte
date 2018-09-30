@@ -54,7 +54,6 @@ public class videoPlayer_script : MonoBehaviour
 
 	private void Awake()
 	{
-		
 		// get the components in this same gameobject
 		audioSource = gameObject.GetComponent<AudioSource>();
 		rawImage = gameObject.GetComponent<RawImage>();

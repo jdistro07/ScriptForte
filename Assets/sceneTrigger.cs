@@ -34,8 +34,6 @@ public class sceneTrigger : MonoBehaviour
 			StartCoroutine(submitScore (userID, username, testID, rating, testMode));
 
 			Initiate.Fade ("learn", Color.black, 5f);
-			Cursor.visible = true;
-			Cursor.lockState = CursorLockMode.None;
 		}
 	}
 
