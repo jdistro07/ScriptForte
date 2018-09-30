@@ -54,7 +54,7 @@ public class TestListLoader : MonoBehaviour {
 		string username = loginModule.accountUsername;
 		int accountLevel = int.Parse(loginModule.accountLevel);
 
-		string phpLink = link+"/game_client/query_test.php";
+		string phpLink = "http://"+link+"/game_client/query_test.php";
 
 		// query tests with type "Built-in"
 		WWWForm wwwfrom = new WWWForm();

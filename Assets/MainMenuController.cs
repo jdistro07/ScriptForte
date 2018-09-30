@@ -75,7 +75,7 @@ public class MainMenuController : MonoBehaviour {
 	IEnumerator QueryConsistency(){
 
 		// get consistency approximation (all scores added together from the DB / the count of the scores)
-		string link = GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>().link+"/game_client/query_consistency.php";
+		string link = "http://"+GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>().link+"/game_client/query_consistency.php";
 
 		Debug.Log(link);
 
