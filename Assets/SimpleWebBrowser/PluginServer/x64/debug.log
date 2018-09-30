@@ -140,6 +140,31 @@
 [0920/171237.369:WARNING:dns_config_service_win.cc(661)] Failed to read DnsConfig.
 [0920/172503.641:WARNING:spdy_session.cc(2224)] Received HEADERS for invalid stream 1
 [0920/181714.431:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
-[0928/235733.799:WARNING:spdy_session.cc(2224)] Received HEADERS for invalid stream 3
-[0929/000659.156:WARNING:spdy_session.cc(2224)] Received HEADERS for invalid stream 13
-[0929/004032.395:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
+[0921/194815.566:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.571:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.557:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.560:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.559:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.958:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.568:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.569:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/194815.557:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
+[0921/220321.681:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0921/220321.682:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0921/220321.682:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0921/220321.682:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/005809.313:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
+[0922/150929.318:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.319:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.320:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.319:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.319:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.319:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.318:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/150929.318:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[0922/164203.130:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
+[0922/165104.145:WARNING:spdy_session.cc(2224)] Received HEADERS for invalid stream 9
+[0922/224111.502:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
+[0922/224130.250:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
+[0923/030116.462:ERROR:broker_win.cc(138)] Error sending sync broker message
+[0923/030116.476:WARNING:child_thread_impl.cc(738)] Browser failed to allocate shared memory
