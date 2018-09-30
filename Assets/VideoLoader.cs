@@ -34,7 +34,7 @@ public class VideoLoader : MonoBehaviour {
 
 	IEnumerator videoRequest(string link){
 
-		WWW www = new WWW(link+"/game_client/lesson_list.php");
+		WWW www = new WWW("http://"+link+"/game_client/lesson_list.php");
 
 		yield return www;
 		Debug.Log(www.text);
@@ -44,7 +44,7 @@ public class VideoLoader : MonoBehaviour {
 		for(int i = 0; i != returnedList.Length; i++){
 
 			var item = Instantiate(videoItemPanel) as GameObject;
-			item.transform.SetParent(videoContentParent.transform);
+			item.transform.SetParent(videoContentParent.transform, false);
 			
 			// give the target video to the panel
 			item.GetComponent<item_video>().videoTarget = returnedList[i];

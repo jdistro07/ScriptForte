@@ -1080,3 +1080,21 @@
 2018-09-26 23:59:36,467 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:aabe702d-3b57-4ca4-a8e2-31f9b332f9af,port:8139
 2018-09-27 00:00:15,933 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
 2018-09-27 00:02:08,807 [8] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-30 15:41:46,853 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-30 15:41:47,706 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:7d253289-028e-44c8-ad1c-ec02200722cd,port:8786
+2018-09-30 15:42:21,168 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-09-30 15:47:53,397 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-30 15:47:53,506 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:d9fc6e79-9743-4bf2-a8e5-9367bdcc9539,port:8982
+2018-09-30 15:48:28,232 [7] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-30 16:04:01,984 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-30 16:04:02,081 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:649daf94-8e0d-4b6f-81e3-f1699b597569,port:8330
+2018-09-30 16:04:07,690 [3] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-30 16:11:51,711 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-30 16:11:51,802 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:5d4b495f-1420-4dcf-a9be-e79ea72bc3f3,port:8530
+2018-09-30 16:11:58,304 [7] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-30 16:12:26,583 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-30 16:12:26,671 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:8ca5af0f-4e6e-4f9a-9aeb-1d7053205528,port:8528
+2018-09-30 16:12:31,499 [3] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-09-30 16:18:06,363 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-09-30 16:18:06,522 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:accb3555-1b26-42a2-af15-e86e331c9879,port:8455
+2018-09-30 16:18:11,966 [3] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
