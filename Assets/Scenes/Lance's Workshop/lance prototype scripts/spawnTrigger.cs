@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class spawnTrigger : MonoBehaviour
 {
+	AudioSource audioSource;
+
 	[Header("Respawn Settings")]
 	[SerializeField] private bool respawnTrigger = false;
 	public bool isActive;
@@ -15,7 +17,12 @@ public class spawnTrigger : MonoBehaviour
 
 	[Header("Gameobject")]
 	[SerializeField] GameObject testManagerObject;
+
+	Animator crash;
+	Animator crashBG;
+
 	testHandler testHandler;
+	InGameHelper inGameHelper;
 
 	//variables;
 	//wrong answer message
@@ -39,11 +46,17 @@ public class spawnTrigger : MonoBehaviour
 		
 		testManagerObject = GameObject.Find("The Testing Ground");
 		testHandler = GameObject.Find("The Testing Ground").GetComponent<testHandler>();
+		crash = GameObject.Find("Crash_indicator").GetComponent<Animator>();
+		crashBG = GameObject.Find("BulletHitIndicator").GetComponent<Animator>();
+		audioSource = gameObject.GetComponent<AudioSource>();
+		inGameHelper = GameObject.Find("InGame SubManager").GetComponent<InGameHelper>();
 
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
+		
+
 		if (other.transform.tag == "Player")
 		{
 			if (respawnTrigger == false)
@@ -58,7 +71,18 @@ public class spawnTrigger : MonoBehaviour
 
 				// reduce player hp if more than 0 and return to the nearest spawn point
 				if(playerHealth.playerLife > 0){
+
+					if(playerHealth.playerLife > 1){
+
+						audioSource.PlayOneShot(inGameHelper.crashSFX);
+						crash.SetTrigger("crash");
+						crashBG.SetTrigger("hit");
+						crashBG.speed = .5f;
+
+					}
+
 					playerHealth.playerLife -= 1;
+
 				}
 
 				player.transform.position = spawnPoint.position;

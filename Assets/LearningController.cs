@@ -6,12 +6,17 @@ using System.IO;
 
 public class LearningController : MonoBehaviour {
 
+	[Header("UI Elements")]
+	[SerializeField] Button btnBackToMain;
+
+	[Header("Simulation")]
 	[SerializeField] Text IDEtext;
 	[SerializeField] InputField IDE;
 	[SerializeField] Toggle tgl_localSim;
 	[SerializeField] string fileTarget = "index.html";
 
 	SimpleWebBrowser.BrowserEngine mainBrowserEngine;
+	UIManager uIManager;
 
 	string appFolder;
 	public string workURL;
@@ -26,14 +31,28 @@ public class LearningController : MonoBehaviour {
 		StartCoroutine(dirCreator(appFolder, fileTarget));
 
 		workURL = "file:///"+appFolder;
-		
+
+		//Workaround for the cursor not showing after switching scene from pre-test
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
+
 	}
 
 	// Use this for initialization
 	void Start () {
 
 		SimpleWebBrowser.WebBrowser2D webBrowser2D = GameObject.Find("Browser2D").GetComponent<SimpleWebBrowser.WebBrowser2D>();
+		uIManager = GameObject.Find("AIOGameManager").GetComponent<UIManager>();
+
 		IDEtext.horizontalOverflow = HorizontalWrapMode.Overflow;
+
+		// add listeners to buttons
+		btnBackToMain.onClick.AddListener(()=>{
+
+			uIManager.sfxClose();
+			uIManager.toMainUIFast();
+
+		});
 
 	}
 

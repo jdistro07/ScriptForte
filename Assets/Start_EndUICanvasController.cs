@@ -19,7 +19,7 @@ public class Start_EndUICanvasController : MonoBehaviour {
 		dbContent_Processor = GameObject.Find("AIOGameManager").GetComponent<DBContentProcessor>();
 		uiManager = GameObject.Find("AIOGameManager").GetComponent<UIManager>();
 
-		btnFinish.onClick.AddListener(() => {
+		/*btnFinish.onClick.AddListener(() => {
 
 			Debug.Log("Leaving world");
 
@@ -27,7 +27,7 @@ public class Start_EndUICanvasController : MonoBehaviour {
 			dbContent_Processor.OnClickInGameFinish();
 			Debug.Log("Returning to main menu");
 
-		});
+		});*/
 
 
 	}

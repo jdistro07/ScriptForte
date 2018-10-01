@@ -449,8 +449,8 @@ MonoBehaviour:
     clampVerticalRotation: 1
     MinimumX: -90
     MaximumX: 90
-    smooth: 1
-    smoothTime: 15
+    smooth: 0
+    smoothTime: 30
     lockCursor: 1
   m_UseFovKick: 1
   m_FovKick:

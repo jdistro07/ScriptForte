@@ -32,7 +32,7 @@ public class PanelTestController : MonoBehaviour {
 		btnPost.name = credentials[1];
 		btnPre.name = credentials[1];
 
-		StartCoroutine(q_HighestRating(settings.link, loginModule.accountUsername, int.Parse(loginModule.userID), int.Parse(credentials[1])));
+		StartCoroutine(q_HighestRating("http://"+settings.link, loginModule.accountUsername, int.Parse(loginModule.userID), int.Parse(credentials[1])));
 
 		// add functionalities to pre and post buttons
 		btnPost.onClick.AddListener(()=> {

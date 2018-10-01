@@ -351,10 +351,10 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
-  MinDistance: 5.798659
-  MaxDistance: 20.343622
+  MinDistance: 17.71511
+  MaxDistance: 81.05405
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

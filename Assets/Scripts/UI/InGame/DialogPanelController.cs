@@ -32,7 +32,10 @@ public class DialogPanelController : MonoBehaviour {
 	void OnEnable () {
 		Debug.Log("Situational Dialog opened");
 
-		inGameHelper = GameObject.Find("InGame SubManager").GetComponent<InGameHelper>();
+		try{
+			inGameHelper = GameObject.Find("InGame SubManager").GetComponent<InGameHelper>();
+		}catch{}
+		
 		sfx_source = this.GetComponent<AudioSource>();
 		isCorrect = testManager.GetComponent<testHandler>().isCorrect;
 
