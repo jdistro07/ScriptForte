@@ -8,6 +8,7 @@ public class videoPlayer_script : MonoBehaviour
 {
 	public string videoURL;
 
+	private RectTransform canvas;
 	private RawImage rawImage;
 	private VideoPlayer videoPlayer;
 	private AudioSource audioSource;
@@ -55,6 +56,7 @@ public class videoPlayer_script : MonoBehaviour
 	private void Awake()
 	{
 		// get the components in this same gameobject
+		canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
 		audioSource = gameObject.GetComponent<AudioSource>();
 		rawImage = gameObject.GetComponent<RawImage>();
 		videoPlayer = gameObject.GetComponent<VideoPlayer>();
@@ -140,11 +142,21 @@ public class videoPlayer_script : MonoBehaviour
 
 	void stopVideo()
 	{
+		transform.position = originalPosition;
+		rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
+
+		isFullscreen = false;
+
 		videoPlayer.Stop ();
 		donePreparing = false;
 	}
 
-	void closePlayer(){
+	void closePlayer()
+	{
+		transform.position = originalPosition;
+		rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
+
+		isFullscreen = false;
 
 		// enable viewport and disable the player from player view
 		gameObject.SetActive(false);
@@ -154,11 +166,10 @@ public class videoPlayer_script : MonoBehaviour
 
 	void fullscreen()
 	{
-
 		if(!isFullscreen)
 		{
-			transform.position = new Vector2(Screen.width / 2, Screen.height/ 2);
-			rawImage.rectTransform.sizeDelta = new Vector2 (Screen.width, Screen.height);
+			transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
+			rawImage.rectTransform.sizeDelta = new Vector2 (canvas.rect.width, canvas.rect.height);
 
 			isFullscreen = true;
 
