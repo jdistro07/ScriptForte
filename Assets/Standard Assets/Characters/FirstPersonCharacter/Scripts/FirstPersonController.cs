@@ -21,6 +21,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		public Texture2D crosshair;
 		private Rect crosshairPos;
 
+		public bool gamePaused = false;
         public bool walkToggle;
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
@@ -113,31 +114,51 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_RunSpeed = 0f;
             }
 
-            RotateView();
-            // the jump state needs to read here to make sure it is not missed
+			if (gamePaused == false)
+			{
+				RotateView();
+				// the jump state needs to read here to make sure it is not missed
 
-            //Modified by Lance
-            if (!idecanvas.activeSelf)
-            {
-                if (!m_Jump)
-                {
-                    m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-                }
+				//Modified by Lance
+				if (!m_Jump)
+				{
+					m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+				}
 
-                if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
-                {
-                    StartCoroutine(m_JumpBob.DoBobCycle());
-                    PlayLandingSound();
-                    m_MoveDir.y = 0f;
-                    m_Jumping = false;
-                }
-                if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
-                {
-                    m_MoveDir.y = 0f;
-                }
+				if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
+				{
+					StartCoroutine(m_JumpBob.DoBobCycle());
+					PlayLandingSound();
+					m_MoveDir.y = 0f;
+					m_Jumping = false;
+				}
+				if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
+				{
+					m_MoveDir.y = 0f;
+				}
 
-                m_PreviouslyGrounded = m_CharacterController.isGrounded;
-            }
+				m_PreviouslyGrounded = m_CharacterController.isGrounded;
+			}
+
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				if (gamePaused == false)
+				{
+					Cursor.visible = true;
+					m_MouseLook.lockCursor = false;
+					Time.timeScale = 0;
+					gamePaused = true;
+					Debug.Log ("Game is paused.");
+				}
+				else
+				{
+					Cursor.visible = false;
+					m_MouseLook.lockCursor = true;
+					Time.timeScale = 1;
+					gamePaused = false;
+					Debug.Log ("Game is resumed.");
+				}
+			}
         }
 
         private void LateUpdate()
@@ -330,9 +351,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		private void OnGUI()
 		{
-			float xMin = (Screen.width / 2) - (crosshair.width / 2);
-			float yMin = (Screen.height / 2) - (crosshair.height / 2);
-			GUI.DrawTexture (new Rect (xMin, yMin, crosshair.width, crosshair.height), crosshair);
+			if (gamePaused == false)
+			{
+				float xMin = (Screen.width / 2) - (crosshair.width / 2);
+				float yMin = (Screen.height / 2) - (crosshair.height / 2);
+				GUI.DrawTexture (new Rect (xMin, yMin, crosshair.width, crosshair.height), crosshair);
+			}
 		}
     }
 }

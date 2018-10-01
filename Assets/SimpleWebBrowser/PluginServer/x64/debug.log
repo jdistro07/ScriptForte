@@ -175,3 +175,14 @@
 [0923/030116.476:WARNING:child_thread_impl.cc(738)] Browser failed to allocate shared memory
 [0930/161811.987:WARNING:spdy_session.cc(2224)] Received HEADERS for invalid stream 3
 >>>>>>> 7541a30dfdd3015cd62b5f078396d85c06110254
+[1001/211214.066:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1001/211214.069:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1001/211214.068:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1001/211214.068:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1001/211214.068:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1001/211214.067:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1001/211214.067:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1001/211214.067:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1001/211214.068:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1001/211214.067:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1001/211214.067:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
