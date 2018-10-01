@@ -560,7 +560,8 @@ PlayerSettings:
   incrementalIl2cppBuild: {}
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 0
-  apiCompatibilityLevelPerPlatform: {}
+  apiCompatibilityLevelPerPlatform:
+    Standalone: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: scriptforte
@@ -643,7 +644,7 @@ PlayerSettings:
   apiCompatibilityLevel: 2
   cloudProjectId: e9d73ba0-0cf0-4e32-b0b1-686409650f40
   projectName: Script Forte (1)
-  organizationId: skildfrix
+  organizationId: g-axis
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
