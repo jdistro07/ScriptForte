@@ -142,18 +142,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
+				//If game is playing and escape key is pressed
 				if (gamePaused == false)
 				{
 					Cursor.visible = true;
-					m_MouseLook.lockCursor = false;
+					m_MouseLook.lockCursor = true;
+					Cursor.lockState = CursorLockMode.None;
 					Time.timeScale = 0;
 					gamePaused = true;
 					Debug.Log ("Game is paused.");
 				}
+				//If game is paused and escape key is pressed
 				else
 				{
 					Cursor.visible = false;
-					m_MouseLook.lockCursor = true;
+					m_MouseLook.lockCursor = false;
+					Cursor.lockState = CursorLockMode.Locked;
 					Time.timeScale = 1;
 					gamePaused = false;
 					Debug.Log ("Game is resumed.");
