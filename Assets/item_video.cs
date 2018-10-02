@@ -20,7 +20,7 @@ public class item_video : MonoBehaviour {
 	void OnEnable () {
 
 		gameSettings_Manager = GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>();
-		videoPlayerPanel = GameObject.Find("VideoPanelLessons").transform.GetChild(2);
+		videoPlayerPanel = GameObject.Find("VideoPanelLessons").transform.GetChild(3);
 		viewport = GameObject.Find("VideoPanelLessons").transform.GetChild(1);
 		videoPlayer_script videoPlayerScript = videoPlayerPanel.GetComponent<videoPlayer_script>();
 		

@@ -13,6 +13,9 @@ public class videoPlayer_script : MonoBehaviour
 	private VideoPlayer videoPlayer;
 	private AudioSource audioSource;
 
+	private Transform bgPanel;
+	private RectTransform background;
+
 	[SerializeField] Sprite sprite_pause;
 	[SerializeField] Sprite sprite_play;
 
@@ -39,6 +42,11 @@ public class videoPlayer_script : MonoBehaviour
 	private float originalWidth;
 	private float originalHeight;
 
+	//Background Panel settings
+	private Vector2 origBGSizeDelta;
+	//private float origBGWidth;
+	//private float origBGHeight;
+
 	private void Start()
 	{
 		playButton.onClick.AddListener (playVideo);
@@ -61,13 +69,21 @@ public class videoPlayer_script : MonoBehaviour
 		rawImage = gameObject.GetComponent<RawImage>();
 		videoPlayer = gameObject.GetComponent<VideoPlayer>();
 
+		bgPanel = gameObject.transform.parent.Find ("bgPanel").transform;
+		background = bgPanel.gameObject.GetComponent<RectTransform> ();
+
 		originalPosition = new Vector2 (transform.position.x, transform.position.y);
 		originalWidth = rawImage.rectTransform.rect.width;
 		originalHeight = rawImage.rectTransform.rect.height;
+
+		origBGSizeDelta = background.sizeDelta;
+		//origBGWidth = background.rect.width;
+		//originalHeight = background.rect.height;
 	}
 		
 	private void OnEnable()
 	{
+		bgPanel.gameObject.SetActive (true);
 		slider_volume.value = audioSource.volume;
 	}
 
@@ -153,6 +169,8 @@ public class videoPlayer_script : MonoBehaviour
 
 	void closePlayer()
 	{
+		bgPanel.gameObject.SetActive (false);
+		
 		transform.position = originalPosition;
 		rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
 
@@ -168,8 +186,11 @@ public class videoPlayer_script : MonoBehaviour
 	{
 		if(!isFullscreen)
 		{
-			transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
-			rawImage.rectTransform.sizeDelta = new Vector2 (canvas.rect.width, canvas.rect.height);
+			transform.position = new Vector2 (Screen.width / 2, Screen.height / 2);
+			rawImage.rectTransform.sizeDelta = new Vector2 (canvas.rect.width, Screen.height);
+
+			background.position = new Vector2 (Screen.width / 2, Screen.height / 2);
+			background.sizeDelta = new Vector2 (canvas.rect.width, canvas.rect.height);
 
 			isFullscreen = true;
 
@@ -180,6 +201,9 @@ public class videoPlayer_script : MonoBehaviour
 		{
 			transform.position = originalPosition;
 			rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
+
+			background.position = originalPosition;
+			background.sizeDelta = origBGSizeDelta; //new Vector2 (origBGWidth, origBGHeight);
 
 			isFullscreen = false;
 
