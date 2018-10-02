@@ -14,6 +14,7 @@ public class PanelTestController : MonoBehaviour {
 
 	[Header("Values")]
 	[SerializeField] string[] credentials;
+	[SerializeField] int pre_playCount;
 
 	LoginModule loginModule;
 
@@ -26,6 +27,11 @@ public class PanelTestController : MonoBehaviour {
 		GameSettingsManager settings = GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>();
 		UIManager ui_Manager = GameObject.Find("AIOGameManager").GetComponent<UIManager>();
 		DBContentProcessor db_processor = GameObject.Find("AIOGameManager").GetComponent<DBContentProcessor>();
+
+		// lock post-test buttons by default
+		btnPost.interactable = false;
+		btnPost.GetComponentInChildren<Text>().text = "LOCKED";
+		btnPost.GetComponentInChildren<Text>().color = Color.red;
 
 		// rename buttons to test ID for the DB processor to read
 		credentials = txtTestID.text.Split(new char[] {'#'}, System.StringSplitOptions.RemoveEmptyEntries);
@@ -76,8 +82,25 @@ public class PanelTestController : MonoBehaviour {
 
 		string stringData = www.text;
 
+		// fetch values for control references
+		pre_playCount = int.Parse(loginModule.CredentialSeperator(stringData, "TestPlayCount="));
+
+		panelContent_unlocker(pre_playCount);
+
+		//assign values for operations
 		txtPreTestRate.text = loginModule.CredentialSeperator(stringData, "Rate_PreTest=");
 		txtPostTestRate.text = loginModule.CredentialSeperator(stringData, "Rate_PostTest=");
+
+	}
+
+	public void panelContent_unlocker(int pre){
+
+		// pre-test unlock logic
+		if(pre > 0){
+			btnPost.interactable = true;
+			btnPost.GetComponentInChildren<Text>().text = "Post-test";
+			btnPost.GetComponentInChildren<Text>().color = Color.white;
+		}
 
 	}
 	
