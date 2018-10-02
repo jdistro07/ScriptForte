@@ -20,9 +20,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public int playerLife;
 		public Texture2D crosshair;
 		private Rect crosshairPos;
+		private Transform pauseMenu;
 
 		public bool gamePaused = false;
         public bool walkToggle;
+		public MouseLook m_MouseLook;
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -30,7 +32,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_JumpSpeed;
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
-        [SerializeField] private MouseLook m_MouseLook;
         [SerializeField] private bool m_UseFovKick;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
         [SerializeField] private bool m_UseHeadBob;
@@ -97,7 +98,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }catch(NullReferenceException nre){
                 Debug.Log("No inputfield with set tag: UIWS Inputfield");
             }
-            
+
+			pauseMenu = gameObject.transform.Find ("FirstPersonCharacter").transform.Find ("PauseMenu");
         }
 
 
@@ -145,25 +147,49 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				//If game is playing and escape key is pressed
 				if (gamePaused == false)
 				{
-					Cursor.visible = true;
+					/*Cursor.visible = true;
 					m_MouseLook.lockCursor = true;
 					Cursor.lockState = CursorLockMode.None;
 					Time.timeScale = 0;
 					gamePaused = true;
-					Debug.Log ("Game is paused.");
+					Debug.Log ("Game is paused.");*/
+					pauseMenu.gameObject.SetActive (true);
+					Pause ();
 				}
 				//If game is paused and escape key is pressed
 				else
 				{
-					Cursor.visible = false;
+					/*Cursor.visible = false;
 					m_MouseLook.lockCursor = false;
 					Cursor.lockState = CursorLockMode.Locked;
 					Time.timeScale = 1;
 					gamePaused = false;
-					Debug.Log ("Game is resumed.");
+					Debug.Log ("Game is resumed.");*/
+					pauseMenu.gameObject.SetActive (false);
+					Resume ();
 				}
 			}
         }
+
+		public void Pause()
+		{
+			Cursor.visible = true;
+			m_MouseLook.lockCursor = true;
+			Cursor.lockState = CursorLockMode.None;
+			Time.timeScale = 0;
+			gamePaused = true;
+			Debug.Log ("Game is paused.");
+		}
+
+		public void Resume()
+		{
+			Cursor.visible = false;
+			m_MouseLook.lockCursor = false;
+			Cursor.lockState = CursorLockMode.Locked;
+			Time.timeScale = 1;
+			gamePaused = false;
+			Debug.Log ("Game is resumed.");
+		}
 
         private void LateUpdate()
         {
@@ -208,13 +234,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (m_Jump)
                 {
                     //Modified By Lance
-                    if (!idecanvas.activeSelf)
+                    /*if (!idecanvas.activeSelf)
                     {
                         m_MoveDir.y = m_JumpSpeed;
                         PlayJumpSound();
                         m_Jump = false;
                         m_Jumping = true;
-                    }
+                    }*/
+					
+					m_MoveDir.y = m_JumpSpeed;
+					PlayJumpSound();
+					m_Jump = false;
+					m_Jumping = true;
                 }
             }
             else
