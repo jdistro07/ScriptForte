@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TestingGroundMonitor : MonoBehaviour {
-
 	[Header("UI Elements"),SerializeField] Text timer;
 	[SerializeField] Text totalQuestions;
 	[SerializeField] Text correctAnswers;
@@ -16,6 +15,11 @@ public class TestingGroundMonitor : MonoBehaviour {
 	[SerializeField] GameObject mainCamera;
 	[SerializeField] GameObject gameOverPanel;
 
+	[Header("Pause Menu Screen")]
+	[SerializeField] private Button btnResume;
+	[SerializeField] private Button btnSettings;
+	[SerializeField] private Button btnLeave;
+
 	[Header("HP"),SerializeField] GameObject content;
 	[SerializeField] Image hpLevel;
 
@@ -25,7 +29,6 @@ public class TestingGroundMonitor : MonoBehaviour {
 
 	private void Start()
 	{
-		
 		testHandler = GameObject.Find("The Testing Ground").GetComponent<testHandler>();
 		uiManager = GameObject.Find("AIOGameManager").GetComponent<UIManager>();
 		dbProcessor = GameObject.Find("AIOGameManager").GetComponent<DBContentProcessor>();
