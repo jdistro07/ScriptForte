@@ -1,4 +1,4 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +9,7 @@ public class PauseMenuScript : MonoBehaviour
 	[SerializeField] private Button btnResume;
 	[SerializeField] private Button btnSettings;
 	[SerializeField] private Button btnLeave;
+	[SerializeField] private Transform settingsPanel;
 
 	UIManager UIManager;
 	FirstPersonController fpc;
@@ -16,6 +17,7 @@ public class PauseMenuScript : MonoBehaviour
 	void Start()
 	{
 		UIManager = GameObject.Find ("AIOGameManager").GetComponent<UIManager> ();
+		settingsPanel = GameObject.Find("PlayerUI_Canvas").transform.Find("InGameSettingsPanel");
 		fpc = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
 
 		btnResume.onClick.AddListener (() => {
@@ -28,8 +30,8 @@ public class PauseMenuScript : MonoBehaviour
 
 		btnSettings.onClick.AddListener (() => {
 
-			UIManager.sfxSpecial();
-			//Settings code here...
+			UIManager.sfxOpen();
+			settingsPanel.gameObject.SetActive(true);
 
 		});
 
