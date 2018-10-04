@@ -742,6 +742,8 @@ MonoBehaviour:
   Toggle_Bloom: {fileID: 2031441576}
   Toggle_MotionBlur: {fileID: 1447465053}
   dropdown_resolution: {fileID: 279561203}
+  btnClose: {fileID: 1409064007}
+  btnApply: {fileID: 2114174166}
   link: 
   bloom: 1
   motionblur: 0

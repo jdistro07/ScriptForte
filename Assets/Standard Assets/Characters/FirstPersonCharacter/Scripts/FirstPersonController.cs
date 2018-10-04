@@ -42,6 +42,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+		[SerializeField] private AudioClip clickSound;
+
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -99,7 +101,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Debug.Log("No inputfield with set tag: UIWS Inputfield");
             }
 
-			pauseMenu = gameObject.transform.Find ("FirstPersonCharacter").transform.Find ("PauseMenu");
+			pauseMenu = GameObject.Find ("PlayerUI_Canvas").transform.Find ("PauseMenu");
         }
 
 
@@ -140,6 +142,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				}
 
 				m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
+				if (Input.GetKeyDown(KeyCode.Mouse0))
+				{
+					m_AudioSource.PlayOneShot (clickSound);
+				}
 			}
 
 			if (Input.GetKeyDown(KeyCode.Escape))
