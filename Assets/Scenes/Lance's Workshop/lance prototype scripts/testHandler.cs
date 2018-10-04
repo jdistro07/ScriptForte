@@ -12,6 +12,7 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private string link;
 	[SerializeField] private GameObject GameController;
 	[SerializeField] private string questionsFetch;
+	[SerializeField] private bool randomizeQuestions;
 
 	[SerializeField] private string testType;
 	[SerializeField, Range(0, 100)] private float fetchLimit;
@@ -48,6 +49,7 @@ public class testHandler : MonoBehaviour
 
 	[Header("Test Questions")]
 	[SerializeField] private List<String> questions;
+	[SerializeField] private List<String> randomizer;
 	[SerializeField] private string[] test;
 
 	[Header("Scoring")]
@@ -122,16 +124,61 @@ public class testHandler : MonoBehaviour
 
 		if (testType == "PRE")
 		{
-			for (int x = 0; x < Mathf.Round(test.Length * (fetchLimit / 100)) ; x++)
+			if (randomizeQuestions == false)
 			{
-				questions.Add (test [x]);
+				for (int x = 0; x < Mathf.Round(test.Length * (fetchLimit / 100)) ; x++)
+				{
+					questions.Add (test [x]);
+				}
+			}
+			else if (randomizeQuestions == true)
+			{
+				for (int x = 0; x < Mathf.Round(test.Length * (fetchLimit / 100)) ; x++)
+				{
+					randomizer.Add (test [x]);
+				}
+
+				if (randomizeQuestions == true && randomizer.Count > 0)
+				{
+					while (randomizer.Count > 0)
+					{
+						int val = UnityEngine.Random.Range (0, (randomizer.Count - 1));
+						questions.Add (randomizer [val]);
+						randomizer.RemoveAt (val);
+					}
+				}
 			}
 		}
 		else if (testType == "POST")
 		{
-			for (int x = 0; x < test.Length; x++)
+			/*for (int x = 0; x < test.Length; x++)
 			{
 				questions.Add (test [x]);
+			}*/
+
+			if (randomizeQuestions == false)
+			{
+				for (int x = 0; x < test.Length; x++)
+				{
+					questions.Add (test [x]);
+				}
+			}
+			else if (randomizeQuestions == true)
+			{
+				for (int x = 0; x < Mathf.Round(test.Length * (fetchLimit / 100)) ; x++)
+				{
+					randomizer.Add (test [x]);
+				}
+
+				if (randomizeQuestions == true && randomizer.Count > 0)
+				{
+					while (randomizer.Count > 0)
+					{
+						int val = UnityEngine.Random.Range (0, (randomizer.Count - 1));
+						questions.Add (randomizer [val]);
+						randomizer.RemoveAt (val);
+					}
+				}
 			}
 		}
 
@@ -464,6 +511,7 @@ public class testHandler : MonoBehaviour
 				Text Scoring = finalPlatform.transform.Find ("UI Components").Find ("UICanvas").Find("Text").GetComponent<Text> ();
 
 				scoreAverage = (playerScore / totalQuestions) * 100;
+				scoreAverage.ToString ("F2");
 				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count) + "\n Score Percentage: \n" + scoreAverage + "%";
 
 				notified = false;
