@@ -161,6 +161,11 @@ public class videoPlayer_script : MonoBehaviour
 		transform.position = originalPosition;
 		rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
 
+		background.position = originalPosition;
+		background.sizeDelta = origBGSizeDelta;
+
+		bgPanel.gameObject.SetActive (false);
+
 		isFullscreen = false;
 
 		videoPlayer.Stop ();
@@ -169,10 +174,13 @@ public class videoPlayer_script : MonoBehaviour
 
 	void closePlayer()
 	{
-		bgPanel.gameObject.SetActive (false);
-		
 		transform.position = originalPosition;
 		rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
+
+		background.position = originalPosition;
+		background.sizeDelta = origBGSizeDelta;
+
+		bgPanel.gameObject.SetActive (false);
 
 		isFullscreen = false;
 

@@ -2433,6 +2433,7 @@ MonoBehaviour:
   link: 
   GameController: {fileID: 0}
   questionsFetch: 
+  randomizeQuestions: 1
   testType: 
   fetchLimit: 30
   player: {fileID: 1537339139949136, guid: 5820be5513330ad4e84b8a27a9f0069d, type: 2}
@@ -2454,6 +2455,7 @@ MonoBehaviour:
   platSpawnT: {fileID: 0}
   platSpawnF: {fileID: 0}
   questions: []
+  randomizer: []
   test: []
   questionNumber: 0
   totalQuestions: 0
