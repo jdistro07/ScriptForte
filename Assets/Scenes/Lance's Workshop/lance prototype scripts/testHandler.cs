@@ -165,7 +165,7 @@ public class testHandler : MonoBehaviour
 			}
 			else if (randomizeQuestions == true)
 			{
-				for (int x = 0; x < Mathf.Round(test.Length * (fetchLimit / 100)) ; x++)
+				for (int x = 0; x < test.Length; x++)
 				{
 					randomizer.Add (test [x]);
 				}
@@ -511,8 +511,7 @@ public class testHandler : MonoBehaviour
 				Text Scoring = finalPlatform.transform.Find ("UI Components").Find ("UICanvas").Find("Text").GetComponent<Text> ();
 
 				scoreAverage = (playerScore / totalQuestions) * 100;
-				scoreAverage.ToString ("F2");
-				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count) + "\n Score Percentage: \n" + scoreAverage + "%";
+				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count) + "\n Score Percentage: \n" + scoreAverage.ToString("F2") + "%";
 
 				notified = false;
 
