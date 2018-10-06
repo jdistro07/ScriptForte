@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class sceneTrigger : MonoBehaviour
 {
 	private string link;
+	private string testType;
 
 	[SerializeField] private string userID;
 	[SerializeField] private string username;
@@ -15,10 +17,14 @@ public class sceneTrigger : MonoBehaviour
 	private GameObject GameController;
 	private testHandler testHandler;
 
+	FirstPersonController FPC;
+
 	private void Awake()
 	{
 		GameController = GameObject.FindGameObjectWithTag ("GameController");
 		testHandler = GameObject.Find ("The Testing Ground").GetComponent<testHandler> ();
+		testType = GameController.GetComponent<DBContentProcessor> ().testMode;
+		FPC = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -33,7 +39,22 @@ public class sceneTrigger : MonoBehaviour
 
 			StartCoroutine(submitScore (userID, username, testID, rating, testMode));
 
-			Initiate.Fade ("learn", Color.black, 5f);
+			if (testType == "PRE")
+			{
+				FPC.m_MouseLook.lockCursor = false;
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+
+				Initiate.Fade ("learn", Color.black, 5f);
+			}
+			else if (testType == "POST")
+			{
+				FPC.m_MouseLook.lockCursor = false;
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+				
+				Initiate.Fade ("Main UI", Color.black, 5f);
+			}
 		}
 	}
 

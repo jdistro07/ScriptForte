@@ -32,10 +32,6 @@ public class LearningController : MonoBehaviour {
 
 		workURL = "file:///"+appFolder;
 
-		//Workaround for the cursor not showing after switching scene from pre-test
-		Cursor.visible = true;
-		Cursor.lockState = CursorLockMode.None;
-
 	}
 
 	// Use this for initialization
