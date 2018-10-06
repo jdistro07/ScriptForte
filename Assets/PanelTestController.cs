@@ -16,11 +16,17 @@ public class PanelTestController : MonoBehaviour {
 	[SerializeField] string[] credentials;
 	[SerializeField] int pre_playCount;
 
+	TestListLoader testListLoader;
+
 	LoginModule loginModule;
 
 	// Use this for initialization
 	private void Start()
 	{
+		// get component for the test list loader
+		try{
+			testListLoader = transform.parent.parent.parent.GetComponent<TestListLoader>();
+		}catch{}
 
 		//initilize gameobject references
 		loginModule = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
@@ -100,6 +106,12 @@ public class PanelTestController : MonoBehaviour {
 			btnPost.interactable = true;
 			btnPost.GetComponentInChildren<Text>().text = "Post-test";
 			btnPost.GetComponentInChildren<Text>().color = Color.white;
+		}else if(testListLoader != null){
+			if(testListLoader.requestCustomTests == true && pre >= 0){
+				btnPost.interactable = true;
+				btnPost.GetComponentInChildren<Text>().text = "Post-test";
+				btnPost.GetComponentInChildren<Text>().color = Color.white;
+			}
 		}
 
 	}

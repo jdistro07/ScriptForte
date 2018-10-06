@@ -188,3 +188,5 @@
 [1001/211214.067:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
 [1001/222708.562:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
 [1004/191957.322:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
+[1006/184041.778:WARNING:spdy_session.cc(2224)] Received HEADERS for invalid stream 7
+[1006/214944.284:WARNING:spdy_session.cc(2224)] Received HEADERS for invalid stream 3

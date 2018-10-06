@@ -17,6 +17,7 @@ public class MainMenuController : MonoBehaviour {
 	[SerializeField] GameObject btnMenuCredits;
 	[SerializeField] GameObject btnMenuTutorial;
 	[SerializeField] GameObject btnMenuLearn;
+	[SerializeField] GameObject customTestList;
 
 	[SerializeField] GameObject MenuPanel;
 
@@ -27,6 +28,7 @@ public class MainMenuController : MonoBehaviour {
 		btnMenuTutorial.SetActive(true);
 		btnMenuLearn.SetActive(true);
 		MenuPanel.SetActive(true);
+		customTestList.SetActive(true);
 
 		// get user credentials
 		user_credential = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
@@ -69,6 +71,7 @@ public class MainMenuController : MonoBehaviour {
 		btnMenuTutorial.SetActive(false);
 		btnMenuLearn.SetActive(false);
 		MenuPanel.SetActive(false);
+		customTestList.SetActive(false);
 		
 	}
 

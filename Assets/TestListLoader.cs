@@ -11,6 +11,7 @@ public class TestListLoader : MonoBehaviour {
 
 	[Header("Test")]
 	[SerializeField] string[] tests;
+	public bool requestCustomTests = false;
 
 	[Header("UI Elements References")]
 	[SerializeField, Tooltip("Scroll rect content UI object where the test panel is being spawned as child.")] 
@@ -27,7 +28,27 @@ public class TestListLoader : MonoBehaviour {
 
 	void OnEnable () {
 		
-		StartCoroutine(AfterAnimation());
+		if(requestCustomTests){
+
+			if(ScrollContent.activeInHierarchy == true){
+				customTestLoader();
+			}
+
+		}else{
+			StartCoroutine(AfterAnimation());
+		}
+
+	}
+
+	void customTestLoader(){
+
+		//get link from configuration
+		// start test list query
+		string configured_link = GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>().link;
+
+		StartCoroutine(QueryTest(configured_link));
+
+		Debug.Log("Requesting active custom tests");
 
 	}
 
@@ -59,7 +80,12 @@ public class TestListLoader : MonoBehaviour {
 		// query tests with type "Built-in"
 		WWWForm wwwfrom = new WWWForm();
 
-		wwwfrom.AddField("test_type", "Built-in");
+		// send request type
+		if(requestCustomTests){
+			wwwfrom.AddField("test_type", "Custom");
+		}else{
+			wwwfrom.AddField("test_type", "Built-in");
+		}
 		
 		WWW www = new WWW(phpLink, wwwfrom);
 

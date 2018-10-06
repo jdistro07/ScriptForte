@@ -1512,3 +1512,21 @@
 2018-10-05 14:47:08,938 [10] ERROR SharedPluginServer.Interprocess.SocketServer [(null)] - Exception in receive:The input stream is not a valid binary format. The starting contents (in bytes) are: 65-73-73-61-67-65-4C-69-62-72-61-72-79-2E-4D-6F-75 ...
 2018-10-05 14:47:09,816 [9] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
 2018-10-05 14:47:15,566 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-10-06 18:39:50,335 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-06 18:39:53,385 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:77b100dc-0357-47a4-b937-55c031c9faef,port:8828
+2018-10-06 18:40:50,617 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-10-06 21:29:05,888 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-06 21:29:08,430 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:64c6122c-eb8b-4791-b4ee-af0f95f46112,port:8043
+2018-10-06 21:30:43,137 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-06 21:30:45,036 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:1280,height:720,url:http://test.webrtc.org,memfile:MainSharedMem,port:8885
+2018-10-06 21:30:45,892 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-10-06 21:36:56,987 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-06 21:36:57,064 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:ea4d6f29-7302-4a90-8915-bd45299e5cef,port:8270
+2018-10-06 21:37:12,593 [3] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-10-06 21:49:38,813 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-06 21:49:38,906 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:f838cdea-2313-4992-896d-b67d449d774d,port:8832
+2018-10-06 21:49:42,069 [7] ERROR SharedPluginServer.Interprocess.SocketServer [(null)] - Exception in receive:The input stream is not a valid binary format. The starting contents (in bytes) are: 65-73-73-61-67-65-4C-69-62-72-61-72-79-2E-4D-6F-75 ...
+2018-10-06 21:49:44,215 [7] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-10-06 22:06:38,952 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-06 22:06:40,334 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:904ff3ff-44dd-47a6-9040-0b671c25657d,port:8456
+2018-10-06 22:07:22,040 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
