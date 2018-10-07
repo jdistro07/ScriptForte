@@ -72,7 +72,6 @@ public class sceneTrigger : MonoBehaviour
 		WWW www = new WWW (link, form);
 
 		yield return www;
-
-		Debug.Log(www.text);
+		
 	}
 }

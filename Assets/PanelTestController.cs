@@ -16,7 +16,7 @@ public class PanelTestController : MonoBehaviour {
 	[SerializeField] string[] credentials;
 	[SerializeField] int pre_playCount;
 
-	public string post_tmp;
+	public string stringData;
 
 	TestListLoader testListLoader;
 
@@ -83,16 +83,16 @@ public class PanelTestController : MonoBehaviour {
 
 		Debug.Log(www.text);
 
-		string stringData = www.text;
+		stringData = www.text;
 
 		// fetch values for control references
 		pre_playCount = int.Parse(loginModule.CredentialSeperator(stringData, "TestPlayCount="));
 
-		panelContent_unlocker(pre_playCount);
-
 		//assign values for operations
 		txtPreTestRate.text = loginModule.CredentialSeperator(stringData, "Rate_PreTest=");
-		txtPostTestRate.text = post_tmp = loginModule.CredentialSeperator(stringData, "Rate_PostTest=");
+		txtPostTestRate.text = loginModule.CredentialSeperator(stringData, "Rate_PostTest=");
+
+		panelContent_unlocker(pre_playCount);
 
 	}
 

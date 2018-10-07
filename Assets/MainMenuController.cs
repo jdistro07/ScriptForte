@@ -23,13 +23,6 @@ public class MainMenuController : MonoBehaviour {
 
 	void OnEnable() {
 
-		//enable main menu
-		btnMenuCredits.SetActive(true);
-		btnMenuTutorial.SetActive(true);
-		btnMenuLearn.SetActive(true);
-		MenuPanel.SetActive(true);
-		customTestList.SetActive(true);
-
 		// get user credentials
 		user_credential = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
 		
@@ -58,8 +51,6 @@ public class MainMenuController : MonoBehaviour {
 		}
 
 		StartCoroutine(QueryConsistency());
-
-		
 
 	}
 
@@ -93,6 +84,13 @@ public class MainMenuController : MonoBehaviour {
 		WWW www = new WWW(link,form);
 
 		yield return www;
+
+		//enable main menu
+		btnMenuCredits.SetActive(true);
+		btnMenuTutorial.SetActive(true);
+		btnMenuLearn.SetActive(true);
+		MenuPanel.SetActive(true);
+		customTestList.SetActive(true);
 
 		Debug.Log(www.text);
 		overallConsistency.text = www.text+" %";

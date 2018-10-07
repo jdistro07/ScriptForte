@@ -146,7 +146,7 @@ public class Fader : MonoBehaviour
 		while(!asyncOperation.isDone){
 
 			float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
-			Debug.Log(scene_name+" = "+progress);
+			//Debug.Log(scene_name+" = "+progress);
 
 			yield return null;
 
