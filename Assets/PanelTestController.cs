@@ -16,6 +16,8 @@ public class PanelTestController : MonoBehaviour {
 	[SerializeField] string[] credentials;
 	[SerializeField] int pre_playCount;
 
+	public string post_tmp;
+
 	TestListLoader testListLoader;
 
 	LoginModule loginModule;
@@ -23,11 +25,7 @@ public class PanelTestController : MonoBehaviour {
 	// Use this for initialization
 	private void Start()
 	{
-		// get component for the test list loader
-		try{
-			testListLoader = transform.parent.parent.parent.GetComponent<TestListLoader>();
-		}catch{}
-
+		
 		//initilize gameobject references
 		loginModule = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
 		GameSettingsManager settings = GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>();
@@ -55,7 +53,7 @@ public class PanelTestController : MonoBehaviour {
 			db_processor.TestMode("POST");
 			db_processor.OnClickTest();
 			
-			});
+		});
 
 		btnPre.onClick.AddListener(()=> {
 		
@@ -65,8 +63,7 @@ public class PanelTestController : MonoBehaviour {
 			db_processor.TestMode("PRE");
 			db_processor.OnClickTest();
 			
-			});
-
+		});
 	}
 
 	IEnumerator q_HighestRating(string link, string username, int userID, int testID){
@@ -95,23 +92,31 @@ public class PanelTestController : MonoBehaviour {
 
 		//assign values for operations
 		txtPreTestRate.text = loginModule.CredentialSeperator(stringData, "Rate_PreTest=");
-		txtPostTestRate.text = loginModule.CredentialSeperator(stringData, "Rate_PostTest=");
+		txtPostTestRate.text = post_tmp = loginModule.CredentialSeperator(stringData, "Rate_PostTest=");
 
 	}
 
 	public void panelContent_unlocker(int pre){
 
-		// pre-test unlock logic
-		if(pre > 0){
-			btnPost.interactable = true;
-			btnPost.GetComponentInChildren<Text>().text = "Post-test";
-			btnPost.GetComponentInChildren<Text>().color = Color.white;
-		}else if(testListLoader != null){
-			if(testListLoader.requestCustomTests == true && pre >= 0){
+		// get component for the test list loader
+		try{
+			testListLoader = transform.parent.parent.parent.GetComponent<TestListLoader>();
+
+			if(testListLoader.requestCustomTests){
+				btnPost.interactable = true;
+				btnPost.GetComponentInChildren<Text>().text = "Take Test";
+				btnPost.GetComponentInChildren<Text>().color = Color.white;
+			}
+
+		}catch{
+
+			// pre-test unlock logic
+			if(pre > 0){
 				btnPost.interactable = true;
 				btnPost.GetComponentInChildren<Text>().text = "Post-test";
 				btnPost.GetComponentInChildren<Text>().color = Color.white;
 			}
+
 		}
 
 	}
