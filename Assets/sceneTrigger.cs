@@ -24,13 +24,14 @@ public class sceneTrigger : MonoBehaviour
 		GameController = GameObject.FindGameObjectWithTag ("GameController");
 		testHandler = GameObject.Find ("The Testing Ground").GetComponent<testHandler> ();
 		testType = GameController.GetComponent<DBContentProcessor> ().testMode;
-		FPC = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.transform.tag == "Player")
 		{
+			FPC = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
+
 			userID = GameController.GetComponent<LoginModule> ().userID;
 			username = GameController.GetComponent<LoginModule> ().accountUsername;
 			testID = GameController.GetComponent<DBContentProcessor> ().testIndexID;
