@@ -30,7 +30,6 @@ public class sceneTrigger : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
-			FPC = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
 
 			userID = GameController.GetComponent<LoginModule> ().userID;
 			username = GameController.GetComponent<LoginModule> ().accountUsername;
@@ -39,23 +38,6 @@ public class sceneTrigger : MonoBehaviour
 			testMode = GameController.GetComponent<DBContentProcessor> ().testMode;
 
 			StartCoroutine(submitScore (userID, username, testID, rating, testMode));
-
-			if (testType == "PRE")
-			{
-				FPC.m_MouseLook.lockCursor = false;
-				Cursor.lockState = CursorLockMode.None;
-				Cursor.visible = true;
-
-				Initiate.Fade ("learn", Color.black, 5f);
-			}
-			else if (testType == "POST")
-			{
-				FPC.m_MouseLook.lockCursor = false;
-				Cursor.lockState = CursorLockMode.None;
-				Cursor.visible = true;
-				
-				Initiate.Fade ("Main UI", Color.black, 5f);
-			}
 		}
 	}
 
@@ -72,6 +54,21 @@ public class sceneTrigger : MonoBehaviour
 		WWW www = new WWW (link, form);
 
 		yield return www;
-		
+
+		FPC = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
+
+		FPC.walkToggle = false;
+		FPC.m_MouseLook.lockCursor = false;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+
+		if (testType == "PRE")
+		{
+			Initiate.Fade ("learn", Color.black, 5f);
+		}
+		else if (testType == "POST")
+		{
+			Initiate.Fade ("Main UI", Color.black, 5f);
+		}
 	}
 }

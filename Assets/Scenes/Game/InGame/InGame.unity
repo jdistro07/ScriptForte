@@ -2115,6 +2115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 678629110}
   - component: {fileID: 678629113}
+  - component: {fileID: 678629115}
   - component: {fileID: 678629112}
   - component: {fileID: 678629111}
   - component: {fileID: 678629114}
@@ -2183,8 +2184,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.3458658, y: 1, z: 8.692097}
+  m_Center: {x: 0, y: 0, z: -0.18440951}
 --- !u!33 &678629113
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2208,6 +2209,18 @@ MonoBehaviour:
   testID: 
   rating: 
   testMode: 
+--- !u!65 &678629115
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 678629109}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 4.7731986}
+  m_Center: {x: 0, y: 0, z: 1.8292729}
 --- !u!1 &688824206
 GameObject:
   m_ObjectHideFlags: 0
