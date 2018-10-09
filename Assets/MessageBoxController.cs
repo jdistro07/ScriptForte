@@ -19,6 +19,12 @@ public class MessageBoxController : MonoBehaviour {
 	[SerializeField] Text bodyTextComponent;
 	[SerializeField] Image messageIconComponent;
 
+	private void OnEnable()
+	{
+		warning = false;
+		information = false;
+	}
+
 	void Update () {
 		
 		//evaluate message type

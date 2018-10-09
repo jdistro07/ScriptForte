@@ -81,8 +81,6 @@ public class PanelTestController : MonoBehaviour {
 
 		yield return www;
 
-		Debug.Log(www.text);
-
 		stringData = www.text;
 
 		// fetch values for control references
