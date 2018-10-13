@@ -1,74 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TutorialPanel : MonoBehaviour
 {
-	[Header("Buttons")]
-	public Button btnBack;
-	public Button btnMove;
-	public Button btnSprint;
-	public Button btnJump;
-
 	[Header("Panels")]
-	public GameObject imgMove;
-	public GameObject imgSprint;
-	public GameObject imgJump;
-	private GameObject[] panels;
+	[SerializeField] Transform intro;
+	[SerializeField] GameObject uinav;
+	[SerializeField] GameObject learn;
+	[SerializeField] GameObject playingTheGame;
+	[SerializeField] GameObject misc;
 
-	UIManager UIM;
+	[Header("Scene Controls")]
+	[SerializeField] Button btnBack;
 
-	void Start()
+	[Header("Scene Components")]
+	[SerializeField] Transform content;
+
+	private void Start()
 	{
-		UIM = GameObject.Find ("AIOGameManager").GetComponent<UIManager> ();
-
-		Transform Content = transform.Find ("Scroll View").Find ("Viewport");
-		panels = new GameObject[Content.childCount];
-
-		for (int x = 0; x < Content.childCount; x++)
-		{
-			panels [x] = Content.GetChild (x).gameObject;
-		}
-
-		foreach (GameObject panel in panels)
-		{
-			panel.SetActive (false);
-		}
-
-		btnBack.onClick.AddListener (() => {
-			UIM.sfxClose ();
-			UIM.toMainUIFast ();
-		});
-
-		btnMove.onClick.AddListener (() => {
-			UIM.sfxSpecial ();
-			enablePanel (imgMove);
-		});
-
-		btnSprint.onClick.AddListener (() => {
-			UIM.sfxSpecial ();
-			enablePanel (imgSprint);
-		});
-
-		btnJump.onClick.AddListener (() => {
-			UIM.sfxSpecial ();
-			enablePanel (imgJump);
-		});
+		intro = GameObject.Find("Scroll View").transform.Find("Viewport").transform.Find("tutorial_intro");
 	}
 
-	void enablePanel(GameObject panelName)
-	{
-		ScrollRect scrollRect = transform.Find ("Scroll View").GetComponent<ScrollRect>();
+	public void clickIntro(){
+		content.gameObject.SetActive(false);
+		content.gameObject.SetActive(true);
+		intro.gameObject.SetActive(true);
+	}
 
-		foreach (GameObject panel in panels)
-		{
-			panel.SetActive (false);
+	public void clickPlayingTheGame(){
+		panelSpawner(playingTheGame);
+	}
+
+	void panelSpawner(GameObject panelObject){
+		if(intro.gameObject.activeInHierarchy){
+
+			// deactivate intro and spawn the panel
+			content.gameObject.SetActive(false);
+			intro.gameObject.SetActive(false);
+			content.gameObject.SetActive(true);
+
+			var panel = Instantiate(panelObject);
+			panel.transform.SetParent(content.transform, false);
 		}
-
-		// make panels as content and display
-		//scrollRect.content = panelName;
-		panelName.gameObject.SetActive (true);
-
 	}
 }
