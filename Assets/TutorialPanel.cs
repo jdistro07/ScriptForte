@@ -23,7 +23,7 @@ public class TutorialPanel : MonoBehaviour
 	{
 		UIM = GameObject.Find ("AIOGameManager").GetComponent<UIManager> ();
 
-		Transform Content = transform.Find ("Scroll View").Find ("Viewport").Find ("Content");
+		Transform Content = transform.Find ("Scroll View").Find ("Viewport");
 		panels = new GameObject[Content.childCount];
 
 		for (int x = 0; x < Content.childCount; x++)
@@ -59,11 +59,16 @@ public class TutorialPanel : MonoBehaviour
 
 	void enablePanel(GameObject panelName)
 	{
+		ScrollRect scrollRect = transform.Find ("Scroll View").GetComponent<ScrollRect>();
+
 		foreach (GameObject panel in panels)
 		{
 			panel.SetActive (false);
 		}
 
+		// make panels as content and display
+		//scrollRect.content = panelName;
 		panelName.gameObject.SetActive (true);
+
 	}
 }

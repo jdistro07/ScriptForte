@@ -17,7 +17,7 @@ public class CustomTestListController : MonoBehaviour {
 	// variables
 	[SerializeField] bool isOpen = false;
 
-	private void Awake()
+	private void OnEnable()
 	{
 		origPosition = new Vector2(transform.position.x, transform.position.y);
 	}
