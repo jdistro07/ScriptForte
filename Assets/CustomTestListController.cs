@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class CustomTestListController : MonoBehaviour {
 
 	Button btnMain;
-	[SerializeField] GameObject body_panel;
+	[SerializeField] Button btnRefresh;
+	[SerializeField] GameObject content_panel;
 
 	// animation components
 	Animator mainAnimator;
@@ -17,7 +18,7 @@ public class CustomTestListController : MonoBehaviour {
 	// variables
 	[SerializeField] bool isOpen = false;
 
-	private void Awake()
+	private void OnEnable()
 	{
 		origPosition = new Vector2(transform.position.x, transform.position.y);
 	}
@@ -26,6 +27,13 @@ public class CustomTestListController : MonoBehaviour {
 	void Start () {
 		mainAnimator = this.gameObject.GetComponent<Animator>();
 		btnMain = gameObject.GetComponent<Button>();
+
+		UIManager uim = GameObject.Find("AIOGameManager").GetComponent<UIManager>();
+
+		btnRefresh.onClick.AddListener(() => {
+			uim.sfxOpen();
+		});
+		
 	}
 
 	private void OnDisable()
@@ -35,6 +43,11 @@ public class CustomTestListController : MonoBehaviour {
 		mainAnimator.SetTrigger("isClosed");
 
 		transform.position = origPosition;
+	}
+
+	public void refresh(){
+		content_panel.SetActive(false);
+		content_panel.SetActive(true);
 	}
 
 	public void open(){
@@ -55,7 +68,7 @@ public class CustomTestListController : MonoBehaviour {
 			mainAnimator.SetTrigger("isOpen");
 
 			yield return new WaitForSeconds(anim_open.length);
-			body_panel.SetActive(true);
+			content_panel.SetActive(true);
 
 			isOpen = true;
 
@@ -66,7 +79,7 @@ public class CustomTestListController : MonoBehaviour {
 			mainAnimator.SetTrigger("isClosed");
 
 			yield return new WaitForSeconds(anim_open.length);
-			body_panel.SetActive(false);
+			content_panel.SetActive(false);
 
 			isOpen = false;
 		}

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using UnityEditor.SceneManagement;
 
 public class LearningController : MonoBehaviour {
 
 	[Header("UI Elements")]
 	[SerializeField] Button btnBackToMain;
+	[SerializeField] Button btnSceneReload;
 
 	[Header("Simulation")]
 	[SerializeField] Text IDEtext;
@@ -19,6 +21,11 @@ public class LearningController : MonoBehaviour {
 	UIManager uIManager;
 
 	string appFolder;
+
+	//static values
+	static bool isReload;
+	static string txt_code;
+
 	public string workURL;
 
 	private void Awake()
@@ -31,6 +38,23 @@ public class LearningController : MonoBehaviour {
 		StartCoroutine(dirCreator(appFolder, fileTarget));
 
 		workURL = "file:///"+appFolder;
+
+		// clear file every awake
+		if(File.Exists(appFolder+"/"+fileTarget)){
+
+			StreamWriter file = new StreamWriter(appFolder+"/"+fileTarget);
+			file.WriteLine(string.Empty);
+			file.Close();
+			Debug.Log("Write success in "+fileTarget);
+
+		}
+
+		if(isReload){
+
+			Debug.Log("Reloaded scene!");
+			IDE.text = txt_code;
+
+		}
 
 	}
 
@@ -47,6 +71,17 @@ public class LearningController : MonoBehaviour {
 
 			uIManager.sfxClose();
 			uIManager.toMainUIFast();
+
+		});
+
+		btnSceneReload.onClick.AddListener(() =>{
+
+			isReload = true;
+			uIManager.sfxSpecial();
+
+			txt_code = IDEtext.text;
+
+			Initiate.Fade("learn", Color.black, 3f);
 
 		});
 

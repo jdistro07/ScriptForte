@@ -98,7 +98,7 @@ public class PanelTestController : MonoBehaviour {
 
 		// get component for the test list loader
 		try{
-			testListLoader = transform.parent.parent.parent.GetComponent<TestListLoader>();
+			testListLoader = transform.parent.GetComponent<TestListLoader>();
 
 			if(testListLoader.requestCustomTests){
 				btnPost.interactable = true;
