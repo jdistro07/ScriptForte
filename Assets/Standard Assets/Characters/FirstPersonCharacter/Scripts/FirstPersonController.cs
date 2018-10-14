@@ -23,6 +23,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private Transform pauseMenu;
 
 		public bool gamePaused = false;
+
         public bool walkToggle;
 		public MouseLook m_MouseLook;
         [SerializeField] private bool m_IsWalking;

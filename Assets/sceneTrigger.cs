@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 
 public class sceneTrigger : MonoBehaviour
 {
 	private string link;
 	private string testType;
+
+	[SerializeField] private CanvasGroup loadingCanvas;
 
 	[SerializeField] private string userID;
 	[SerializeField] private string username;
@@ -15,6 +18,7 @@ public class sceneTrigger : MonoBehaviour
 	[SerializeField] private string testMode;
 
 	private GameObject GameController;
+	private GameObject LoadingScreen;
 	private testHandler testHandler;
 
 	FirstPersonController FPC;
@@ -30,6 +34,8 @@ public class sceneTrigger : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
+			LoadingScreen = GameObject.Find("PlayerUI_Canvas").transform.Find("LoadingCanvas").gameObject;
+			LoadingScreen.SetActive (true);
 
 			userID = GameController.GetComponent<LoginModule> ().userID;
 			username = GameController.GetComponent<LoginModule> ().accountUsername;
@@ -43,6 +49,8 @@ public class sceneTrigger : MonoBehaviour
 
 	private IEnumerator submitScore(string sf_userID, string sf_username, string sf_testID, string sf_rating, string sf_testMode)
 	{
+		StartCoroutine (FadeInLoadingCanvas (loadingCanvas, loadingCanvas.alpha, 1));
+
 		WWWForm form = new WWWForm ();
 		form.AddField ("sf_userID", sf_userID);
 		form.AddField ("sf_username", sf_username);
@@ -69,6 +77,28 @@ public class sceneTrigger : MonoBehaviour
 		else if (testType == "POST")
 		{
 			Initiate.Fade ("Main UI", Color.black, 5f);
+		}
+	}
+
+	private IEnumerator FadeInLoadingCanvas(CanvasGroup cg, float start, float end, float lerpTime = 0.5f)
+	{
+		float timeStarted = Time.time;
+		float timeLapsed = Time.time - timeStarted;
+		float percentage = timeLapsed / lerpTime;
+
+		while(true)
+		{
+			timeLapsed = timeLapsed = Time.time - timeLapsed;
+			percentage = timeLapsed / lerpTime;
+
+			float current = Mathf.Lerp (start, end, percentage);
+
+			cg.alpha = current;
+
+			if (percentage >= 1)
+				break;
+
+			yield return new WaitForEndOfFrame ();
 		}
 	}
 }
