@@ -61,10 +61,11 @@ public class bulletBehaviour : MonoBehaviour
 		audioSource.PlayOneShot(hitSound);
 		//gameObject.SetActive(false);
 
+		MeshFilter mesh = gameObject.GetComponent<MeshFilter> ();
 		gameObject.GetComponent<SphereCollider>().enabled = false;
 
+		Destroy (mesh);
 		Destroy(gameObject, hitSound.length);
-
 	}
 
 }

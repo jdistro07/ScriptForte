@@ -34,8 +34,12 @@ public class sceneTrigger : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
+			FPC = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
+			
 			LoadingScreen = GameObject.Find("PlayerUI_Canvas").transform.Find("LoadingCanvas").gameObject;
 			LoadingScreen.SetActive (true);
+
+			FPC.canPause = false;
 
 			userID = GameController.GetComponent<LoginModule> ().userID;
 			username = GameController.GetComponent<LoginModule> ().accountUsername;
@@ -62,8 +66,6 @@ public class sceneTrigger : MonoBehaviour
 		WWW www = new WWW (link, form);
 
 		yield return www;
-
-		FPC = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
 
 		FPC.walkToggle = false;
 		FPC.m_MouseLook.lockCursor = false;

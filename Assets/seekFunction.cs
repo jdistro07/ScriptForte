@@ -9,7 +9,7 @@ public class seekFunction : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
 	private VideoPlayer videoPlayer;
 	private videoPlayer_script videoPlayer_script;
-	private Image progress;
+	public Image progress;
 
 	private void Start()
 	{
@@ -22,11 +22,11 @@ public class seekFunction : MonoBehaviour, IDragHandler, IPointerDownHandler
 		progress = gameObject.transform.Find ("seekFill").GetComponent<Image> ();
 	}
 
-	private void Update()
+	/*private void Update()
 	{
 		if (videoPlayer.isPrepared && videoPlayer.isPlaying)
 			progress.fillAmount = (float)(videoPlayer.time / (videoPlayer.frameCount / videoPlayer.frameRate)); //(float)videoPlayer.frame / (float)videoPlayer.frameCount;
-	}
+	}*/
 
 	public void OnPointerDown(PointerEventData eventData)
 	{

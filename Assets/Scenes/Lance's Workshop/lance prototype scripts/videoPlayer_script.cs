@@ -31,6 +31,8 @@ public class videoPlayer_script : MonoBehaviour
 	[Header("UI References")]
 	[SerializeField] GameObject viewPort;
 
+	seekFunction sk;
+
 	public float vidLength;
 	private float playTime;
 	private bool isSet = false;
@@ -64,6 +66,7 @@ public class videoPlayer_script : MonoBehaviour
 	private void Awake()
 	{
 		// get the components in this same gameobject
+		sk = transform.Find("controlPanel").Find("seekBar").GetComponent<seekFunction>();
 		canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
 		audioSource = gameObject.GetComponent<AudioSource>();
 		rawImage = gameObject.GetComponent<RawImage>();
@@ -83,6 +86,7 @@ public class videoPlayer_script : MonoBehaviour
 		
 	private void OnEnable()
 	{
+		sk.progress.fillAmount = 0;
 		bgPanel.gameObject.SetActive (true);
 		slider_volume.value = audioSource.volume;
 	}
@@ -122,6 +126,9 @@ public class videoPlayer_script : MonoBehaviour
 			//Automatically play the video after preparing
 			playVideo ();
 		}
+
+		if (videoPlayer.isPrepared && videoPlayer.isPlaying)
+			sk.progress.fillAmount = (float)(videoPlayer.time / (videoPlayer.frameCount / videoPlayer.frameRate));
 
 		audioSource.volume = slider_volume.value;
 	}

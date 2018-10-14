@@ -16,9 +16,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private GameObject idecanvas;
         [SerializeField] private InputField gateInput;
 
+		public bool canPause;
+
 		public int maxHealth;
         public int playerLife;
-		public Texture2D crosshair;
+		//public Texture2D crosshair;
 		private Rect crosshairPos;
 		private Transform pauseMenu;
 
@@ -103,6 +105,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
 			pauseMenu = GameObject.Find ("PlayerUI_Canvas").transform.Find ("PauseMenu");
+			canPause = true;
         }
 
 
@@ -150,7 +153,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				}
 			}
 
-			if (Input.GetKeyDown(KeyCode.Escape))
+			if (Input.GetKeyDown(KeyCode.Escape) && canPause == true)
 			{
 				//If game is playing and escape key is pressed
 				if (gamePaused == false)
@@ -392,7 +395,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
 
-		private void OnGUI()
+		/*private void OnGUI()
 		{
 			if (gamePaused == false)
 			{
@@ -400,6 +403,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				float yMin = (Screen.height / 2) - (crosshair.height / 2);
 				GUI.DrawTexture (new Rect (xMin, yMin, crosshair.width, crosshair.height), crosshair);
 			}
-		}
+		}*/
     }
 }

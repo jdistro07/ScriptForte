@@ -21,7 +21,7 @@ public class TestingGroundMonitor : MonoBehaviour {
 	[SerializeField] private Button btnLeave;
 
 	[Header("HP"),SerializeField] GameObject content;
-	[SerializeField] Image hpLevel;
+	public Image hpLevel;
 
 	testHandler testHandler;
 	UIManager uiManager;
@@ -72,6 +72,28 @@ public class TestingGroundMonitor : MonoBehaviour {
 
 		Disable Player canvas to highlight gameover panel to the player(optional)
 		*/
+
+		switch((int)testHandler.playerHealth)
+		{
+		case 5:
+			hpLevel.color = Color.Lerp(Color.green, Color.yellow, 0f);
+			break;
+		case 4:
+			hpLevel.color = Color.Lerp(Color.green, Color.yellow, 0.50f);
+			break;
+		case 3:
+			hpLevel.color = Color.Lerp(Color.green, Color.yellow, 1f);
+			break;
+		case 2:
+			hpLevel.color = Color.Lerp(Color.yellow, Color.red, 0.50f);
+			break;
+		case 1:
+			hpLevel.color = Color.Lerp(Color.yellow, Color.red, 1f);
+			break;
+		default:
+			hpLevel.color = Color.white;
+			break;
+		}
 
 		if(mainCamera.activeSelf && testHandler.playerHealth <= 0){
 
