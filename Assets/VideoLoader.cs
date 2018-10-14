@@ -12,10 +12,13 @@ public class VideoLoader : MonoBehaviour {
 	[SerializeField] GameObject videoItemPanel;
 	[SerializeField] GameObject videoContentParent;
 
+	LoginModule login_mod;
+
 	// Use this for initialization
 	void OnEnable () {
 
 		string server_url = GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>().link;
+		login_mod = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
 
 		StartCoroutine(videoRequest(server_url));
 		
@@ -34,7 +37,12 @@ public class VideoLoader : MonoBehaviour {
 
 	IEnumerator videoRequest(string link){
 
-		WWW www = new WWW("http://"+link+"/game_client/lesson_list.php");
+		WWWForm wwwform = new WWWForm();
+
+		wwwform.AddField("username", login_mod.accountUsername);
+		wwwform.AddField("user_id", login_mod.userID);
+
+		WWW www = new WWW("http://"+link+"/game_client/lesson_list.php", wwwform);
 
 		yield return www;
 		Debug.Log(www.text);
