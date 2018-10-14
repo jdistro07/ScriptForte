@@ -373,12 +373,12 @@ MonoBehaviour:
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Test Name:'
@@ -1332,7 +1332,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.91, y: -27.16}
+  m_AnchoredPosition: {x: -1.9169, y: -46}
   m_SizeDelta: {x: 386.38, y: 35.57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224813913854261388
@@ -1406,8 +1406,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.9069, y: 2.59}
-  m_SizeDelta: {x: 386.38, y: 36.86}
+  m_AnchoredPosition: {x: -1.9, y: 0}
+  m_SizeDelta: {x: 386.4, y: 40.315}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224896377221566384
 RectTransform:
