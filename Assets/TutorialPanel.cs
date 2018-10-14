@@ -15,10 +15,29 @@ public class TutorialPanel : MonoBehaviour
 
 	[Header("Scene Components")]
 	[SerializeField] Transform content;
+	[SerializeField] Transform sectionContent;
 
 	private void Start()
 	{
 		intro = GameObject.Find("Scroll View").transform.Find("Viewport").transform.Find("tutorial_intro");
+		UIManager uim = GameObject.Find("AIOGameManager").GetComponent<UIManager>();
+
+		// add sounds to each buttons on the section panel
+		foreach(Transform child in sectionContent){
+
+			Button btnSection = child.gameObject.GetComponent<Button>();
+
+			btnSection.onClick.AddListener(() => {
+				uim.sfxOpen();
+			});
+
+		}
+
+		// add sound and event to the back button
+		btnBack.onClick.AddListener(() => {
+			uim.sfxClose();
+			uim.toMainUIFast();
+		});
 	}
 
 	public void clickIntro(){

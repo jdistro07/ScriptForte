@@ -236,3 +236,5 @@
 [1012/154821.021:WARNING:dns_config_service_win.cc(661)] Failed to read DnsConfig.
 [1012/154821.023:WARNING:dns_config_service_win.cc(661)] Failed to read DnsConfig.
 [1012/154839.434:WARNING:dns_config_service_win.cc(661)] Failed to read DnsConfig.
+[1014/174101.953:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
+[1014/174103.631:ERROR:browser_host_impl.cc(1548)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 
