@@ -1653,3 +1653,12 @@
 2018-10-14 17:40:18,985 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
 2018-10-14 17:40:21,103 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:446584ea-d34e-4513-a7d6-f58ea1e24282,port:8886
 2018-10-14 17:41:49,954 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-10-14 19:11:36,751 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-14 19:11:38,348 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:1024,height:768,url:http://www.google.com,memfile:18f7054a-415f-4be0-9e2c-724e6c278a19,port:8776
+2018-10-14 19:12:23,539 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-10-14 19:20:11,745 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-14 19:20:12,405 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:abfa1644-0972-4a27-b505-7dca327254d6,port:8693
+2018-10-14 19:20:22,531 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-10-14 19:20:23,963 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
+2018-10-14 19:20:38,299 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-14 19:20:38,449 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:1280,height:720,url:http://test.webrtc.org,memfile:MainSharedMem,port:8885
