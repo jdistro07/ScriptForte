@@ -23,6 +23,11 @@ public class item_video : MonoBehaviour {
 
 	LoginModule lgm;
 
+	private void Start()
+	{
+		StartCoroutine(videoHighlight());
+	}
+
 	// Use this for initialization
 	void OnEnable () {
 
@@ -31,8 +36,6 @@ public class item_video : MonoBehaviour {
 		videoPlayerPanel = GameObject.Find("VideoPanelLessons").transform.GetChild(3);
 		viewport = GameObject.Find("VideoPanelLessons").transform.GetChild(1);
 		videoPlayer_script videoPlayerScript = videoPlayerPanel.GetComponent<videoPlayer_script>();
-
-		
 		
 		// set the link for the video
 		// get video name (with file extension) to directly access the video from the remote host
@@ -49,8 +52,6 @@ public class item_video : MonoBehaviour {
 
 		});
 
-		StartCoroutine(videoHighlight());
-
 	}
 
 	IEnumerator videoHighlight(){
@@ -62,6 +63,7 @@ public class item_video : MonoBehaviour {
 
 		wwwform.AddField("username", lgm.accountUsername);
 		wwwform.AddField("user_ID", lgm.userID);
+		wwwform.AddField("testID", testid);
 
 		WWW www = new WWW(link, wwwform);
 
