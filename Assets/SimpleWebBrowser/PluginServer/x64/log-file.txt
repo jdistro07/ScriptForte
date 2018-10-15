@@ -1748,3 +1748,6 @@
 2018-10-15 11:38:43,293 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
 2018-10-15 11:38:45,279 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:14182336-ecc6-4086-b143-92c2eb3a1807,port:8600
 2018-10-15 11:38:54,589 [7] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-10-15 19:35:00,162 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-15 19:35:01,514 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:c17ce5c7-744f-40f5-865d-1e7c63800dbb,port:8852
+2018-10-15 19:35:46,270 [3] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========

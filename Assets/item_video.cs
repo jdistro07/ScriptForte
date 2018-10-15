@@ -8,6 +8,8 @@ public class item_video : MonoBehaviour {
 	public string videoTarget;
 
 	GameSettingsManager gameSettings_Manager;
+	
+	[SerializeField] AnimationClip itemVideoAnimation;
 
 	[Header("UI References")]
 	Transform videoPlayerPanel;
@@ -38,6 +40,21 @@ public class item_video : MonoBehaviour {
 			videoPlayerScript.videoURL = "http://"+gameSettings_Manager.link+"/videos/"+videoTarget;
 
 		});
+
+	}
+
+	IEnumerator videoHighlight(){
+
+		//wait for the animation to be finished
+		yield return new WaitForSeconds(itemVideoAnimation.length);
+
+		//check on database if the player has no POST TEST on the current test ID
+		WWWForm wwwform = new WWWForm();
+
+		
+
+		
+
 
 	}
 
