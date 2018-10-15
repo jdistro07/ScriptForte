@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 114039154974857618}
   - component: {fileID: 114264086428792566}
   - component: {fileID: 114619335406017438}
+  - component: {fileID: 95958158961299232}
   m_Layer: 5
   m_Name: item_video
   m_TagString: Untagged
@@ -151,6 +152,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95958158961299232
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1478858211266276}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7cbd8aca6f9f60844a0dde22f01321e2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114039154974857618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -370,7 +388,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoTarget: 
+  id: 0
+  itemVideoAnimation: {fileID: 0}
   btn_Watch: {fileID: 114657661417819940}
+  txtName: {fileID: 114894597480245860}
 --- !u!114 &114657661417819940
 MonoBehaviour:
   m_ObjectHideFlags: 1

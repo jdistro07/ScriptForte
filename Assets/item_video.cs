@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class item_video : MonoBehaviour {
 
 	public string videoTarget;
+	public int testid;
 
 	GameSettingsManager gameSettings_Manager;
 	
@@ -17,14 +19,20 @@ public class item_video : MonoBehaviour {
 
 	[Header("Video list item Manager UI elements")]
 	[SerializeField] Button btn_Watch;
+	[SerializeField] Text txtName;
+
+	LoginModule lgm;
 
 	// Use this for initialization
 	void OnEnable () {
 
+		lgm = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
 		gameSettings_Manager = GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>();
 		videoPlayerPanel = GameObject.Find("VideoPanelLessons").transform.GetChild(3);
 		viewport = GameObject.Find("VideoPanelLessons").transform.GetChild(1);
 		videoPlayer_script videoPlayerScript = videoPlayerPanel.GetComponent<videoPlayer_script>();
+
+		
 		
 		// set the link for the video
 		// get video name (with file extension) to directly access the video from the remote host
@@ -41,20 +49,40 @@ public class item_video : MonoBehaviour {
 
 		});
 
+		StartCoroutine(videoHighlight());
+
 	}
 
 	IEnumerator videoHighlight(){
 
-		//wait for the animation to be finished
-		yield return new WaitForSeconds(itemVideoAnimation.length);
+		string link = "http://"+gameSettings_Manager.link+"/game_client/video_highlight.php";
 
 		//check on database if the player has no POST TEST on the current test ID
 		WWWForm wwwform = new WWWForm();
 
-		
+		wwwform.AddField("username", lgm.accountUsername);
+		wwwform.AddField("user_ID", lgm.userID);
 
-		
+		WWW www = new WWW(link, wwwform);
 
+		yield return www;
+
+		Debug.Log(www.text);
+
+		if(www.isDone){
+			
+			Animator highlight = this.gameObject.GetComponent<Animator>();
+
+			if(www.text == "Highlight"){
+
+				highlight.SetTrigger("higlight");
+
+			}else{
+
+				highlight.ResetTrigger("higlight");
+
+			}
+		}
 
 	}
 

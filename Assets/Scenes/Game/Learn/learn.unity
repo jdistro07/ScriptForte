@@ -991,16 +991,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114619335406017438, guid: 3892cab6a2fd60843bb2688a7944549c,
-        type: 2}
-      propertyPath: playerPanel
-      value: 
-      objectReference: {fileID: 1165411235}
-    - target: {fileID: 114619335406017438, guid: 3892cab6a2fd60843bb2688a7944549c,
-        type: 2}
-      propertyPath: viewport
-      value: 
-      objectReference: {fileID: 1507595727}
     - target: {fileID: 1478858211266276, guid: 3892cab6a2fd60843bb2688a7944549c, type: 2}
       propertyPath: m_IsActive
       value: 0

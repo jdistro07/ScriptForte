@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Text.RegularExpressions;
 
 public class VideoLoader : MonoBehaviour {
 
@@ -56,6 +57,22 @@ public class VideoLoader : MonoBehaviour {
 			
 			// give the target video to the panel
 			item.GetComponent<item_video>().videoTarget = returnedList[i];
+
+			// check if the naming convention is valid
+			if(returnedList[i].Substring(0,1) == "["){
+
+				// decode the file name and set the value of the test ID
+				Debug.Log("Decoding "+returnedList[i]);
+
+				Regex regex = new Regex(@"\[([^]])\]");
+				MatchCollection mc = regex.Matches(returnedList[i]);
+
+				Debug.Log(mc[0].Value.Replace("[", "").Replace("]", ""));
+
+				item.GetComponent<item_video>().testid = int.Parse(mc[0].Value.Replace("[", "").Replace("]", ""));
+				
+
+			}
 
 			// set controls
 			Text lessonName = item.transform.GetChild(2).GetChild(0).GetComponent<Text>();
