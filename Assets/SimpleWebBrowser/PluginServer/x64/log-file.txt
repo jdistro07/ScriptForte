@@ -1977,3 +1977,6 @@
 2018-10-16 02:29:29,625 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
 2018-10-16 02:29:29,696 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:2c9ac1f6-f323-47d7-a118-09017d0965c8,port:8097
 2018-10-16 02:29:56,377 [3] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
+2018-10-17 01:06:30,679 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-10-17 01:06:32,271 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:0a6f517f-ef9d-450f-8085-5fcda5729c4a,port:8965
+2018-10-17 01:07:20,849 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0

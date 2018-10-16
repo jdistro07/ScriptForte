@@ -57,6 +57,7 @@ public class testHandler : MonoBehaviour
 	public double totalQuestions;
 	public double playerScore = 0;
 	public double scoreAverage;
+	public int mistakeCount;
 
 	[Header("AI")]
 	[SerializeField] private GameObject[] bots;
@@ -307,7 +308,6 @@ public class testHandler : MonoBehaviour
 
 				if (spawnTrigger.answer == "T")
 				{
-					Debug.Log ("Answered T");
 					newObjectSpawnPoint = platSpawnT.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
@@ -317,7 +317,6 @@ public class testHandler : MonoBehaviour
 				}
 				else if (spawnTrigger.answer == "F")
 				{
-					Debug.Log ("Answered F");
 					newObjectSpawnPoint = platSpawnF.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
@@ -409,7 +408,6 @@ public class testHandler : MonoBehaviour
 
 				if (spawnTrigger.answer == "A")
 				{
-					Debug.Log ("Answered A");
 					newObjectSpawnPoint = platSpawnA.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
@@ -420,7 +418,6 @@ public class testHandler : MonoBehaviour
 				}
 				else if (spawnTrigger.answer == "B")
 				{
-					Debug.Log ("Answered B");
 					newObjectSpawnPoint = platSpawnB.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
@@ -431,7 +428,6 @@ public class testHandler : MonoBehaviour
 				}
 				else if (spawnTrigger.answer == "C")
 				{
-					Debug.Log ("Answered C");
 					newObjectSpawnPoint = platSpawnC.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
