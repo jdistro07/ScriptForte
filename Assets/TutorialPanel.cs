@@ -50,16 +50,24 @@ public class TutorialPanel : MonoBehaviour
 		panelSpawner(playingTheGame);
 	}
 
+	public void clickUINav()
+	{
+		panelSpawner (uinav);
+	}
+
 	void panelSpawner(GameObject panelObject){
-		if(intro.gameObject.activeInHierarchy){
+		if (intro.gameObject.activeInHierarchy) {
 
 			// deactivate intro and spawn the panel
-			content.gameObject.SetActive(false);
-			intro.gameObject.SetActive(false);
-			content.gameObject.SetActive(true);
+			intro.gameObject.SetActive (false);
 
-			var panel = Instantiate(panelObject);
-			panel.transform.SetParent(content.transform, false);
 		}
+
+		content.gameObject.SetActive (false);
+		content.gameObject.SetActive (true);
+
+		var panel = Instantiate (panelObject);
+		panel.transform.SetParent (content.transform, false);
+		panel.SetActive (true);
 	}
 }
