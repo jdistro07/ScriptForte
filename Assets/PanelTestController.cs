@@ -113,6 +113,8 @@ public class PanelTestController : MonoBehaviour {
 				btnPost.interactable = true;
 				btnPost.GetComponentInChildren<Text>().text = "Post-test";
 				btnPost.GetComponentInChildren<Text>().color = Color.white;
+
+				btnPre.interactable = false;
 			}
 
 		}
