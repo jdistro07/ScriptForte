@@ -7,6 +7,7 @@ public class TestingGroundMonitor : MonoBehaviour {
 	[Header("UI Elements"),SerializeField] Text timer;
 	[SerializeField] Text totalQuestions;
 	[SerializeField] Text correctAnswers;
+	[SerializeField] Text wrongAnswers;
 	[SerializeField] Text botCount;
 
 	[Header("Reference Objects for Game Over")]
@@ -62,9 +63,11 @@ public class TestingGroundMonitor : MonoBehaviour {
 		// display values to player canvas
 		// display ONLY what needs to be monitored all the time
 		botCount.text = aiCount.Length.ToString();
+		
 		correctAnswers.text = testHandler.playerScore.ToString();
-		timer.text = testHandler.time.ToString("0.00");
+		wrongAnswers.text = testHandler.mistakeCount.ToString();
 
+		timer.text = testHandler.time.ToString("0.0");
 
 		/*trigger game over if:
 		1. Camera gameobject is enabled AND...
