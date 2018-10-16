@@ -35,6 +35,8 @@ public class sceneTrigger : MonoBehaviour
 		if (other.transform.tag == "Player")
 		{
 			FPC = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
+
+			FPC.walkToggle = false;
 			
 			LoadingScreen = GameObject.Find("PlayerUI_Canvas").transform.Find("LoadingCanvas").gameObject;
 			LoadingScreen.SetActive (true);

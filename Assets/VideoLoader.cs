@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Text.RegularExpressions;
 
 public class VideoLoader : MonoBehaviour {
 
@@ -51,11 +52,17 @@ public class VideoLoader : MonoBehaviour {
 
 		for(int i = 0; i != returnedList.Length; i++){
 
+			//values
+			int id;
+
 			var item = Instantiate(videoItemPanel) as GameObject;
 			item.transform.SetParent(videoContentParent.transform, false);
+
+			//split ID to target file name
+			item.GetComponent<item_video>().testid = id = int.Parse(login_mod.CredentialSeperator(returnedList[i], "ID="));
 			
 			// give the target video to the panel
-			item.GetComponent<item_video>().videoTarget = returnedList[i];
+			item.GetComponent<item_video>().videoTarget = login_mod.CredentialSeperator(returnedList[i], "Target=");
 
 			// set controls
 			Text lessonName = item.transform.GetChild(2).GetChild(0).GetComponent<Text>();
