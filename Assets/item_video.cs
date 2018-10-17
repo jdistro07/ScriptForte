@@ -9,6 +9,8 @@ public class item_video : MonoBehaviour {
 	public string videoTarget;
 	public int testid;
 
+	[SerializeField] Text txtVideoTitle;
+
 	GameSettingsManager gameSettings_Manager;
 	
 	[SerializeField] AnimationClip itemVideoAnimation;
@@ -74,7 +76,11 @@ public class item_video : MonoBehaviour {
 		if(www.isDone){
 			
 			Animator highlight = this.gameObject.GetComponent<Animator>();
+			
+			// change the title to an appropriate readable format for regular users
+			txtVideoTitle.text = lgm.CredentialSeperator(txtVideoTitle.text, "LessonName=");
 
+			// highlight video if the user played the pre-test for the very first time
 			if(www.text == "Highlight"){
 
 				highlight.SetTrigger("higlight");
