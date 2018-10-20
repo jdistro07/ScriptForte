@@ -7,6 +7,7 @@ public class LoadingSceneController : MonoBehaviour {
 
 	
 	[Header("UI Controls"),SerializeField] Button start;
+	[SerializeField] Text txtStart;
 	Animator LoadingCanvasAnimator;
 
 	private void Awake()
@@ -23,6 +24,9 @@ public class LoadingSceneController : MonoBehaviour {
 		start.onClick.AddListener(() => {
 
 			LoadingCanvasAnimator.SetTrigger("fadeOut");
+
+			start.interactable = false;
+			txtStart.text = "STARTING SIMULATION...";
 
 			uiManager.sfxSpecial();
 			dbProcessor.StartGame();

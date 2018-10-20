@@ -11,6 +11,10 @@ public class SettingsPanelManager : MonoBehaviour {
 	public Toggle Toggle_MotionBlur;
 	public Dropdown dropdown_resolution;
 
+	[Header("Buttons")]
+	public Button btnClose;
+	public Button btnApply;
+
 	[Header("Debug Private Variables")]
 	[SerializeField] string link;
 	[SerializeField] bool bloom;
@@ -18,6 +22,29 @@ public class SettingsPanelManager : MonoBehaviour {
 	[SerializeField] int resolutionIndex;
 
 	Resolution[] resolutions;
+	UIManager UIM;
+
+	private void Start()
+	{
+		if (gameObject.name == "InGameSettingsPanel")
+		{
+			UIM = GameObject.FindGameObjectWithTag ("GameController").GetComponent<UIManager> ();
+
+			btnClose.onClick.AddListener (() => {
+
+				UIM.sfxClose();
+				gameObject.SetActive(false);
+
+			});
+
+			btnApply.onClick.AddListener (() => {
+
+				ApplySettings();
+				UIM.sfxSpecial();
+
+			});
+		}
+	}
 
 	private void Awake()
 	{
@@ -33,7 +60,6 @@ public class SettingsPanelManager : MonoBehaviour {
 
 	private void OnEnable()
 	{	
-
 		// set game configuration values to controls when SeetingAndControls is loaded
 		if(SettingsAndControls.IsLoaded()){
 
@@ -43,7 +69,6 @@ public class SettingsPanelManager : MonoBehaviour {
 			dropdown_resolution.value = SettingsAndControls.Settings.GetInt("resolution_index");
 
 		}
-
 	}
 
 	public void ApplySettings(){
@@ -61,11 +86,15 @@ public class SettingsPanelManager : MonoBehaviour {
 		SettingsAndControls.Settings.SetSetting("resolution_index", new SACInt(resolutionIndex), Setting.SettingType.INTEGER);
 		SettingsAndControls.Save();
 
-
-		//display messagebox from login module
-		LoginModule loginModule = GameObject.FindGameObjectWithTag("GameController").GetComponent<LoginModule>();
-		loginModule.messagePrompt("Settings has been changed successfully",2);
-
+		if (gameObject.name == "SettingsPanel")
+		{
+			//display messagebox from login module
+			LoginModule loginModule = GameObject.FindGameObjectWithTag("GameController").GetComponent<LoginModule>();
+			loginModule.messagePrompt("Settings has been changed successfully",2);
+		}
+		else if (gameObject.name == "InGameSettingsPanel")
+		{
+			gameObject.SetActive (false);
+		}
 	}
-
 }

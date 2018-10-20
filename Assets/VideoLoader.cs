@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Text.RegularExpressions;
 
 public class VideoLoader : MonoBehaviour {
 
@@ -12,10 +13,13 @@ public class VideoLoader : MonoBehaviour {
 	[SerializeField] GameObject videoItemPanel;
 	[SerializeField] GameObject videoContentParent;
 
+	LoginModule login_mod;
+
 	// Use this for initialization
 	void OnEnable () {
 
 		string server_url = GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>().link;
+		login_mod = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
 
 		StartCoroutine(videoRequest(server_url));
 		
@@ -34,7 +38,12 @@ public class VideoLoader : MonoBehaviour {
 
 	IEnumerator videoRequest(string link){
 
-		WWW www = new WWW("http://"+link+"/game_client/lesson_list.php");
+		WWWForm wwwform = new WWWForm();
+
+		wwwform.AddField("username", login_mod.accountUsername);
+		wwwform.AddField("user_id", login_mod.userID);
+
+		WWW www = new WWW("http://"+link+"/game_client/lesson_list.php", wwwform);
 
 		yield return www;
 		Debug.Log(www.text);
@@ -43,11 +52,17 @@ public class VideoLoader : MonoBehaviour {
 
 		for(int i = 0; i != returnedList.Length; i++){
 
+			//values
+			int id;
+
 			var item = Instantiate(videoItemPanel) as GameObject;
 			item.transform.SetParent(videoContentParent.transform, false);
+
+			//split ID to target file name
+			item.GetComponent<item_video>().testid = id = int.Parse(login_mod.CredentialSeperator(returnedList[i], "ID="));
 			
 			// give the target video to the panel
-			item.GetComponent<item_video>().videoTarget = returnedList[i];
+			item.GetComponent<item_video>().videoTarget = login_mod.CredentialSeperator(returnedList[i], "Target=");
 
 			// set controls
 			Text lessonName = item.transform.GetChild(2).GetChild(0).GetComponent<Text>();

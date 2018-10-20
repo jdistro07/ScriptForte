@@ -80,6 +80,18 @@ public class UIManager : MonoBehaviour {
 
 	}
 
+	public void toTutorial()
+	{
+		Initiate.Fade ("Tutorial", Color.black, 2f);
+		gameObject.GetComponent<LoginModule>().themeMusicStop();
+	}
+
+	public void toCredits()
+	{
+		Initiate.Fade ("Credits", Color.black, 2f);
+		gameObject.GetComponent<LoginModule>().themeMusicStop();
+	}
+
 	public void toMainUIFast(){
 
 		Initiate.Fade("Main UI",Color.black, 2f);
@@ -91,5 +103,4 @@ public class UIManager : MonoBehaviour {
 		Initiate.Fade("InGame",Color.black, .8f);
 
 	}
-	
 }

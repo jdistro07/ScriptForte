@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class spawnTrigger : MonoBehaviour
 {
@@ -105,10 +106,14 @@ public class spawnTrigger : MonoBehaviour
 				
 			}else{
 
-				correct_message = correct_message+" "+testManagerObject.GetComponent<testHandler>().timeToAdd;
+				try{
+					correct_message = correct_message+" "+testManagerObject.GetComponent<testHandler>().timeToAdd;
 				
-				dialog.DialogueMessageControl(correct_title,correct_message);
-				dialog.DialogTitle.color = new Color(gr, gg, gb, ga);
+					dialog.DialogueMessageControl(correct_title,correct_message);
+					dialog.DialogTitle.color = new Color(gr, gg, gb, ga);
+				}catch(Exception e){
+					Debug.Log(e);
+				}
 
 			}
 		}catch(MissingReferenceException mre){

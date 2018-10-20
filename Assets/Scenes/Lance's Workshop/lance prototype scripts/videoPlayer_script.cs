@@ -8,9 +8,13 @@ public class videoPlayer_script : MonoBehaviour
 {
 	public string videoURL;
 
+	private RectTransform canvas;
 	private RawImage rawImage;
 	private VideoPlayer videoPlayer;
 	private AudioSource audioSource;
+
+	private Transform bgPanel;
+	private RectTransform background;
 
 	[SerializeField] Sprite sprite_pause;
 	[SerializeField] Sprite sprite_play;
@@ -27,6 +31,8 @@ public class videoPlayer_script : MonoBehaviour
 	[Header("UI References")]
 	[SerializeField] GameObject viewPort;
 
+	seekFunction sk;
+
 	public float vidLength;
 	private float playTime;
 	private bool isSet = false;
@@ -37,6 +43,11 @@ public class videoPlayer_script : MonoBehaviour
 	private Vector2 originalPosition;
 	private float originalWidth;
 	private float originalHeight;
+
+	//Background Panel settings
+	private Vector2 origBGSizeDelta;
+	//private float origBGWidth;
+	//private float origBGHeight;
 
 	private void Start()
 	{
@@ -55,17 +66,28 @@ public class videoPlayer_script : MonoBehaviour
 	private void Awake()
 	{
 		// get the components in this same gameobject
+		sk = transform.Find("controlPanel").Find("seekBar").GetComponent<seekFunction>();
+		canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
 		audioSource = gameObject.GetComponent<AudioSource>();
 		rawImage = gameObject.GetComponent<RawImage>();
 		videoPlayer = gameObject.GetComponent<VideoPlayer>();
 
+		bgPanel = gameObject.transform.parent.Find ("bgPanel").transform;
+		background = bgPanel.gameObject.GetComponent<RectTransform> ();
+
 		originalPosition = new Vector2 (transform.position.x, transform.position.y);
 		originalWidth = rawImage.rectTransform.rect.width;
 		originalHeight = rawImage.rectTransform.rect.height;
+
+		origBGSizeDelta = background.sizeDelta;
+		//origBGWidth = background.rect.width;
+		//originalHeight = background.rect.height;
 	}
 		
 	private void OnEnable()
 	{
+		sk.progress.fillAmount = 0;
+		bgPanel.gameObject.SetActive (true);
 		slider_volume.value = audioSource.volume;
 	}
 
@@ -105,6 +127,9 @@ public class videoPlayer_script : MonoBehaviour
 			playVideo ();
 		}
 
+		if (videoPlayer.isPrepared && videoPlayer.isPlaying)
+			sk.progress.fillAmount = (float)(videoPlayer.time / (videoPlayer.frameCount / videoPlayer.frameRate));
+
 		audioSource.volume = slider_volume.value;
 	}
 
@@ -140,11 +165,31 @@ public class videoPlayer_script : MonoBehaviour
 
 	void stopVideo()
 	{
+		transform.position = originalPosition;
+		rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
+
+		background.position = originalPosition;
+		background.sizeDelta = origBGSizeDelta;
+
+		bgPanel.gameObject.SetActive (false);
+
+		isFullscreen = false;
+
 		videoPlayer.Stop ();
 		donePreparing = false;
 	}
 
-	void closePlayer(){
+	void closePlayer()
+	{
+		transform.position = originalPosition;
+		rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
+
+		background.position = originalPosition;
+		background.sizeDelta = origBGSizeDelta;
+
+		bgPanel.gameObject.SetActive (false);
+
+		isFullscreen = false;
 
 		// enable viewport and disable the player from player view
 		gameObject.SetActive(false);
@@ -154,11 +199,13 @@ public class videoPlayer_script : MonoBehaviour
 
 	void fullscreen()
 	{
-
 		if(!isFullscreen)
 		{
-			transform.position = new Vector2(Screen.width / 2, Screen.height/ 2);
-			rawImage.rectTransform.sizeDelta = new Vector2 (Screen.width, Screen.height);
+			transform.position = new Vector2 (Screen.width / 2, Screen.height / 2);
+			rawImage.rectTransform.sizeDelta = new Vector2 (canvas.rect.width, Screen.height);
+
+			background.position = new Vector2 (Screen.width / 2, Screen.height / 2);
+			background.sizeDelta = new Vector2 (canvas.rect.width, canvas.rect.height);
 
 			isFullscreen = true;
 
@@ -169,6 +216,9 @@ public class videoPlayer_script : MonoBehaviour
 		{
 			transform.position = originalPosition;
 			rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
+
+			background.position = originalPosition;
+			background.sizeDelta = origBGSizeDelta; //new Vector2 (origBGWidth, origBGHeight);
 
 			isFullscreen = false;
 

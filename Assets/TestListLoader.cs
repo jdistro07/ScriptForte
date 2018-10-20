@@ -11,6 +11,7 @@ public class TestListLoader : MonoBehaviour {
 
 	[Header("Test")]
 	[SerializeField] string[] tests;
+	public bool requestCustomTests = false;
 
 	[Header("UI Elements References")]
 	[SerializeField, Tooltip("Scroll rect content UI object where the test panel is being spawned as child.")] 
@@ -27,7 +28,27 @@ public class TestListLoader : MonoBehaviour {
 
 	void OnEnable () {
 		
-		StartCoroutine(AfterAnimation());
+		if(requestCustomTests){
+
+			if(ScrollContent.activeInHierarchy == true){
+				customTestLoader();
+			}
+
+		}else{
+			StartCoroutine(AfterAnimation());
+		}
+
+	}
+
+	void customTestLoader(){
+
+		//get link from configuration
+		// start test list query
+		string configured_link = GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>().link;
+
+		StartCoroutine(QueryTest(configured_link));
+
+		Debug.Log("Requesting active custom tests");
 
 	}
 
@@ -46,6 +67,11 @@ public class TestListLoader : MonoBehaviour {
 
 	}
 
+	string truncateLongText(string text, int maxChar){
+		return text.Length <= maxChar ? text : text.Substring(0, maxChar)+"...";
+	}
+
+
 	public IEnumerator QueryTest(string link){
 
 		LoginModule loginModule = GameObject.Find("AIOGameManager").GetComponent<LoginModule>(); //Login module reference
@@ -59,7 +85,12 @@ public class TestListLoader : MonoBehaviour {
 		// query tests with type "Built-in"
 		WWWForm wwwfrom = new WWWForm();
 
-		wwwfrom.AddField("test_type", "Built-in");
+		// send request type
+		if(requestCustomTests){
+			wwwfrom.AddField("test_type", "Custom");
+		}else{
+			wwwfrom.AddField("test_type", "Built-in");
+		}
 		
 		WWW www = new WWW(phpLink, wwwfrom);
 
@@ -92,7 +123,7 @@ public class TestListLoader : MonoBehaviour {
 
 			// set UI values
 			txtID.text = txtID.text+loginModule.CredentialSeperator(tests[i], "TestID=");
-			txtTestName.text = txtTestName.text+" "+loginModule.CredentialSeperator(tests[i], "Name=");
+			txtTestName.text = txtTestName.text+" "+truncateLongText(loginModule.CredentialSeperator(tests[i], "Name="), 25);
 			txtAuthor.text = txtAuthor.text+" "+loginModule.CredentialSeperator(tests[i], "Author=");
 			txtTestType.text = txtTestType.text+" "+loginModule.CredentialSeperator(tests[i], "TestType=");
 

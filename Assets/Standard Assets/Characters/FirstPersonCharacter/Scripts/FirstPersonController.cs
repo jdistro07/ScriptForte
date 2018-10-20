@@ -16,12 +16,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private GameObject idecanvas;
         [SerializeField] private InputField gateInput;
 
+		public bool canPause;
+
 		public int maxHealth;
         public int playerLife;
-		public Texture2D crosshair;
+		//public Texture2D crosshair;
 		private Rect crosshairPos;
+		private Transform pauseMenu;
+
+		public bool gamePaused = false;
 
         public bool walkToggle;
+		public MouseLook m_MouseLook;
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -29,7 +35,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_JumpSpeed;
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
-        [SerializeField] private MouseLook m_MouseLook;
         [SerializeField] private bool m_UseFovKick;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
         [SerializeField] private bool m_UseHeadBob;
@@ -39,6 +44,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+
+		[SerializeField] private AudioClip clickSound;
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -96,7 +103,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }catch(NullReferenceException nre){
                 Debug.Log("No inputfield with set tag: UIWS Inputfield");
             }
-            
+
+			pauseMenu = GameObject.Find ("PlayerUI_Canvas").transform.Find ("PauseMenu");
+			canPause = true;
         }
 
 
@@ -113,32 +122,85 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_RunSpeed = 0f;
             }
 
-            RotateView();
-            // the jump state needs to read here to make sure it is not missed
+			if (gamePaused == false)
+			{
+				RotateView();
+				// the jump state needs to read here to make sure it is not missed
 
-            //Modified by Lance
-            if (!idecanvas.activeSelf)
-            {
-                if (!m_Jump)
-                {
-                    m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-                }
+				//Modified by Lance
+				if (!m_Jump)
+				{
+					m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+				}
 
-                if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
-                {
-                    StartCoroutine(m_JumpBob.DoBobCycle());
-                    PlayLandingSound();
-                    m_MoveDir.y = 0f;
-                    m_Jumping = false;
-                }
-                if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
-                {
-                    m_MoveDir.y = 0f;
-                }
+				if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
+				{
+					StartCoroutine(m_JumpBob.DoBobCycle());
+					PlayLandingSound();
+					m_MoveDir.y = 0f;
+					m_Jumping = false;
+				}
+				if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
+				{
+					m_MoveDir.y = 0f;
+				}
 
-                m_PreviouslyGrounded = m_CharacterController.isGrounded;
-            }
+				m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
+				if (Input.GetKeyDown(KeyCode.Mouse0))
+				{
+					m_AudioSource.PlayOneShot (clickSound);
+				}
+			}
+
+			if (Input.GetKeyDown(KeyCode.Escape) && canPause == true)
+			{
+				//If game is playing and escape key is pressed
+				if (gamePaused == false)
+				{
+					/*Cursor.visible = true;
+					m_MouseLook.lockCursor = true;
+					Cursor.lockState = CursorLockMode.None;
+					Time.timeScale = 0;
+					gamePaused = true;
+					Debug.Log ("Game is paused.");*/
+					pauseMenu.gameObject.SetActive (true);
+					Pause ();
+				}
+				//If game is paused and escape key is pressed
+				else
+				{
+					/*Cursor.visible = false;
+					m_MouseLook.lockCursor = false;
+					Cursor.lockState = CursorLockMode.Locked;
+					Time.timeScale = 1;
+					gamePaused = false;
+					Debug.Log ("Game is resumed.");*/
+					pauseMenu.gameObject.SetActive (false);
+					Resume ();
+				}
+			}
         }
+
+		public void Pause()
+		{
+			Cursor.visible = true;
+			m_MouseLook.lockCursor = true;
+			Cursor.lockState = CursorLockMode.None;
+			Time.timeScale = 0;
+			gamePaused = true;
+			Debug.Log ("Game is paused.");
+		}
+
+		public void Resume()
+		{
+			Cursor.visible = false;
+			m_MouseLook.lockCursor = false;
+			Cursor.lockState = CursorLockMode.Locked;
+			Time.timeScale = 1;
+			gamePaused = false;
+			Debug.Log ("Game is resumed.");
+		}
 
         private void LateUpdate()
         {
@@ -183,13 +245,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (m_Jump)
                 {
                     //Modified By Lance
-                    if (!idecanvas.activeSelf)
+                    /*if (!idecanvas.activeSelf)
                     {
                         m_MoveDir.y = m_JumpSpeed;
                         PlayJumpSound();
                         m_Jump = false;
                         m_Jumping = true;
-                    }
+                    }*/
+					
+					m_MoveDir.y = m_JumpSpeed;
+					PlayJumpSound();
+					m_Jump = false;
+					m_Jumping = true;
                 }
             }
             else
@@ -328,11 +395,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
 
-		private void OnGUI()
+		/*private void OnGUI()
 		{
-			float xMin = (Screen.width / 2) - (crosshair.width / 2);
-			float yMin = (Screen.height / 2) - (crosshair.height / 2);
-			GUI.DrawTexture (new Rect (xMin, yMin, crosshair.width, crosshair.height), crosshair);
-		}
+			if (gamePaused == false)
+			{
+				float xMin = (Screen.width / 2) - (crosshair.width / 2);
+				float yMin = (Screen.height / 2) - (crosshair.height / 2);
+				GUI.DrawTexture (new Rect (xMin, yMin, crosshair.width, crosshair.height), crosshair);
+			}
+		}*/
     }
 }

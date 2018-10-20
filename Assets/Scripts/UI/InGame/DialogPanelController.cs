@@ -30,7 +30,6 @@ public class DialogPanelController : MonoBehaviour {
 
 	// Use this for initialization
 	void OnEnable () {
-		Debug.Log("Situational Dialog opened");
 
 		try{
 			inGameHelper = GameObject.Find("InGame SubManager").GetComponent<InGameHelper>();
@@ -43,6 +42,8 @@ public class DialogPanelController : MonoBehaviour {
 
 		//play appropriate sound effect
 		if(!isCorrect){
+
+			testManager.GetComponent<testHandler>().mistakeCount += 1; // add 1 to every mistake the player makes
 
 			icon.sprite = sprite_mistake;
 

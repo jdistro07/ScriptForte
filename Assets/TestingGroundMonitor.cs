@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TestingGroundMonitor : MonoBehaviour {
-
 	[Header("UI Elements"),SerializeField] Text timer;
 	[SerializeField] Text totalQuestions;
 	[SerializeField] Text correctAnswers;
+	[SerializeField] Text wrongAnswers;
 	[SerializeField] Text botCount;
 
 	[Header("Reference Objects for Game Over")]
@@ -16,8 +16,13 @@ public class TestingGroundMonitor : MonoBehaviour {
 	[SerializeField] GameObject mainCamera;
 	[SerializeField] GameObject gameOverPanel;
 
+	[Header("Pause Menu Screen")]
+	[SerializeField] private Button btnResume;
+	[SerializeField] private Button btnSettings;
+	[SerializeField] private Button btnLeave;
+
 	[Header("HP"),SerializeField] GameObject content;
-	[SerializeField] Image hpLevel;
+	public Image hpLevel;
 
 	testHandler testHandler;
 	UIManager uiManager;
@@ -25,7 +30,6 @@ public class TestingGroundMonitor : MonoBehaviour {
 
 	private void Start()
 	{
-		
 		testHandler = GameObject.Find("The Testing Ground").GetComponent<testHandler>();
 		uiManager = GameObject.Find("AIOGameManager").GetComponent<UIManager>();
 		dbProcessor = GameObject.Find("AIOGameManager").GetComponent<DBContentProcessor>();
@@ -59,9 +63,11 @@ public class TestingGroundMonitor : MonoBehaviour {
 		// display values to player canvas
 		// display ONLY what needs to be monitored all the time
 		botCount.text = aiCount.Length.ToString();
+		
 		correctAnswers.text = testHandler.playerScore.ToString();
-		timer.text = testHandler.time.ToString("0.00");
+		wrongAnswers.text = testHandler.mistakeCount.ToString();
 
+		timer.text = testHandler.time.ToString("0.0");
 
 		/*trigger game over if:
 		1. Camera gameobject is enabled AND...
@@ -69,6 +75,28 @@ public class TestingGroundMonitor : MonoBehaviour {
 
 		Disable Player canvas to highlight gameover panel to the player(optional)
 		*/
+
+		switch((int)testHandler.playerHealth)
+		{
+		case 5:
+			hpLevel.color = Color.Lerp(Color.green, Color.yellow, 0f);
+			break;
+		case 4:
+			hpLevel.color = Color.Lerp(Color.green, Color.yellow, 0.50f);
+			break;
+		case 3:
+			hpLevel.color = Color.Lerp(Color.green, Color.yellow, 1f);
+			break;
+		case 2:
+			hpLevel.color = Color.Lerp(Color.yellow, Color.red, 0.50f);
+			break;
+		case 1:
+			hpLevel.color = Color.Lerp(Color.yellow, Color.red, 1f);
+			break;
+		default:
+			hpLevel.color = Color.white;
+			break;
+		}
 
 		if(mainCamera.activeSelf && testHandler.playerHealth <= 0){
 

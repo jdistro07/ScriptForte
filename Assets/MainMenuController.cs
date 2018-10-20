@@ -17,16 +17,17 @@ public class MainMenuController : MonoBehaviour {
 	[SerializeField] GameObject btnMenuCredits;
 	[SerializeField] GameObject btnMenuTutorial;
 	[SerializeField] GameObject btnMenuLearn;
+	[SerializeField] GameObject customTestList;
+
+	[Header("Password Panel")]
+	[SerializeField] GameObject passwordPanel;
+	[SerializeField] InputField txt_accountPassword;
+	[SerializeField] InputField txt_newPassword;
+	[SerializeField] InputField txt_confirmPassword;
 
 	[SerializeField] GameObject MenuPanel;
 
 	void OnEnable() {
-
-		//enable main menu
-		btnMenuCredits.SetActive(true);
-		btnMenuTutorial.SetActive(true);
-		btnMenuLearn.SetActive(true);
-		MenuPanel.SetActive(true);
 
 		// get user credentials
 		user_credential = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
@@ -57,8 +58,21 @@ public class MainMenuController : MonoBehaviour {
 
 		StartCoroutine(QueryConsistency());
 
-		
+	}
 
+	public void updatePassword(){
+		passwordPanel.SetActive(true);
+	}
+
+	public void closeUpdatePassword(){
+		passwordPanel.SetActive(false);
+
+		// clean up values on disable
+		if(!passwordPanel.activeInHierarchy){
+			txt_accountPassword.text = string.Empty;
+			txt_newPassword.text = string.Empty;
+			txt_confirmPassword.text = string.Empty;
+		}
 	}
 
 	private void OnDisable()
@@ -69,6 +83,7 @@ public class MainMenuController : MonoBehaviour {
 		btnMenuTutorial.SetActive(false);
 		btnMenuLearn.SetActive(false);
 		MenuPanel.SetActive(false);
+		customTestList.SetActive(false);
 		
 	}
 
@@ -90,6 +105,13 @@ public class MainMenuController : MonoBehaviour {
 		WWW www = new WWW(link,form);
 
 		yield return www;
+
+		//enable main menu
+		btnMenuCredits.SetActive(true);
+		btnMenuTutorial.SetActive(true);
+		btnMenuLearn.SetActive(true);
+		MenuPanel.SetActive(true);
+		customTestList.SetActive(true);
 
 		Debug.Log(www.text);
 		overallConsistency.text = www.text+" %";
