@@ -56,7 +56,8 @@ public class spawnTrigger : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		
+		spawnPoint = null;
+		spawnPoint = testHandler.testPlatform.transform.Find ("PlayerSpawnPoint");
 
 		if (other.transform.tag == "Player")
 		{
@@ -85,7 +86,7 @@ public class spawnTrigger : MonoBehaviour
 					playerHealth.playerLife -= 1;
 
 				}
-
+					
 				player.transform.position = spawnPoint.position;
 			}
 		}
