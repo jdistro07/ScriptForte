@@ -87,7 +87,7 @@ public class testHandler : MonoBehaviour
 	private Vector3 currentObjectSpawnPoint;
 	private Vector3 newObjectSpawnPoint;
 	[SerializeField] private float platformSpawnOffset = 40;
-	[SerializeField] private GameObject testPlatform;
+	public GameObject testPlatform;
 	[SerializeField] private GameObject currentPlatform;
 	[SerializeField] private GameObject closest;
 	[SerializeField] private Transform healthBox_spawn;
@@ -100,8 +100,8 @@ public class testHandler : MonoBehaviour
 	private void Start()
 	{
 		GameObject playerFind = GameObject.Find ("FPSController");
-		Vector3 playerSpawn = GameObject.Find ("PlayerSpawn").GetComponent<Transform> ().position;
-		Quaternion playerRotation = GameObject.Find ("PlayerSpawn").GetComponent<Transform> ().rotation;
+		Vector3 playerSpawn = GameObject.Find ("PlayerSpawnPoint").GetComponent<Transform> ().position;
+		Quaternion playerRotation = GameObject.Find ("PlayerSpawnPoint").GetComponent<Transform> ().rotation;
 
 		GameObject.Find ("Start_End Platform").transform.Find ("UI Components").Find ("UICanvas").gameObject.SetActive(false);
 		GameObject.Find ("Start_End Platform").transform.Find ("sceneTrigger").gameObject.SetActive (false);
