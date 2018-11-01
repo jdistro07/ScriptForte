@@ -18,6 +18,7 @@ public class MainMenuController : MonoBehaviour {
 	[SerializeField] GameObject btnMenuTutorial;
 	[SerializeField] GameObject btnMenuLearn;
 	[SerializeField] GameObject customTestList;
+	[SerializeField] GameObject panelLoading;
 
 	[Header("Password Panel")]
 	[SerializeField] GameObject passwordPanel;
@@ -92,7 +93,12 @@ public class MainMenuController : MonoBehaviour {
 		// get consistency approximation (all scores added together from the DB / the count of the scores)
 		string link = "http://"+GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>().link+"/game_client/query_consistency.php";
 
-		Debug.Log(link);
+		//Debug.Log(link);
+
+		panelLoading.SetActive(true);
+
+		Text loadingText = panelLoading.transform.Find("Panel").Find("Loading_Text").GetComponent<Text>();
+		loadingText.text = "Fetching information";
 
 		string username = user_credential.accountUsername;
 		string accountID = user_credential.userID;
@@ -112,6 +118,9 @@ public class MainMenuController : MonoBehaviour {
 		btnMenuLearn.SetActive(true);
 		MenuPanel.SetActive(true);
 		customTestList.SetActive(true);
+
+		// disable loading
+		panelLoading.SetActive(false);
 
 		Debug.Log(www.text);
 		overallConsistency.text = www.text+" %";
