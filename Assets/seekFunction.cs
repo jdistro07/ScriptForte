@@ -38,6 +38,7 @@ public class seekFunction : MonoBehaviour, IDragHandler, IPointerDownHandler
 		Seek (eventData);
 	}
 
+	//Seek the video according to the seek bar progress
 	private void Seek(PointerEventData eventData)
 	{
 		Vector2 localPoint;
