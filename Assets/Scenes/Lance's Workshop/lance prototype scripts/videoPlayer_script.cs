@@ -51,6 +51,7 @@ public class videoPlayer_script : MonoBehaviour
 
 	private void Start()
 	{
+		//Add actions to the buttons
 		playButton.onClick.AddListener (playVideo);
 
 		stopButton.onClick.AddListener (()=>{
@@ -75,13 +76,12 @@ public class videoPlayer_script : MonoBehaviour
 		bgPanel = gameObject.transform.parent.Find ("bgPanel").transform;
 		background = bgPanel.gameObject.GetComponent<RectTransform> ();
 
+		//store preset transform and position
 		originalPosition = new Vector2 (transform.position.x, transform.position.y);
 		originalWidth = rawImage.rectTransform.rect.width;
 		originalHeight = rawImage.rectTransform.rect.height;
 
 		origBGSizeDelta = background.sizeDelta;
-		//origBGWidth = background.rect.width;
-		//originalHeight = background.rect.height;
 	}
 		
 	private void OnEnable()
@@ -93,6 +93,7 @@ public class videoPlayer_script : MonoBehaviour
 
 	void Update()
 	{
+		//set the videostream link and prepare the video (only happens when the videoPlayer url is changed or unset)
 		if (videoPlayer.url != videoURL && isSet == false)
 		{
 			statusText.text = "Loading...";
@@ -110,12 +111,14 @@ public class videoPlayer_script : MonoBehaviour
 			isSet = false;
 		}
 
+		//prepares the video
 		if (!videoPlayer.isPrepared)
 		{
 			statusText.gameObject.SetActive(true);
 			videoPlayer.Prepare ();
 		}
 
+		//calculate the length of the video and play the video
 		if (videoPlayer.isPrepared && donePreparing == false)
 		{
 			statusText.gameObject.SetActive(false);
@@ -127,6 +130,7 @@ public class videoPlayer_script : MonoBehaviour
 			playVideo ();
 		}
 
+		//seek bar progress sync to the current video time
 		if (videoPlayer.isPrepared && videoPlayer.isPlaying)
 			sk.progress.fillAmount = (float)(videoPlayer.time / (videoPlayer.frameCount / videoPlayer.frameRate));
 
@@ -135,6 +139,7 @@ public class videoPlayer_script : MonoBehaviour
 
 	void playVideo()
 	{
+		//If the play button is clicked while the video is still preparing
 		if (!videoPlayer.isPrepared)
 		{
 			statusText.text = "Loading...";
@@ -142,6 +147,7 @@ public class videoPlayer_script : MonoBehaviour
 		}
 		else
 		{
+			// If the video is playing, it will pause and vice versa
 			if (!videoPlayer.isPlaying)
 			{
 				rawImage.texture = videoPlayer.texture;
@@ -218,7 +224,7 @@ public class videoPlayer_script : MonoBehaviour
 			rawImage.rectTransform.sizeDelta = new Vector2 (originalWidth, originalHeight);
 
 			background.position = originalPosition;
-			background.sizeDelta = origBGSizeDelta; //new Vector2 (origBGWidth, origBGHeight);
+			background.sizeDelta = origBGSizeDelta;
 
 			isFullscreen = false;
 

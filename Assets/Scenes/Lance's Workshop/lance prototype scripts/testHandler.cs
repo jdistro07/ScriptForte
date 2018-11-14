@@ -17,12 +17,6 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private string testType;
 	[SerializeField, Range(0, 100)] private float fetchLimit;
 
-	/*[SerializeField] private string userID;
-	[SerializeField] private string username;
-	[SerializeField] private string testID;
-	[SerializeField] private string rating;
-	[SerializeField] private string testMode;*/
-
 	[Header("Game Prefabs")]
 	[SerializeField] private GameObject player;
 	[SerializeField] private GameObject BotAI;
@@ -123,6 +117,16 @@ public class testHandler : MonoBehaviour
 
 		test = questionsFetch.Split (new String[] {"~"}, StringSplitOptions.RemoveEmptyEntries);
 
+		/*
+		 * Determine whether the test type is "pre-test" or "post-test" and if the randomizer is set or not.
+		 * Randomizer Logic:
+		 * 1. Fetch and add each questions as items in a list in "List<String> randomizer".
+		 * 		- This will list all questions in order in the randomizer list.
+		 * 2. Randomly pick questions from the randomizer list to the "List<String> questions" as a final question sequence.
+		 * 		- The questions list is the actual questions that is shown in-game.
+		 * 3. Remove the items from the randomizer list that was added to the questions list.
+		 * 		- This is to prevent the questions from repeating.
+		*/
 		if (testType == "PRE")
 		{
 			if (randomizeQuestions == false)
@@ -152,11 +156,6 @@ public class testHandler : MonoBehaviour
 		}
 		else if (testType == "POST")
 		{
-			/*for (int x = 0; x < test.Length; x++)
-			{
-				questions.Add (test [x]);
-			}*/
-
 			if (randomizeQuestions == false)
 			{
 				for (int x = 0; x < test.Length; x++)
@@ -189,7 +188,10 @@ public class testHandler : MonoBehaviour
 
 	private void Update()
 	{
+		//Find where the first platform will spawn.
 		currentObjectSpawnPoint = GameObject.Find ("testPlatform_Spawn_Start").GetComponent<Transform> ().transform.position;
+
+		//Offsets determines how far the platform will spawn from the spawn point.
 		currentObjectSpawnPoint.z += platformSpawnOffset;
 		newObjectSpawnPoint.z += platformSpawnOffset;
 
@@ -222,8 +224,13 @@ public class testHandler : MonoBehaviour
 			botCount = bots.Length;
 		}
 
+		/*
+		 * This is the actual logic of the test handler.
+		 * If there is a question fetched, execute code.
+		*/
 		if (questionNumber <= (questions.Count - 1))
 		{
+			//Splits the single string data that was fetched into an array of questions.
 			test = questions [questionNumber].Split (':');
 
 			//Test type "True or False"
@@ -268,12 +275,22 @@ public class testHandler : MonoBehaviour
 				Text choiceTrue = currentPlatform.transform.Find("ChoicesCanvas").Find("Button_True").Find ("Choice_True").GetComponent<Text>();
 				Text choiceFalse = currentPlatform.transform.Find("ChoicesCanvas").Find("Button_False").Find ("Choice_False").GetComponent<Text>();
 
+				//Displays the choices in the choices panel on top of the gates.
 				if (choiceTrue.text != test [3] || choiceFalse.text != test [4])
 				{
 					choiceTrue.text = test [3];
 					choiceFalse.text = test [4];
 				}
 
+				/*
+				 * If the answer is correct:
+				 * - Add score
+				 * - Add more time to the timer
+				 * - Destroy 1 bot that is chasing the player
+				 * 
+				 * If the answer is wrong:
+				 * - Spawn 1 AI to chase down the player
+				*/
 				if(spawnTrigger.answer != null)
 				{
 					if (spawnTrigger.answer == test [5])
@@ -306,6 +323,7 @@ public class testHandler : MonoBehaviour
 				GameObject trigT = GameObject.Find("Spawn Trigger T");
 				GameObject trigF = GameObject.Find("Spawn Trigger F");
 
+				//If the player enters the spawnTrigger this will remove all the triggers in the current platform to prevent triggering over again.
 				if (spawnTrigger.answer == "T")
 				{
 					newObjectSpawnPoint = platSpawnT.transform.position;
@@ -446,6 +464,7 @@ public class testHandler : MonoBehaviour
 			}
 			else if (time <= 0)
 			{
+				//If timer runs out and the maximum number of bots is not reached, spawn 1 AI.
 				if (botCount < maxBots && botSpawned == false)
 				{
 					currentPlatform = GameObject.Find("platform_" + questionNumber);
@@ -483,6 +502,7 @@ public class testHandler : MonoBehaviour
 			}
 			healthSpawned = true;
 		}
+		//If all questions are answered
 		else if (questionNumber > (questions.Count - 1))
 		{
 			platformSpawnOffset = -25;
@@ -510,16 +530,6 @@ public class testHandler : MonoBehaviour
 				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count) + "\n Score Percentage: \n" + scoreAverage.ToString("F2") + "%";
 
 				notified = false;
-
-				/*Data to be submitted to the database
-				userID = GameController.GetComponent<LoginModule> ().userID;
-				username = GameController.GetComponent<LoginModule> ().accountUsername;
-				testID = GameController.GetComponent<DBContentProcessor> ().testIndexID;
-				rating = scoreAverage.ToString ();
-				testMode = GameController.GetComponent<DBContentProcessor> ().testMode;
-
-
-				StartCoroutine(submitScore (userID, username, testID, rating, testMode));*/
 			}
 			isCreated = true;
 		}
@@ -535,23 +545,7 @@ public class testHandler : MonoBehaviour
 		notified = true;
 	}
 
-	/*IEnumerator submitScore(string sf_userID, string sf_username, string sf_testID, string sf_rating, string sf_testMode)
-	{
-		WWWForm form = new WWWForm ();
-		form.AddField ("sf_userID", sf_userID);
-		form.AddField ("sf_username", sf_username);
-		form.AddField ("sf_testID", sf_testID);
-		form.AddField ("sf_rating", sf_rating);
-		form.AddField ("sf_testMode", sf_testMode);
-
-		link = "http://" + GameController.GetComponent<GameSettingsManager> ().link + "/game_client/score_submit.php";
-		WWW www = new WWW (link, form);
-
-		yield return www;
-
-		Debug.Log(www.text);
-	}*/
-
+	//This will look for the fall trigger closest to the player and activates it. This will prevent the player from falling completely off the play field.
 	private void EnableFallTrigger()
 	{
 		if (playerCheck == true)

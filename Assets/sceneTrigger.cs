@@ -23,6 +23,7 @@ public class sceneTrigger : MonoBehaviour
 
 	FirstPersonController FPC;
 
+	//Referencing other scripts
 	private void Awake()
 	{
 		GameController = GameObject.FindGameObjectWithTag ("GameController");
@@ -30,6 +31,12 @@ public class sceneTrigger : MonoBehaviour
 		testType = GameController.GetComponent<DBContentProcessor> ().testMode;
 	}
 
+	/*
+	 * When the player enters the trigger:
+	 * - Show loading screen
+	 * - Proccess test data
+	 * - Submit data to the database
+	*/
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.transform.tag == "Player")
