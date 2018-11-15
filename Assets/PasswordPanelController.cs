@@ -23,7 +23,6 @@ public class PasswordPanelController : MonoBehaviour {
 
 		// update password from the database
 		StartCoroutine(dbPassUpdate(gsettings.link, txt_accPassword.text, txt_newPassword.text, txt_confirmNewPassword.text));
-
 	}
 
 	IEnumerator dbPassUpdate(string settingsLink, string accPassword, string newPassword, string confPassword){
@@ -105,7 +104,9 @@ public class PasswordPanelController : MonoBehaviour {
 
 		}
 		
-
+		txt_accPassword.text = null;
+		txt_newPassword.text = null;
+		txt_confirmNewPassword.text = null;
 	}
 
 }
