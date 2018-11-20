@@ -58,11 +58,13 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private float botHeightOffset = 10;
 	[SerializeField] private int maxBots = 4;
 	private int botCount;
+	private bool botsEnabled;
 
 	[Header("Timer Components")]
 	[Range(0,30)]
 	public float timeToAdd;
 	bool isTimeAdded;
+	private bool timerStarted = false;
 
 	[Range(0,60)]
 	public float time;
@@ -153,6 +155,8 @@ public class testHandler : MonoBehaviour
 					}
 				}
 			}
+
+			botsEnabled = false;
 		}
 		else if (testType == "POST")
 		{
@@ -180,6 +184,8 @@ public class testHandler : MonoBehaviour
 					}
 				}
 			}
+
+			botsEnabled = true;
 		}
 
 		Debug.Log ("total number of questions added: " + questions.Count);
@@ -297,7 +303,12 @@ public class testHandler : MonoBehaviour
 					{
 						//correct answer for TF
 						playerScore++;
-						time += timeToAdd;
+
+						if (botsEnabled == true)
+						{
+							time += timeToAdd;
+						}
+
 						isCorrect = true;
 						botSpawned = false;
 
@@ -308,7 +319,7 @@ public class testHandler : MonoBehaviour
 					}
 					else
 					{
-						if (botCount < maxBots && spawnTrigger.answer != null)
+						if (botCount < maxBots && spawnTrigger.answer != null && botsEnabled == true)
 						{
 							Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
 							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
@@ -316,7 +327,13 @@ public class testHandler : MonoBehaviour
 							Instantiate (BotAI, position, player.transform.rotation);
 						}
 
+						playerScore -= 1;
 						isCorrect = false;
+					}
+
+					if (timerStarted == false && botsEnabled == true)
+					{
+						timerStarted = true;
 					}
 				}
 
@@ -397,7 +414,12 @@ public class testHandler : MonoBehaviour
 					{
 						//correct answer for MC
 						playerScore++;
-						time += timeToAdd;
+
+						if (botsEnabled == true)
+						{
+							time += timeToAdd;
+						}
+
 						isCorrect = true;
 						botSpawned = false;
 
@@ -408,7 +430,7 @@ public class testHandler : MonoBehaviour
 					}
 					else
 					{
-						if (botCount < maxBots && spawnTrigger.answer != null)
+						if (botCount < maxBots && spawnTrigger.answer != null && botsEnabled == true)
 						{
 							Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
 							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
@@ -416,7 +438,13 @@ public class testHandler : MonoBehaviour
 							Instantiate (BotAI, position, player.transform.rotation);
 						}
 
+						playerScore -= 0.5;
 						isCorrect = false;
+					}
+
+					if (timerStarted == false && botsEnabled == true)
+					{
+						timerStarted = true;
 					}
 				}
 
@@ -457,30 +485,36 @@ public class testHandler : MonoBehaviour
 			}
 
 			//start timer
-			if(time > 0 && botCount < maxBots && playerCheck == true)
+			if (botsEnabled == true)
 			{
-				time = time-Time.deltaTime;
-				isTimeAdded = false;
-			}
-			else if (time <= 0)
-			{
-				//If timer runs out and the maximum number of bots is not reached, spawn 1 AI.
-				if (botCount < maxBots && botSpawned == false)
+				if (timerStarted == true)
 				{
-					currentPlatform = GameObject.Find("platform_" + questionNumber);
-					Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
-					Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
+					if(time > 0 && botCount < maxBots && playerCheck == true)
+					{
+						time = time-Time.deltaTime;
+						isTimeAdded = false;
+					}
+					else if (time <= 0)
+					{
+						//If timer runs out and the maximum number of bots is not reached, spawn 1 AI.
+						if (botCount < maxBots && botSpawned == false)
+						{
+							currentPlatform = GameObject.Find("platform_" + questionNumber);
+							Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
+							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
 
-					Instantiate (BotAI, position, player.transform.rotation);
-				}
-				botSpawned = true;
+							Instantiate (BotAI, position, player.transform.rotation);
+						}
+						botSpawned = true;
 
-				if(isTimeAdded == false){
+						if(isTimeAdded == false){
 
-					// reset time and enable bot spawn again
-					time += 60f;
-					isTimeAdded = true;
-					botSpawned = false;
+							// reset time and enable bot spawn again
+							time += 60f;
+							isTimeAdded = true;
+							botSpawned = false;
+						}
+					}
 				}
 			}
 
@@ -532,6 +566,11 @@ public class testHandler : MonoBehaviour
 				notified = false;
 			}
 			isCreated = true;
+		}
+
+		if (playerScore < 0)
+		{
+			playerScore = 0;
 		}
 
 		if (questionNumber >= 2 && notified == false)
