@@ -46,6 +46,19 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private List<String> randomizer;
 	[SerializeField] private string[] test;
 
+	[Header("Answer Key")]
+	public Transform ansKeySpawn;
+	public GameObject answerKey;
+	public float ansKeyOffset;
+	//Miscellaneous
+	[SerializeField] private GameObject ansKey;
+	[SerializeField] private GameObject currentAns;
+	private Transform ansKeyQuestion;
+	private Transform ansKeyPlayerAns;
+	private Transform ansKeyCorrectAns;
+	private Vector3 currentAnsKeySpawnPoint;
+	private Vector3 newAnsKeySpawnPoint;
+
 	[Header("Scoring")]
 	[SerializeField] private int questionNumber = 0;
 	public double totalQuestions;
@@ -201,6 +214,14 @@ public class testHandler : MonoBehaviour
 		currentObjectSpawnPoint.z += platformSpawnOffset;
 		newObjectSpawnPoint.z += platformSpawnOffset;
 
+		currentAnsKeySpawnPoint = ansKeySpawn.transform.position;
+
+		if (isCreated == true)
+		{
+			newAnsKeySpawnPoint = currentAns.transform.position;
+			newAnsKeySpawnPoint.y -= ansKeyOffset;
+		}
+
 		if (GameObject.FindGameObjectWithTag("Player"))
 		{
 			playerCheck = true;
@@ -247,6 +268,10 @@ public class testHandler : MonoBehaviour
 				{
 					testPlatform = (GameObject)Instantiate (testPrefab_TF, currentObjectSpawnPoint, transform.localRotation, transform);
 					testPlatform.gameObject.name = "platform_" + questionNumber;
+
+					ansKey = (GameObject)Instantiate (answerKey, currentAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
+					ansKey.gameObject.name = "answer_" + questionNumber;
+
 					firstCreation = false;
 					healthSpawned = false;
 				}
@@ -257,6 +282,9 @@ public class testHandler : MonoBehaviour
 						testPlatform = (GameObject)Instantiate (testPrefab_TF, newObjectSpawnPoint, transform.localRotation, transform);
 						testPlatform.gameObject.name = "platform_" + questionNumber;
 
+						ansKey = (GameObject)Instantiate (answerKey, newAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
+						ansKey.gameObject.name = "answer_" + questionNumber;
+
 						notified = false;
 						healthSpawned = false;
 					}
@@ -264,6 +292,7 @@ public class testHandler : MonoBehaviour
 				isCreated = true;
 
 				currentPlatform = GameObject.Find("platform_" + questionNumber);
+				currentAns = GameObject.Find ("answer_" + questionNumber);
 
 				platSpawnT = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn T");
 				platSpawnF = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn F");
@@ -271,10 +300,32 @@ public class testHandler : MonoBehaviour
 				//Platform Canvas settings
 				//Question Canvas
 				questionText = currentPlatform.transform.Find("QuestionCanvas").Find("QuestionText").GetComponent<Text>();
+				ansKeyQuestion = currentAns.transform.Find ("Questions").Find ("txtQuestions");
+				ansKeyPlayerAns = currentAns.transform.Find ("playerAnswer").Find ("txtPlayerAnswer");
+				ansKeyCorrectAns = currentAns.transform.Find ("correctAnswer").Find ("txtCorrectAnswer");
 
 				if (questionText.text != test [2])
 				{
 					questionText.text = test [2];
+				}
+
+				Text quesAnstxt = ansKeyQuestion.GetComponent<Text> ();
+				Text corAnstxt = ansKeyCorrectAns.GetComponent<Text> ();
+
+				if (quesAnstxt.text != test [2] || corAnstxt.text != test [5])
+				{
+					quesAnstxt.text = (questionNumber + 1) + ". " + test [2];
+
+					if (test [5] == "T")
+					{
+						corAnstxt.text = test [3];
+					}
+					else if (test [5] == "F")
+					{
+						corAnstxt.text = test [4];
+					}
+
+					corAnstxt.color = new Color (0, 255, 0);
 				}
 
 				//Choices Canvas
@@ -299,6 +350,8 @@ public class testHandler : MonoBehaviour
 				*/
 				if(spawnTrigger.answer != null)
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
+
 					if (spawnTrigger.answer == test [5])
 					{
 						//correct answer for TF
@@ -316,6 +369,9 @@ public class testHandler : MonoBehaviour
 						{
 							Destroy (bots [0]);
 						}
+
+						quesAnstxt.color = new Color (0, 255, 0);
+						plyrAnstxt.color = new Color (0, 255, 0);
 					}
 					else
 					{
@@ -329,6 +385,9 @@ public class testHandler : MonoBehaviour
 
 						playerScore -= 1;
 						isCorrect = false;
+
+						quesAnstxt.color = new Color (255, 0, 0);
+						plyrAnstxt.color = new Color (255, 0, 0);
 					}
 
 					if (timerStarted == false && botsEnabled == true)
@@ -343,20 +402,24 @@ public class testHandler : MonoBehaviour
 				//If the player enters the spawnTrigger this will remove all the triggers in the current platform to prevent triggering over again.
 				if (spawnTrigger.answer == "T")
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
 					newObjectSpawnPoint = platSpawnT.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
 					Destroy(trigT);
 					Destroy(trigF);
+					plyrAnstxt.text = test [3];
 					isCreated = false;
 				}
 				else if (spawnTrigger.answer == "F")
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
 					newObjectSpawnPoint = platSpawnF.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
 					Destroy(trigT);
 					Destroy(trigF);
+					plyrAnstxt.text = test [4];
 					isCreated = false;
 				}
 			}
@@ -366,6 +429,10 @@ public class testHandler : MonoBehaviour
 				{
 					testPlatform = (GameObject)Instantiate (testPrefab_MC, currentObjectSpawnPoint, transform.localRotation, transform);
 					testPlatform.gameObject.name = "platform_" + questionNumber;
+
+					ansKey = (GameObject)Instantiate (answerKey, currentAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
+					ansKey.gameObject.name = "answer_" + questionNumber;
+
 					firstCreation = false;
 					healthSpawned = false;
 				}
@@ -376,6 +443,9 @@ public class testHandler : MonoBehaviour
 						testPlatform = (GameObject)Instantiate (testPrefab_MC, newObjectSpawnPoint, transform.localRotation, transform);
 						testPlatform.gameObject.name = "platform_" + questionNumber;
 
+						ansKey = (GameObject)Instantiate (answerKey, newAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
+						ansKey.gameObject.name = "answer_" + questionNumber;
+
 						notified = false;
 						healthSpawned = false;
 					}
@@ -383,6 +453,7 @@ public class testHandler : MonoBehaviour
 				isCreated = true;
 
 				currentPlatform = GameObject.Find("platform_" + questionNumber);
+				currentAns = GameObject.Find ("answer_" + questionNumber);
 
 				platSpawnA = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn A");
 				platSpawnB = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn B");
@@ -391,10 +462,36 @@ public class testHandler : MonoBehaviour
 				//Platform Canvas settings
 				//Question Canvas
 				questionText = currentPlatform.transform.Find("QuestionCanvas").Find("QuestionText").GetComponent<Text>();
+				ansKeyQuestion = currentAns.transform.Find ("Questions").Find ("txtQuestions");
+				ansKeyPlayerAns = currentAns.transform.Find ("playerAnswer").Find ("txtPlayerAnswer");
+				ansKeyCorrectAns = currentAns.transform.Find ("correctAnswer").Find ("txtCorrectAnswer");
 
 				if (questionText.text != test [2])
 				{
 					questionText.text = test [2];
+				}
+
+				Text quesAnstxt = ansKeyQuestion.GetComponent<Text> ();
+				Text corAnstxt = ansKeyCorrectAns.GetComponent<Text> ();
+
+				if (quesAnstxt.text != test [2] || corAnstxt.text != test [6])
+				{
+					quesAnstxt.text = (questionNumber + 1) + ". " + test [2];
+
+					if (test [6] == "A")
+					{
+						corAnstxt.text = test [3];
+					}
+					else if (test [6] == "B")
+					{
+						corAnstxt.text = test [4];
+					}
+					else if (test [6] == "C")
+					{
+						corAnstxt.text = test [5];
+					}
+
+					corAnstxt.color = new Color (0, 255, 0);
 				}
 
 				//Choices Canvas
@@ -409,7 +506,10 @@ public class testHandler : MonoBehaviour
 					ChoiceC.text = test [5];
 				}
 
-				if(spawnTrigger.answer != null){
+				if(spawnTrigger.answer != null)
+				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
+
 					if (spawnTrigger.answer == test [6])
 					{
 						//correct answer for MC
@@ -427,6 +527,9 @@ public class testHandler : MonoBehaviour
 						{
 							Destroy (bots [0]);
 						}
+
+						quesAnstxt.color = new Color (0, 255, 0);
+						plyrAnstxt.color = new Color (0, 255, 0);
 					}
 					else
 					{
@@ -440,6 +543,9 @@ public class testHandler : MonoBehaviour
 
 						playerScore -= 0.5;
 						isCorrect = false;
+
+						quesAnstxt.color = new Color (255, 0, 0);
+						plyrAnstxt.color = new Color (255, 0, 0);
 					}
 
 					if (timerStarted == false && botsEnabled == true)
@@ -454,32 +560,38 @@ public class testHandler : MonoBehaviour
 
 				if (spawnTrigger.answer == "A")
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
 					newObjectSpawnPoint = platSpawnA.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
 					Destroy(trigA);
 					Destroy(trigB);
 					Destroy(trigC);
+					plyrAnstxt.text = test [3];
 					isCreated = false;
 				}
 				else if (spawnTrigger.answer == "B")
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
 					newObjectSpawnPoint = platSpawnB.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
 					Destroy(trigA);
 					Destroy(trigB);
 					Destroy(trigC);
+					plyrAnstxt.text = test [4];
 					isCreated = false;
 				}
 				else if (spawnTrigger.answer == "C")
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
 					newObjectSpawnPoint = platSpawnC.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
 					Destroy(trigA);
 					Destroy(trigB);
 					Destroy(trigC);
+					plyrAnstxt.text = test [5];
 					isCreated = false;
 				}
 			}
