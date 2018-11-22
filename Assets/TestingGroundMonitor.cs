@@ -9,6 +9,7 @@ public class TestingGroundMonitor : MonoBehaviour {
 	[SerializeField] Text correctAnswers;
 	[SerializeField] Text wrongAnswers;
 	[SerializeField] Text botCount;
+	[SerializeField] GameObject loadingScreen;
 
 	[Header("Reference Objects for Game Over")]
 	[SerializeField] Button btnRetry;
@@ -33,6 +34,8 @@ public class TestingGroundMonitor : MonoBehaviour {
 		testHandler = GameObject.Find("The Testing Ground").GetComponent<testHandler>();
 		uiManager = GameObject.Find("AIOGameManager").GetComponent<UIManager>();
 		dbProcessor = GameObject.Find("AIOGameManager").GetComponent<DBContentProcessor>();
+		loadingScreen.GetComponent<CanvasGroup> ().interactable = false;
+		loadingScreen.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 
 		//display static values on start for optimality
 		totalQuestions.text = testHandler.totalQuestions.ToString();

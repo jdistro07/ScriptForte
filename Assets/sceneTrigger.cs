@@ -84,6 +84,9 @@ public class sceneTrigger : MonoBehaviour
 
 		StartCoroutine (FadeInLoadingCanvas (loadingCanvas, loadingCanvas.alpha, 1));
 
+		LoadingScreen.GetComponent<CanvasGroup> ().interactable = true;
+		LoadingScreen.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+
 		WWWForm form = new WWWForm ();
 		form.AddField ("sf_userID", sf_userID);
 		form.AddField ("sf_username", sf_username);
