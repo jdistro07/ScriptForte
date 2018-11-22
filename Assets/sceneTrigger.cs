@@ -20,6 +20,7 @@ public class sceneTrigger : MonoBehaviour
 	private GameObject GameController;
 	private GameObject LoadingScreen;
 	private testHandler testHandler;
+	private Button btnProceed;
 
 	FirstPersonController FPC;
 
@@ -29,6 +30,20 @@ public class sceneTrigger : MonoBehaviour
 		GameController = GameObject.FindGameObjectWithTag ("GameController");
 		testHandler = GameObject.Find ("The Testing Ground").GetComponent<testHandler> ();
 		testType = GameController.GetComponent<DBContentProcessor> ().testMode;
+		btnProceed = GameObject.Find ("PlayerUI_Canvas").transform.Find ("LoadingCanvas").Find ("Button").GetComponent<Button> ();
+
+		btnProceed.onClick.AddListener (() => {
+			
+			if (testType == "PRE")
+			{
+				Initiate.Fade ("learn", Color.black, 5f);
+			}
+			else if (testType == "POST")
+			{
+				Initiate.Fade ("Main UI", Color.black, 5f);
+			}
+
+		});
 	}
 
 	/*
@@ -62,6 +77,11 @@ public class sceneTrigger : MonoBehaviour
 
 	private IEnumerator submitScore(string sf_userID, string sf_username, string sf_testID, string sf_rating, string sf_testMode)
 	{
+		FPC.walkToggle = false;
+		FPC.m_MouseLook.lockCursor = false;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+
 		StartCoroutine (FadeInLoadingCanvas (loadingCanvas, loadingCanvas.alpha, 1));
 
 		WWWForm form = new WWWForm ();
@@ -76,19 +96,7 @@ public class sceneTrigger : MonoBehaviour
 
 		yield return www;
 
-		FPC.walkToggle = false;
-		FPC.m_MouseLook.lockCursor = false;
-		Cursor.lockState = CursorLockMode.None;
-		Cursor.visible = true;
-
-		if (testType == "PRE")
-		{
-			Initiate.Fade ("learn", Color.black, 5f);
-		}
-		else if (testType == "POST")
-		{
-			Initiate.Fade ("Main UI", Color.black, 5f);
-		}
+		btnProceed.interactable = true;
 	}
 
 	private IEnumerator FadeInLoadingCanvas(CanvasGroup cg, float start, float end, float lerpTime = 0.5f)
