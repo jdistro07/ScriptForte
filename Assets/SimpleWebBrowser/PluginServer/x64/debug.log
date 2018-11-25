@@ -8,3 +8,4 @@
 [1017/111308.327:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
 [1017/111309.608:ERROR:broker_win.cc(59)] Error reading broker pipe: The pipe has been ended. (0x6D)
 [1115/212016.203:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()
+[1124/221211.815:INFO:child_thread_impl.cc(882)] ChildThreadImpl::EnsureConnected()

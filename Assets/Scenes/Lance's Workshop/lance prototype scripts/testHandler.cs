@@ -59,11 +59,14 @@ public class testHandler : MonoBehaviour
 	private Vector3 currentAnsKeySpawnPoint;
 	private Vector3 newAnsKeySpawnPoint;
 
+	RectTransform contentRectTransform;
+
 	[Header("Scoring")]
 	[SerializeField] private int questionNumber = 0;
 	public double totalQuestions;
 	public double playerScore = 0;
 	public double scoreAverage;
+	public int correctCount;
 	public int mistakeCount;
 
 	[Header("AI")]
@@ -129,6 +132,7 @@ public class testHandler : MonoBehaviour
 		GameController = GameObject.FindGameObjectWithTag("GameController");
 		testType = GameController.GetComponent<DBContentProcessor> ().testMode;
 		questionsFetch = GameController.GetComponent<DBContentProcessor> ().questionData;
+		contentRectTransform = GameObject.Find ("PlayerUI_Canvas").transform.Find ("LoadingCanvas").Find ("Scroll View").Find ("Viewport").Find ("Content").GetComponent<RectTransform> ();
 
 		test = questionsFetch.Split (new String[] {"~"}, StringSplitOptions.RemoveEmptyEntries);
 
@@ -285,6 +289,10 @@ public class testHandler : MonoBehaviour
 						ansKey = (GameObject)Instantiate (answerKey, newAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
 						ansKey.gameObject.name = "answer_" + questionNumber;
 
+						float ansKeyRectHeight = ansKey.GetComponent<RectTransform> ().rect.height;
+						float rectHeight = contentRectTransform.rect.height;
+						contentRectTransform.sizeDelta = new Vector2 (contentRectTransform.rect.width, rectHeight += ansKeyRectHeight);
+
 						notified = false;
 						healthSpawned = false;
 					}
@@ -356,6 +364,7 @@ public class testHandler : MonoBehaviour
 					{
 						//correct answer for TF
 						playerScore++;
+						correctCount++;
 
 						if (botsEnabled == true)
 						{
@@ -446,6 +455,10 @@ public class testHandler : MonoBehaviour
 						ansKey = (GameObject)Instantiate (answerKey, newAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
 						ansKey.gameObject.name = "answer_" + questionNumber;
 
+						float ansKeyRectHeight = ansKey.GetComponent<RectTransform> ().rect.height;
+						float rectHeight = contentRectTransform.rect.height;
+						contentRectTransform.sizeDelta = new Vector2 (contentRectTransform.rect.width, rectHeight += ansKeyRectHeight);
+
 						notified = false;
 						healthSpawned = false;
 					}
@@ -514,6 +527,7 @@ public class testHandler : MonoBehaviour
 					{
 						//correct answer for MC
 						playerScore++;
+						correctCount++;
 
 						if (botsEnabled == true)
 						{
