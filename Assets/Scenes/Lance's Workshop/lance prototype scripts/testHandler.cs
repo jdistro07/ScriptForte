@@ -289,9 +289,9 @@ public class testHandler : MonoBehaviour
 						ansKey = (GameObject)Instantiate (answerKey, newAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
 						ansKey.gameObject.name = "answer_" + questionNumber;
 
-						float ansKeyRectHeight = ansKey.GetComponent<RectTransform> ().rect.height;
+						/*float ansKeyRectHeight = ansKey.GetComponent<RectTransform> ().rect.height;
 						float rectHeight = contentRectTransform.rect.height;
-						contentRectTransform.sizeDelta = new Vector2 (contentRectTransform.rect.width, rectHeight += ansKeyRectHeight);
+						contentRectTransform.sizeDelta = new Vector2 (contentRectTransform.rect.width, rectHeight += ansKeyRectHeight);*/
 
 						notified = false;
 						healthSpawned = false;
@@ -455,9 +455,9 @@ public class testHandler : MonoBehaviour
 						ansKey = (GameObject)Instantiate (answerKey, newAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
 						ansKey.gameObject.name = "answer_" + questionNumber;
 
-						float ansKeyRectHeight = ansKey.GetComponent<RectTransform> ().rect.height;
+						/*float ansKeyRectHeight = ansKey.GetComponent<RectTransform> ().rect.height;
 						float rectHeight = contentRectTransform.rect.height;
-						contentRectTransform.sizeDelta = new Vector2 (contentRectTransform.rect.width, rectHeight += ansKeyRectHeight);
+						contentRectTransform.sizeDelta = new Vector2 (contentRectTransform.rect.width, rectHeight += ansKeyRectHeight);*/
 
 						notified = false;
 						healthSpawned = false;
@@ -504,7 +504,7 @@ public class testHandler : MonoBehaviour
 						corAnstxt.text = test [5];
 					}
 
-					corAnstxt.color = new Color (0, 255, 0);
+					corAnstxt.color = new Color (0, 225, 0);
 				}
 
 				//Choices Canvas
@@ -542,8 +542,8 @@ public class testHandler : MonoBehaviour
 							Destroy (bots [0]);
 						}
 
-						quesAnstxt.color = new Color (0, 255, 0);
-						plyrAnstxt.color = new Color (0, 255, 0);
+						quesAnstxt.color = new Color (0, 225, 0);
+						plyrAnstxt.color = new Color (0, 225, 0);
 					}
 					else
 					{
