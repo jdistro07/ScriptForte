@@ -73,30 +73,6 @@
 2018-11-20 20:16:41,207 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
 2018-11-22 22:20:39,399 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
 2018-11-22 22:20:42,344 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:0987c538-075f-4f7c-9b19-cd299a16dd19,port:8335
-2018-11-25 15:21:04,691 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
-2018-11-25 15:21:15,953 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:552c2382-dfec-4646-9100-ebc3855bf80c,port:8585
-2018-11-25 15:28:46,848 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
-2018-11-25 15:28:57,428 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:1280,height:720,url:http://test.webrtc.org,memfile:MainSharedMem,port:8885
-2018-11-25 15:29:11,641 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
-2018-11-25 15:32:52,060 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
-2018-11-25 15:32:52,148 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:ec4a4ed9-b58f-42f3-a575-b9ae27337dc0,port:8071
-2018-11-25 15:33:33,361 [9] INFO  SharedPluginServer.App [(null)] - ==============SHUTTING DOWN==========
-2018-11-25 18:14:28,611 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
-2018-11-25 18:14:31,846 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:35718c92-ecb4-4226-9e6f-2837e92e1f61,port:8528
-2018-11-25 18:15:15,875 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
-2018-11-25 18:15:19,640 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
-2018-11-25 18:15:20,062 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:1280,height:720,url:http://test.webrtc.org,memfile:MainSharedMem,port:8885
-2018-11-25 18:15:51,084 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
-2018-11-25 18:15:51,413 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:1280,height:720,url:http://test.webrtc.org,memfile:MainSharedMem,port:8885
-2018-11-25 19:58:05,234 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
-2018-11-25 19:58:08,191 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:3e5e92df-79e2-48ba-8fbf-b6b9a96e0d86,port:8117
-2018-11-25 19:58:40,232 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
-2018-11-25 19:58:52,228 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
-2018-11-25 19:58:52,451 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
-2018-11-25 19:58:53,093 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
-2018-11-25 19:58:53,601 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
-2018-11-25 19:58:53,899 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
-2018-11-25 19:58:53,978 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
-2018-11-25 19:58:54,372 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0
-2018-11-25 19:59:04,115 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
-2018-11-25 19:59:04,209 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:1280,height:720,url:http://test.webrtc.org,memfile:MainSharedMem,port:8885
+2018-11-24 22:10:16,087 [1] INFO  SharedPluginServer.Program [(null)] - ===============START================
+2018-11-24 22:10:19,141 [1] INFO  SharedPluginServer.Program [(null)] - Starting plugin, settings:width:678,height:355,url:https://js.do/,memfile:5df71a87-ebf9-464d-b5eb-c8d903e7c441,port:8037
+2018-11-24 22:12:15,258 [1] ERROR SharedPluginServer.Program [(null)] - CefRuntime return 0

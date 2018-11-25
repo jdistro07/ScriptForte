@@ -18,9 +18,17 @@ public class sceneTrigger : MonoBehaviour
 	[SerializeField] private string testMode;
 
 	private GameObject GameController;
-	private GameObject LoadingScreen;
+	private Transform LoadingScreen;
 	private testHandler testHandler;
 	private Button btnProceed;
+
+	private Transform loadingIcon;
+	private Transform statusText;
+
+	private Text totalQuestions;
+	private Text Corrects;
+	private Text Mistakes;
+	private Text totalScore;
 
 	FirstPersonController FPC;
 
@@ -31,6 +39,18 @@ public class sceneTrigger : MonoBehaviour
 		testHandler = GameObject.Find ("The Testing Ground").GetComponent<testHandler> ();
 		testType = GameController.GetComponent<DBContentProcessor> ().testMode;
 		btnProceed = GameObject.Find ("PlayerUI_Canvas").transform.Find ("LoadingCanvas").Find ("Button").GetComponent<Button> ();
+		LoadingScreen = GameObject.Find ("PlayerUI_Canvas").transform.Find ("LoadingCanvas");
+
+		loadingIcon = LoadingScreen.Find ("LoadingIcon");
+		statusText = LoadingScreen.Find ("statusText");
+
+		loadingIcon.gameObject.SetActive (false);
+		statusText.gameObject.SetActive (false);
+
+		totalQuestions = LoadingScreen.Find ("Total Questions").Find ("Value").GetComponent<Text> ();
+		Corrects = LoadingScreen.Find ("Corrects").Find ("Value").GetComponent<Text> ();
+		Mistakes = LoadingScreen.Find ("Mistakes").Find ("Value").GetComponent<Text> ();
+		totalScore = LoadingScreen.Find ("Total Score").Find ("Value").GetComponent<Text> ();
 
 		btnProceed.onClick.AddListener (() => {
 			
@@ -59,11 +79,15 @@ public class sceneTrigger : MonoBehaviour
 			FPC = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
 
 			FPC.walkToggle = false;
-			
-			LoadingScreen = GameObject.Find("PlayerUI_Canvas").transform.Find("LoadingCanvas").gameObject;
-			LoadingScreen.SetActive (true);
+
+			LoadingScreen.gameObject.SetActive (true);
 
 			FPC.canPause = false;
+
+			totalQuestions.text = testHandler.totalQuestions.ToString ();
+			Corrects.text = testHandler.correctCount.ToString ();
+			Mistakes.text = testHandler.mistakeCount.ToString ();
+			totalScore.text = testHandler.playerScore.ToString ();
 
 			userID = GameController.GetComponent<LoginModule> ().userID;
 			username = GameController.GetComponent<LoginModule> ().accountUsername;
@@ -87,6 +111,9 @@ public class sceneTrigger : MonoBehaviour
 		LoadingScreen.GetComponent<CanvasGroup> ().interactable = true;
 		LoadingScreen.GetComponent<CanvasGroup> ().blocksRaycasts = true;
 
+		loadingIcon.gameObject.SetActive (true);
+		statusText.gameObject.SetActive (true);
+
 		WWWForm form = new WWWForm ();
 		form.AddField ("sf_userID", sf_userID);
 		form.AddField ("sf_username", sf_username);
@@ -98,6 +125,10 @@ public class sceneTrigger : MonoBehaviour
 		WWW www = new WWW (link, form);
 
 		yield return www;
+
+		Text txtStatus = statusText.GetComponent<Text> ();
+		loadingIcon.gameObject.SetActive (false);
+		txtStatus.text = "You may now click " + '"' + "Proceed" + '"' + " to continue.";
 
 		btnProceed.interactable = true;
 	}
