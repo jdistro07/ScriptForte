@@ -33,6 +33,7 @@ public class MainMenuController : MonoBehaviour {
 		// get user credentials
 		user_credential = GameObject.Find("AIOGameManager").GetComponent<LoginModule>();
 		
+		StartCoroutine(QueryConsistency());
 
 		var user_level = int.Parse(user_credential.accountLevel);
 		
@@ -56,8 +57,6 @@ public class MainMenuController : MonoBehaviour {
 			user_grade_or_account_level.text = "Grade: "+user_credential.gradeLevel;
 
 		}
-
-		StartCoroutine(QueryConsistency());
 
 	}
 
@@ -124,6 +123,20 @@ public class MainMenuController : MonoBehaviour {
 
 		Debug.Log(www.text);
 		overallConsistency.text = www.text+" %";
+
+		// get latest max chapter finished by the player
+		string link_maxChapter = "http://"+GameObject.Find("AIOGameManager").GetComponent<GameSettingsManager>().link+"/game_client/query_maxChapter.php";
+
+		WWWForm credential_form = new WWWForm();
+
+		credential_form.AddField("user_ID", accountID);
+
+		WWW req_maxChap = new WWW(link_maxChapter, credential_form);
+
+		yield return req_maxChap;
+
+		// store max chapter value as integer to the public maxChapter variable of the login module
+		user_credential.maxChapter = req_maxChap.text;
 
 	}
 
