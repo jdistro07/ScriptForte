@@ -15,6 +15,7 @@ public class PanelTestController : MonoBehaviour {
 	[Header("Values")]
 	[SerializeField] string[] credentials;
 	[SerializeField] int pre_playCount;
+	public int test_chapter;
 
 	public string stringData;
 
@@ -107,6 +108,19 @@ public class PanelTestController : MonoBehaviour {
 			}
 
 		}catch{
+
+			int playableChapter = test_chapter - 1;
+			
+			if (int.Parse(loginModule.maxChapter) < playableChapter){
+				btnPre.interactable = false;
+				btnPre.GetComponentInChildren<Text>().text = "Locked";
+			}else if (test_chapter == 1){
+				btnPre.interactable = true;
+				btnPre.GetComponentInChildren<Text>().text = "Pre-test";
+			}else{
+				btnPre.interactable = true;
+				btnPre.GetComponentInChildren<Text>().text = "Pre-test";
+			}
 
 			// pre-test unlock logic
 			if(pre > 0){

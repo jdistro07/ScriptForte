@@ -17,12 +17,6 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private string testType;
 	[SerializeField, Range(0, 100)] private float fetchLimit;
 
-	/*[SerializeField] private string userID;
-	[SerializeField] private string username;
-	[SerializeField] private string testID;
-	[SerializeField] private string rating;
-	[SerializeField] private string testMode;*/
-
 	[Header("Game Prefabs")]
 	[SerializeField] private GameObject player;
 	[SerializeField] private GameObject BotAI;
@@ -52,11 +46,27 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private List<String> randomizer;
 	[SerializeField] private string[] test;
 
+	[Header("Answer Key")]
+	public Transform ansKeySpawn;
+	public GameObject answerKey;
+	public float ansKeyOffset;
+	//Miscellaneous
+	[SerializeField] private GameObject ansKey;
+	[SerializeField] private GameObject currentAns;
+	private Transform ansKeyQuestion;
+	private Transform ansKeyPlayerAns;
+	private Transform ansKeyCorrectAns;
+	private Vector3 currentAnsKeySpawnPoint;
+	private Vector3 newAnsKeySpawnPoint;
+
+	RectTransform contentRectTransform;
+
 	[Header("Scoring")]
 	[SerializeField] private int questionNumber = 0;
 	public double totalQuestions;
 	public double playerScore = 0;
 	public double scoreAverage;
+	public int correctCount;
 	public int mistakeCount;
 
 	[Header("AI")]
@@ -64,11 +74,13 @@ public class testHandler : MonoBehaviour
 	[SerializeField] private float botHeightOffset = 10;
 	[SerializeField] private int maxBots = 4;
 	private int botCount;
+	private bool botsEnabled;
 
 	[Header("Timer Components")]
 	[Range(0,30)]
 	public float timeToAdd;
 	bool isTimeAdded;
+	private bool timerStarted = false;
 
 	[Range(0,60)]
 	public float time;
@@ -87,7 +99,7 @@ public class testHandler : MonoBehaviour
 	private Vector3 currentObjectSpawnPoint;
 	private Vector3 newObjectSpawnPoint;
 	[SerializeField] private float platformSpawnOffset = 40;
-	[SerializeField] private GameObject testPlatform;
+	public GameObject testPlatform;
 	[SerializeField] private GameObject currentPlatform;
 	[SerializeField] private GameObject closest;
 	[SerializeField] private Transform healthBox_spawn;
@@ -100,8 +112,8 @@ public class testHandler : MonoBehaviour
 	private void Start()
 	{
 		GameObject playerFind = GameObject.Find ("FPSController");
-		Vector3 playerSpawn = GameObject.Find ("PlayerSpawn").GetComponent<Transform> ().position;
-		Quaternion playerRotation = GameObject.Find ("PlayerSpawn").GetComponent<Transform> ().rotation;
+		Vector3 playerSpawn = GameObject.Find ("PlayerSpawnPoint").GetComponent<Transform> ().position;
+		Quaternion playerRotation = GameObject.Find ("PlayerSpawnPoint").GetComponent<Transform> ().rotation;
 
 		GameObject.Find ("Start_End Platform").transform.Find ("UI Components").Find ("UICanvas").gameObject.SetActive(false);
 		GameObject.Find ("Start_End Platform").transform.Find ("sceneTrigger").gameObject.SetActive (false);
@@ -120,9 +132,20 @@ public class testHandler : MonoBehaviour
 		GameController = GameObject.FindGameObjectWithTag("GameController");
 		testType = GameController.GetComponent<DBContentProcessor> ().testMode;
 		questionsFetch = GameController.GetComponent<DBContentProcessor> ().questionData;
+		contentRectTransform = GameObject.Find ("PlayerUI_Canvas").transform.Find ("LoadingCanvas").Find ("Scroll View").Find ("Viewport").Find ("Content").GetComponent<RectTransform> ();
 
 		test = questionsFetch.Split (new String[] {"~"}, StringSplitOptions.RemoveEmptyEntries);
 
+		/*
+		 * Determine whether the test type is "pre-test" or "post-test" and if the randomizer is set or not.
+		 * Randomizer Logic:
+		 * 1. Fetch and add each questions as items in a list in "List<String> randomizer".
+		 * 		- This will list all questions in order in the randomizer list.
+		 * 2. Randomly pick questions from the randomizer list to the "List<String> questions" as a final question sequence.
+		 * 		- The questions list is the actual questions that is shown in-game.
+		 * 3. Remove the items from the randomizer list that was added to the questions list.
+		 * 		- This is to prevent the questions from repeating.
+		*/
 		if (testType == "PRE")
 		{
 			if (randomizeQuestions == false)
@@ -149,14 +172,11 @@ public class testHandler : MonoBehaviour
 					}
 				}
 			}
+
+			botsEnabled = false;
 		}
 		else if (testType == "POST")
 		{
-			/*for (int x = 0; x < test.Length; x++)
-			{
-				questions.Add (test [x]);
-			}*/
-
 			if (randomizeQuestions == false)
 			{
 				for (int x = 0; x < test.Length; x++)
@@ -181,6 +201,8 @@ public class testHandler : MonoBehaviour
 					}
 				}
 			}
+
+			botsEnabled = true;
 		}
 
 		Debug.Log ("total number of questions added: " + questions.Count);
@@ -189,9 +211,20 @@ public class testHandler : MonoBehaviour
 
 	private void Update()
 	{
+		//Find where the first platform will spawn.
 		currentObjectSpawnPoint = GameObject.Find ("testPlatform_Spawn_Start").GetComponent<Transform> ().transform.position;
+
+		//Offsets determines how far the platform will spawn from the spawn point.
 		currentObjectSpawnPoint.z += platformSpawnOffset;
 		newObjectSpawnPoint.z += platformSpawnOffset;
+
+		currentAnsKeySpawnPoint = ansKeySpawn.transform.position;
+
+		if (isCreated == true)
+		{
+			newAnsKeySpawnPoint = currentAns.transform.position;
+			newAnsKeySpawnPoint.y -= ansKeyOffset;
+		}
 
 		if (GameObject.FindGameObjectWithTag("Player"))
 		{
@@ -222,8 +255,13 @@ public class testHandler : MonoBehaviour
 			botCount = bots.Length;
 		}
 
+		/*
+		 * This is the actual logic of the test handler.
+		 * If there is a question fetched, execute code.
+		*/
 		if (questionNumber <= (questions.Count - 1))
 		{
+			//Splits the single string data that was fetched into an array of questions.
 			test = questions [questionNumber].Split (':');
 
 			//Test type "True or False"
@@ -234,6 +272,10 @@ public class testHandler : MonoBehaviour
 				{
 					testPlatform = (GameObject)Instantiate (testPrefab_TF, currentObjectSpawnPoint, transform.localRotation, transform);
 					testPlatform.gameObject.name = "platform_" + questionNumber;
+
+					ansKey = (GameObject)Instantiate (answerKey, currentAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
+					ansKey.gameObject.name = "answer_" + questionNumber;
+
 					firstCreation = false;
 					healthSpawned = false;
 				}
@@ -244,6 +286,13 @@ public class testHandler : MonoBehaviour
 						testPlatform = (GameObject)Instantiate (testPrefab_TF, newObjectSpawnPoint, transform.localRotation, transform);
 						testPlatform.gameObject.name = "platform_" + questionNumber;
 
+						ansKey = (GameObject)Instantiate (answerKey, newAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
+						ansKey.gameObject.name = "answer_" + questionNumber;
+
+						/*float ansKeyRectHeight = ansKey.GetComponent<RectTransform> ().rect.height;
+						float rectHeight = contentRectTransform.rect.height;
+						contentRectTransform.sizeDelta = new Vector2 (contentRectTransform.rect.width, rectHeight += ansKeyRectHeight);*/
+
 						notified = false;
 						healthSpawned = false;
 					}
@@ -251,6 +300,7 @@ public class testHandler : MonoBehaviour
 				isCreated = true;
 
 				currentPlatform = GameObject.Find("platform_" + questionNumber);
+				currentAns = GameObject.Find ("answer_" + questionNumber);
 
 				platSpawnT = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn T");
 				platSpawnF = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn F");
@@ -258,29 +308,69 @@ public class testHandler : MonoBehaviour
 				//Platform Canvas settings
 				//Question Canvas
 				questionText = currentPlatform.transform.Find("QuestionCanvas").Find("QuestionText").GetComponent<Text>();
+				ansKeyQuestion = currentAns.transform.Find ("Questions").Find ("txtQuestions");
+				ansKeyPlayerAns = currentAns.transform.Find ("playerAnswer").Find ("txtPlayerAnswer");
+				ansKeyCorrectAns = currentAns.transform.Find ("correctAnswer").Find ("txtCorrectAnswer");
 
 				if (questionText.text != test [2])
 				{
 					questionText.text = test [2];
 				}
 
+				Text quesAnstxt = ansKeyQuestion.GetComponent<Text> ();
+				Text corAnstxt = ansKeyCorrectAns.GetComponent<Text> ();
+
+				if (quesAnstxt.text != test [2] || corAnstxt.text != test [5])
+				{
+					quesAnstxt.text = (questionNumber + 1) + ". " + test [2];
+
+					if (test [5] == "T")
+					{
+						corAnstxt.text = test [3];
+					}
+					else if (test [5] == "F")
+					{
+						corAnstxt.text = test [4];
+					}
+
+					corAnstxt.color = new Color (0, 255, 0);
+				}
+
 				//Choices Canvas
 				Text choiceTrue = currentPlatform.transform.Find("ChoicesCanvas").Find("Button_True").Find ("Choice_True").GetComponent<Text>();
 				Text choiceFalse = currentPlatform.transform.Find("ChoicesCanvas").Find("Button_False").Find ("Choice_False").GetComponent<Text>();
 
+				//Displays the choices in the choices panel on top of the gates.
 				if (choiceTrue.text != test [3] || choiceFalse.text != test [4])
 				{
 					choiceTrue.text = test [3];
 					choiceFalse.text = test [4];
 				}
 
+				/*
+				 * If the answer is correct:
+				 * - Add score
+				 * - Add more time to the timer
+				 * - Destroy 1 bot that is chasing the player
+				 * 
+				 * If the answer is wrong:
+				 * - Spawn 1 AI to chase down the player
+				*/
 				if(spawnTrigger.answer != null)
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
+
 					if (spawnTrigger.answer == test [5])
 					{
 						//correct answer for TF
 						playerScore++;
-						time += timeToAdd;
+						correctCount++;
+
+						if (botsEnabled == true)
+						{
+							time += timeToAdd;
+						}
+
 						isCorrect = true;
 						botSpawned = false;
 
@@ -288,10 +378,13 @@ public class testHandler : MonoBehaviour
 						{
 							Destroy (bots [0]);
 						}
+
+						quesAnstxt.color = new Color (0, 255, 0);
+						plyrAnstxt.color = new Color (0, 255, 0);
 					}
 					else
 					{
-						if (botCount < maxBots && spawnTrigger.answer != null)
+						if (botCount < maxBots && spawnTrigger.answer != null && botsEnabled == true)
 						{
 							Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
 							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
@@ -299,29 +392,43 @@ public class testHandler : MonoBehaviour
 							Instantiate (BotAI, position, player.transform.rotation);
 						}
 
+						playerScore -= 1;
 						isCorrect = false;
+
+						quesAnstxt.color = new Color (255, 0, 0);
+						plyrAnstxt.color = new Color (255, 0, 0);
+					}
+
+					if (timerStarted == false && botsEnabled == true)
+					{
+						timerStarted = true;
 					}
 				}
 
 				GameObject trigT = GameObject.Find("Spawn Trigger T");
 				GameObject trigF = GameObject.Find("Spawn Trigger F");
 
+				//If the player enters the spawnTrigger this will remove all the triggers in the current platform to prevent triggering over again.
 				if (spawnTrigger.answer == "T")
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
 					newObjectSpawnPoint = platSpawnT.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
 					Destroy(trigT);
 					Destroy(trigF);
+					plyrAnstxt.text = test [3];
 					isCreated = false;
 				}
 				else if (spawnTrigger.answer == "F")
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
 					newObjectSpawnPoint = platSpawnF.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
 					Destroy(trigT);
 					Destroy(trigF);
+					plyrAnstxt.text = test [4];
 					isCreated = false;
 				}
 			}
@@ -331,6 +438,10 @@ public class testHandler : MonoBehaviour
 				{
 					testPlatform = (GameObject)Instantiate (testPrefab_MC, currentObjectSpawnPoint, transform.localRotation, transform);
 					testPlatform.gameObject.name = "platform_" + questionNumber;
+
+					ansKey = (GameObject)Instantiate (answerKey, currentAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
+					ansKey.gameObject.name = "answer_" + questionNumber;
+
 					firstCreation = false;
 					healthSpawned = false;
 				}
@@ -341,6 +452,13 @@ public class testHandler : MonoBehaviour
 						testPlatform = (GameObject)Instantiate (testPrefab_MC, newObjectSpawnPoint, transform.localRotation, transform);
 						testPlatform.gameObject.name = "platform_" + questionNumber;
 
+						ansKey = (GameObject)Instantiate (answerKey, newAnsKeySpawnPoint, ansKeySpawn.localRotation, ansKeySpawn.parent);
+						ansKey.gameObject.name = "answer_" + questionNumber;
+
+						/*float ansKeyRectHeight = ansKey.GetComponent<RectTransform> ().rect.height;
+						float rectHeight = contentRectTransform.rect.height;
+						contentRectTransform.sizeDelta = new Vector2 (contentRectTransform.rect.width, rectHeight += ansKeyRectHeight);*/
+
 						notified = false;
 						healthSpawned = false;
 					}
@@ -348,6 +466,7 @@ public class testHandler : MonoBehaviour
 				isCreated = true;
 
 				currentPlatform = GameObject.Find("platform_" + questionNumber);
+				currentAns = GameObject.Find ("answer_" + questionNumber);
 
 				platSpawnA = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn A");
 				platSpawnB = currentPlatform.transform.Find("Stage Spawn Points").Find("Stage Spawn B");
@@ -356,10 +475,36 @@ public class testHandler : MonoBehaviour
 				//Platform Canvas settings
 				//Question Canvas
 				questionText = currentPlatform.transform.Find("QuestionCanvas").Find("QuestionText").GetComponent<Text>();
+				ansKeyQuestion = currentAns.transform.Find ("Questions").Find ("txtQuestions");
+				ansKeyPlayerAns = currentAns.transform.Find ("playerAnswer").Find ("txtPlayerAnswer");
+				ansKeyCorrectAns = currentAns.transform.Find ("correctAnswer").Find ("txtCorrectAnswer");
 
 				if (questionText.text != test [2])
 				{
 					questionText.text = test [2];
+				}
+
+				Text quesAnstxt = ansKeyQuestion.GetComponent<Text> ();
+				Text corAnstxt = ansKeyCorrectAns.GetComponent<Text> ();
+
+				if (quesAnstxt.text != test [2] || corAnstxt.text != test [6])
+				{
+					quesAnstxt.text = (questionNumber + 1) + ". " + test [2];
+
+					if (test [6] == "A")
+					{
+						corAnstxt.text = test [3];
+					}
+					else if (test [6] == "B")
+					{
+						corAnstxt.text = test [4];
+					}
+					else if (test [6] == "C")
+					{
+						corAnstxt.text = test [5];
+					}
+
+					corAnstxt.color = new Color (0, 225, 0);
 				}
 
 				//Choices Canvas
@@ -374,12 +519,21 @@ public class testHandler : MonoBehaviour
 					ChoiceC.text = test [5];
 				}
 
-				if(spawnTrigger.answer != null){
+				if(spawnTrigger.answer != null)
+				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
+
 					if (spawnTrigger.answer == test [6])
 					{
 						//correct answer for MC
 						playerScore++;
-						time += timeToAdd;
+						correctCount++;
+
+						if (botsEnabled == true)
+						{
+							time += timeToAdd;
+						}
+
 						isCorrect = true;
 						botSpawned = false;
 
@@ -387,10 +541,13 @@ public class testHandler : MonoBehaviour
 						{
 							Destroy (bots [0]);
 						}
+
+						quesAnstxt.color = new Color (0, 225, 0);
+						plyrAnstxt.color = new Color (0, 225, 0);
 					}
 					else
 					{
-						if (botCount < maxBots && spawnTrigger.answer != null)
+						if (botCount < maxBots && spawnTrigger.answer != null && botsEnabled == true)
 						{
 							Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
 							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
@@ -398,7 +555,16 @@ public class testHandler : MonoBehaviour
 							Instantiate (BotAI, position, player.transform.rotation);
 						}
 
+						playerScore -= 0.5;
 						isCorrect = false;
+
+						quesAnstxt.color = new Color (255, 0, 0);
+						plyrAnstxt.color = new Color (255, 0, 0);
+					}
+
+					if (timerStarted == false && botsEnabled == true)
+					{
+						timerStarted = true;
 					}
 				}
 
@@ -408,60 +574,73 @@ public class testHandler : MonoBehaviour
 
 				if (spawnTrigger.answer == "A")
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
 					newObjectSpawnPoint = platSpawnA.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
 					Destroy(trigA);
 					Destroy(trigB);
 					Destroy(trigC);
+					plyrAnstxt.text = test [3];
 					isCreated = false;
 				}
 				else if (spawnTrigger.answer == "B")
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
 					newObjectSpawnPoint = platSpawnB.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
 					Destroy(trigA);
 					Destroy(trigB);
 					Destroy(trigC);
+					plyrAnstxt.text = test [4];
 					isCreated = false;
 				}
 				else if (spawnTrigger.answer == "C")
 				{
+					Text plyrAnstxt = ansKeyPlayerAns.GetComponent<Text> ();
 					newObjectSpawnPoint = platSpawnC.transform.position;
 					questionNumber++;
 					spawnTrigger.answer = null;
 					Destroy(trigA);
 					Destroy(trigB);
 					Destroy(trigC);
+					plyrAnstxt.text = test [5];
 					isCreated = false;
 				}
 			}
 
 			//start timer
-			if(time > 0 && botCount < maxBots && playerCheck == true)
+			if (botsEnabled == true)
 			{
-				time = time-Time.deltaTime;
-				isTimeAdded = false;
-			}
-			else if (time <= 0)
-			{
-				if (botCount < maxBots && botSpawned == false)
+				if (timerStarted == true)
 				{
-					currentPlatform = GameObject.Find("platform_" + questionNumber);
-					Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
-					Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
+					if(time > 0 && botCount < maxBots && playerCheck == true)
+					{
+						time = time-Time.deltaTime;
+						isTimeAdded = false;
+					}
+					else if (time <= 0)
+					{
+						//If timer runs out and the maximum number of bots is not reached, spawn 1 AI.
+						if (botCount < maxBots && botSpawned == false)
+						{
+							currentPlatform = GameObject.Find("platform_" + questionNumber);
+							Transform target = currentPlatform.transform.Find ("PlayerSpawnPoint").GetComponent<Transform> ();
+							Vector3 position = target.position + new Vector3 (0, botHeightOffset, 0);
 
-					Instantiate (BotAI, position, player.transform.rotation);
-				}
-				botSpawned = true;
+							Instantiate (BotAI, position, player.transform.rotation);
+						}
+						botSpawned = true;
 
-				if(isTimeAdded == false){
+						if(isTimeAdded == false){
 
-					// reset time and enable bot spawn again
-					time += 60f;
-					isTimeAdded = true;
-					botSpawned = false;
+							// reset time and enable bot spawn again
+							time += 60f;
+							isTimeAdded = true;
+							botSpawned = false;
+						}
+					}
 				}
 			}
 
@@ -483,6 +662,7 @@ public class testHandler : MonoBehaviour
 			}
 			healthSpawned = true;
 		}
+		//If all questions are answered
 		else if (questionNumber > (questions.Count - 1))
 		{
 			platformSpawnOffset = -25;
@@ -510,18 +690,13 @@ public class testHandler : MonoBehaviour
 				Scoring.text = "Your Total Score is: \n" +  playerScore + " / " + (questions.Count) + "\n Score Percentage: \n" + scoreAverage.ToString("F2") + "%";
 
 				notified = false;
-
-				/*Data to be submitted to the database
-				userID = GameController.GetComponent<LoginModule> ().userID;
-				username = GameController.GetComponent<LoginModule> ().accountUsername;
-				testID = GameController.GetComponent<DBContentProcessor> ().testIndexID;
-				rating = scoreAverage.ToString ();
-				testMode = GameController.GetComponent<DBContentProcessor> ().testMode;
-
-
-				StartCoroutine(submitScore (userID, username, testID, rating, testMode));*/
 			}
 			isCreated = true;
+		}
+
+		if (playerScore < 0)
+		{
+			playerScore = 0;
 		}
 
 		if (questionNumber >= 2 && notified == false)
@@ -535,23 +710,7 @@ public class testHandler : MonoBehaviour
 		notified = true;
 	}
 
-	/*IEnumerator submitScore(string sf_userID, string sf_username, string sf_testID, string sf_rating, string sf_testMode)
-	{
-		WWWForm form = new WWWForm ();
-		form.AddField ("sf_userID", sf_userID);
-		form.AddField ("sf_username", sf_username);
-		form.AddField ("sf_testID", sf_testID);
-		form.AddField ("sf_rating", sf_rating);
-		form.AddField ("sf_testMode", sf_testMode);
-
-		link = "http://" + GameController.GetComponent<GameSettingsManager> ().link + "/game_client/score_submit.php";
-		WWW www = new WWW (link, form);
-
-		yield return www;
-
-		Debug.Log(www.text);
-	}*/
-
+	//This will look for the fall trigger closest to the player and activates it. This will prevent the player from falling completely off the play field.
 	private void EnableFallTrigger()
 	{
 		if (playerCheck == true)

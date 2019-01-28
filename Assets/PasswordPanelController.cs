@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +23,6 @@ public class PasswordPanelController : MonoBehaviour {
 
 		// update password from the database
 		StartCoroutine(dbPassUpdate(gsettings.link, txt_accPassword.text, txt_newPassword.text, txt_confirmNewPassword.text));
-
 	}
 
 	IEnumerator dbPassUpdate(string settingsLink, string accPassword, string newPassword, string confPassword){
@@ -34,7 +33,7 @@ public class PasswordPanelController : MonoBehaviour {
 		WWWForm passwordForm = new WWWForm();
 
 		// check if new password and confirm new password exactly match
-		if(txt_accPassword.text != string.Empty && txt_newPassword.text != string.Empty && txt_confirmNewPassword.text != string.Empty){
+		if(txt_accPassword.text != string.Empty && txt_newPassword.text != string.Empty && txt_confirmNewPassword.text != string.Empty && txt_newPassword.text.Length > 8){
 
 			if(newPassword == confPassword){
 
@@ -91,17 +90,23 @@ public class PasswordPanelController : MonoBehaviour {
 			}else{
 
 				// display error message box and clear values to all textbox on the password panel
-				login_module.messagePrompt("Confirm password doesn't match with the new password", 1);
+				login_module.messagePrompt("Confirm password doesn't match!", 1);
 
 			}
 
 		}else{
 
-			login_module.messagePrompt("Fill the required feilds!", 1);
+			if (txt_newPassword.text.Length < 8){
+				login_module.messagePrompt("Password should be at least 8 characters long!", 1);
+			}else{
+				login_module.messagePrompt("Fill the required fields!", 1);
+			}
 
 		}
 		
-
+		txt_accPassword.text = null;
+		txt_newPassword.text = null;
+		txt_confirmNewPassword.text = null;
 	}
 
 }

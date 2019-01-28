@@ -1822,7 +1822,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1988597784872348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -79.4543, y: 211.40944, z: 286.62335}
+  m_LocalPosition: {x: 24.519325, y: 496.59375, z: 416.2287}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224595368978409352}
@@ -4500,7 +4500,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10.02, y: 7.25, z: 1}
+  m_Size: {x: 16.967262, y: 7.25, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65330767235755042
 BoxCollider:
@@ -4548,7 +4548,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10.02, y: 7.25, z: 1}
+  m_Size: {x: 17.472591, y: 7.25, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65370181948373182
 BoxCollider:
@@ -4584,8 +4584,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10.196301, y: 6.7382803, z: 12.3583975}
-  m_Center: {x: 0.0042095184, y: 3.09239, z: -3.6892004}
+  m_Size: {x: 10.196301, y: 6.7382803, z: 9.761917}
+  m_Center: {x: 0.0042095184, y: 3.09239, z: -4.987441}
 --- !u!65 &65433213377322006
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -4620,8 +4620,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10.196301, y: 6.7382803, z: 12.384107}
-  m_Center: {x: 0.004209993, y: 3.09239, z: -3.7020552}
+  m_Size: {x: 10.196301, y: 6.7382803, z: 9.755372}
+  m_Center: {x: 0.0042099934, y: 3.09239, z: -5.0164227}
 --- !u!65 &65453685051842274
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -5491,7 +5491,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTrigger: 0
-  isActive: 0
   spawnPoint: {fileID: 0}
   answerValue: T
   testManagerObject: {fileID: 0}
@@ -5557,7 +5556,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTrigger: 0
-  isActive: 0
   spawnPoint: {fileID: 0}
   answerValue: F
   testManagerObject: {fileID: 0}
@@ -5731,7 +5729,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTrigger: 1
-  isActive: 0
   spawnPoint: {fileID: 4553893367423088}
   answerValue: 
   testManagerObject: {fileID: 0}

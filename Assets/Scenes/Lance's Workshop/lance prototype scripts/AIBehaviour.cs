@@ -99,6 +99,7 @@ public class AIBehaviour : MonoBehaviour
 		sfx_shoot.PlayOneShot(shootSound);
 		bullet = Instantiate (projectile, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
 
+		//shoots at random interval
 		fire = false;
 		shootInterval = Random.Range(2,5);
 		yield return new WaitForSeconds (shootInterval);

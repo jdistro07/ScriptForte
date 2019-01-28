@@ -125,7 +125,13 @@ public class TestListLoader : MonoBehaviour {
 			txtID.text = txtID.text+loginModule.CredentialSeperator(tests[i], "TestID=");
 			txtTestName.text = txtTestName.text+" "+truncateLongText(loginModule.CredentialSeperator(tests[i], "Name="), 25);
 			txtAuthor.text = txtAuthor.text+" "+loginModule.CredentialSeperator(tests[i], "Author=");
-			txtTestType.text = txtTestType.text+" "+loginModule.CredentialSeperator(tests[i], "TestType=");
+
+			if(loginModule.CredentialSeperator(tests[i], "TestType=") == "Built-in"){
+				txtTestType.text = "Chapter: "+" "+loginModule.CredentialSeperator(tests[i], "TestChapter=");
+				item.GetComponent<PanelTestController>().test_chapter = int.Parse(loginModule.CredentialSeperator(tests[i], "TestChapter="));
+			}else{
+				txtTestType.text = "Type: "+" "+loginModule.CredentialSeperator(tests[i], "TestType=");
+			}
 
 			yield return null;
 

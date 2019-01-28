@@ -56,10 +56,15 @@ public class spawnTrigger : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		
+		spawnPoint = null;
+		spawnPoint = testHandler.testPlatform.transform.Find ("PlayerSpawnPoint");
 
 		if (other.transform.tag == "Player")
 		{
+			/*Determine if the trigger functions as a platform spawn trigger or a fall catcher.
+			 *If it is not a fall catcher, contain the answer value to be submitted to the test handler.
+			 *If it is a fall catcher, move the player position to the spawn point of the current platform.
+			*/
 			if (respawnTrigger == false)
 			{
 				answer = answerValue;
@@ -85,7 +90,7 @@ public class spawnTrigger : MonoBehaviour
 					playerHealth.playerLife -= 1;
 
 				}
-
+					
 				player.transform.position = spawnPoint.position;
 			}
 		}
@@ -93,6 +98,7 @@ public class spawnTrigger : MonoBehaviour
 
 	private void OnDestroy()
 	{
+		//Display a pop up message
 		//get value of isCorrect from the testHandler script after a frame
 		isCorrect = testManagerObject.GetComponent<testHandler>().isCorrect;
 		
