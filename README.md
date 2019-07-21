@@ -1,27 +1,24 @@
 # Script Forte (Thesis Project of Year 2018)
-###### Discontinued (Marked as a concept)
 
-## Description
-A 3D JavaScript quiz game w/ user lerning performance monitoring feature working with 
-it's own [server](https://bitbucket.org/gaxis/sfserver/src/master/).
+### Description
+A 3D JavaScript quiz game w/ user learning performance monitoring and JavaScript simulation features.
 
-## Repository Access Agreement
-Since this project has been discontinued, the developers who originaly owns the repository (G-Axis Development Team) will still secure the information
-with regards to the concept, code, and publishing the project. G-Axis Developement Team will allow people with special access to view
-the repository if they agree and obey the following terms:
+### Installation:
+1. Clone the project and open it with Unity 3D
+2. Make a build to your desired platform. See [Unity 3D's build manual](https://docs.unity3d.com/Manual/PublishingBuilds.html)
+3. Setup the server. [Click here for instructions](https://github.com/skildfrix/SFServer).
+4. Launch the game.
+5. In the login screen, click the settings button located on the bottom right of your screen to open the game configuration menu.
+6. Set the link pointing to the machine where SFServer is installed and running.
+7. Click apply. You are now ready to go.
 
-1. Not rebuilding the project to be distributed somewhere else.
-2. Not distributing nor outsourcing the source files and source codes to any places including the internet.
-3. Crediting the developers on demonstration or with the new concept inspired from this project.
-4. Maintain project secrecy to people not involved with the project.
+### Credits:
+[Simple Unity Browser](https://bitbucket.org/vitaly_chashin/simpleunitybrowser/src/default/)
 
-Any form of action violating the rules mentioned above shall be in a lot of trouble. Please do simply follow it accordingly
-and everything will be just fine. Thank you!
+[Low Poly Survival Pack](https://assetstore.unity.com/packages/3d/props/lowpoly-survival-pack-137336)
 
-# Want to contribute? Sure, read the step-by-step guide below.
-1. Download the latest [Unity 3D](https://unity3d.com/get-unity/download) version. If it asks for a project version upgrade to the current Unity version, contact `Johndel Villanueva` for assistance.
-2. Read the [sfserver](https://bitbucket.org/gaxis/sfserver/src/master/) readme and setup the server to your chosen machine.
-3. Run the server (look at the sfserver readme again)
-4. Open the project and run the game from the Unity Editor.
-5. On the game settings, setup the `Server Link` pointing towards to where the server is running. (May vary on setup)
-6. Start collaborating!
+[Sci-Fi Music Pack](https://assetstore.unity.com/packages/audio/music/electronic/sci-fi-music-loops-pack-120186)
+
+[Rotary x8 - FREE Engine Sound Pack](https://assetstore.unity.com/packages/audio/sound-fx/transportation/rotary-x8-free-engine-sound-pack-106119)
+
+And to all people who helped us to make step to finish this project. The project contributors thank all of you!
