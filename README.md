@@ -18,11 +18,10 @@ A 3D JavaScript quiz game w/ user learning performance monitoring and JavaScript
 3. Jasper Lance Dayon - Programmer
 4. Robby Magbanua - Project Assistant SA
 
-
 ### Credits:
-[Simple Unity Browser](https://bitbucket.org/vitaly_chashin/simpleunitybrowser/src/default/)
-[Low Poly Survival Pack](https://assetstore.unity.com/packages/3d/props/lowpoly-survival-pack-137336)
-[Sci-Fi Music Pack](https://assetstore.unity.com/packages/audio/music/electronic/sci-fi-music-loops-pack-120186)
-[Rotary x8 - FREE Engine Sound Pack](https://assetstore.unity.com/packages/audio/sound-fx/transportation/rotary-x8-free-engine-sound-pack-106119)
+1. [Simple Unity Browser](https://bitbucket.org/vitaly_chashin/simpleunitybrowser/src/default/)
+2. [Low Poly Survival Pack](https://assetstore.unity.com/packages/3d/props/lowpoly-survival-pack-137336)
+3. [Sci-Fi Music Pack](https://assetstore.unity.com/packages/audio/music/electronic/sci-fi-music-loops-pack-120186)
+4. [Rotary x8 - FREE Engine Sound Pack](https://assetstore.unity.com/packages/audio/sound-fx/transportation/rotary-x8-free-engine-sound-pack-106119)
 
-And to all people who helped us to make step to finish this project. The project contributors thank all of you!
+Thank you to all people who helped us to make step to finish this project. The project contributors thank all of you!
