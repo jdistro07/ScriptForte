@@ -4,7 +4,7 @@
 A 3D JavaScript quiz game w/ user learning performance monitoring and JavaScript simulation features.
 
 ### Installation:
-1. Clone the project and open it with Unity 3D
+1. Clone the project and open it with [Unity 3D v2017.4.3f1](https://unity.com/releases/editor/whats-new/2017.4.3#release-notes)
 2. Make a build to your desired platform. See [Unity 3D's build manual](https://docs.unity3d.com/Manual/PublishingBuilds.html)
 3. Setup the server. [Click here for instructions](https://github.com/skildfrix/SFServer).
 4. Launch the game.
