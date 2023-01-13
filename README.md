@@ -4,7 +4,7 @@
 A 3D JavaScript quiz game w/ user learning performance monitoring and JavaScript simulation features.
 
 ### Installation:
-1. Download the game from the [release page](https://github.com/jdistro07/ScriptForte/releases)
+1. Download the game from the [release page](https://github.com/jdistro07/ScriptForte/releases).
 2. Setup the server. [Click here for instructions](https://github.com/skildfrix/SFServer).
 3. Launch the game.
 4. In the login screen, click the settings button located on the bottom right of your screen to open the game configuration menu.
